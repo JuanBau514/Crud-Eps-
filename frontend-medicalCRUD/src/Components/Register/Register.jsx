@@ -2,11 +2,13 @@ import "./Register.css";
 import "../../App.css";
 import { Link } from "react-router-dom";
 
+
 //IMPORT ASSETS
 import video from "../../LogginAssets/video.mp4";
 import logo from "../../LogginAssets/logo.png";
 
 //IMPORT ICONS
+import { MdMarkEmailRead } from "react-icons/md";
 import { FaUserShield } from "react-icons/fa";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
@@ -22,18 +24,30 @@ function Register() {
             <p>Tu salud nuestra preocupacion</p>
           </div>
           <div className="footerDiv flex">
-            <span className="text">No tienes cuenta?</span>
-            <Link to={"/register"}>
-              <button className="btn">Registrate</button>
+            <span className="text">Ya tienes cuenta?</span>
+            <Link to={"/"}>
+              <button className="btn">Iniciar Sesion</button>
             </Link>
           </div>
         </div>    
         <div className="formDiv flex">
           <div className="headerDiv">
             <img src={logo} alt="Logo Image" />
-            <h3>Bienvenido de Nuevo!</h3>
+            <h3>Bienvenido a EPS Salud +</h3>
           </div>
           <form action="" className="form grid">            
+            
+            <div className="inputDiv">
+              <label htmlFor="email">Correo</label>
+              <div className="input flex">
+                <MdMarkEmailRead className="icon" />
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Ingrese el Correo"
+                />
+              </div>
+            </div>
             <div className="inputDiv">
               <label htmlFor="username">Usuario</label>
               <div className="input flex">
@@ -57,7 +71,7 @@ function Register() {
               </div>
             </div>
             <button type="submit" className="btn flex">
-              <span>Register</span>
+              <span>Registrarme</span>
               <AiOutlineSwapRight className="icon" />
             </button>
             <span className="forgotPassword">
