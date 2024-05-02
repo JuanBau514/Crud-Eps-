@@ -61,6 +61,9 @@ function Login() {
               <span>Login</span>
               <AiOutlineSwapRight className="icon" />
             </button>
+
+            <a href="/dashboard">Dashboard</a>
+
             <span className="forgotPassword">
               Olvidaste tu Contraseña? <a href="">Click Aqui</a>
             </span>
