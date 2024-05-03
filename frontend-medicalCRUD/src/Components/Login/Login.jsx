@@ -1,4 +1,3 @@
-import "./Login.css";
 import "../../App.css";
 import { Link } from "react-router-dom";
 
@@ -57,13 +56,13 @@ function Login() {
                 />
               </div>
             </div>
-            <button type="submit" className="btn flex">
-              <span>Login</span>
-              <AiOutlineSwapRight className="icon" />
-            </button>
-
-            <a href="/dashboard">Dashboard</a>
-
+            <Link to={"/dashboard"}>
+              <button type="submit" className="btn flex">
+                <span>Login</span>
+                <AiOutlineSwapRight className="icon" />
+              </button>
+            </Link>
+            
             <span className="forgotPassword">
               Olvidaste tu Contraseña? <a href="">Click Aqui</a>
             </span>
