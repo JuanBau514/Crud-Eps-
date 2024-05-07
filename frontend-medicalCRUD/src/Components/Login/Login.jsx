@@ -63,9 +63,11 @@ function Login() {
               </button>
             </Link>
             
-            <span className="forgotPassword">
-              Olvidaste tu Contraseña? <a href="">Click Aqui</a>
-            </span>
+            <Link to={"/forgot"}>
+              <span className="forgotPassword">
+                Olvidaste tu Contraseña? <a href="">Click Aqui</a>
+              </span>
+            </Link>
           </form>
         </div>    
       </div>      
