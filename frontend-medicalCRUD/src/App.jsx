@@ -2,6 +2,7 @@ import "./App.css";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
 import Dashboard from "./Components/Dashboard/Dashboard";
+import Forgot from "./Components/Forgot/Forgot";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <div><Dashboard/></div>,
+  },
+  {
+    path: '/forgot',
+    element: <div><Forgot/></div>
   }
 ]);
 
