@@ -1,6 +1,8 @@
-import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-dotenv.config({path: '../.env'});
+dotenv.config();
+console.log('nodemailer config');
+console.log(process.env.MTP_HOST, process.env.MTP_PORT, process.env.MTP_USER, process.env.MTP_PASS);
+import nodemailer from 'nodemailer';
 
 const config = () => {
     return {

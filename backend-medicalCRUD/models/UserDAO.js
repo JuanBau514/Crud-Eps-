@@ -19,7 +19,7 @@ class UserDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.end();
+      instanciaObjetoConexion.close();
     }
   };
 
@@ -35,7 +35,7 @@ class UserDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.end();
+      instanciaObjetoConexion.close();
     }
   };
 
@@ -59,13 +59,14 @@ class UserDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.end();
+      instanciaObjetoConexion.close();
     }
   };
 
-  delete = async (id_usuario) => {
+  delete = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
     try {
+      let { id_usuario } = values;
       const [results, fields] = await instanciaObjetoConexion.query(
         "DELETE FROM usuarios WHERE id_usuario=?",
         [id_usuario]
@@ -75,10 +76,45 @@ class UserDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.end();
+      instanciaObjetoConexion.close();
     }
   };
+  searchById = async (values) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      let { id_usuario } = values;
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "SELECT * FROM usuarios WHERE id_usuario=?",
+        [id_usuario]
+      );
+      console.log(results); // Resultados de la consulta
+      console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      instanciaObjetoConexion.close();
+    }
+  };
+
+  searchByEmailAndPassword = async (values) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      const { correo_usuario, password } = values;
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "SELECT * FROM usuarios WHERE correo_usuario=? AND password=?",
+        [correo_usuario, password]
+      );
+      console.log(results); // Resultados de la consulta
+      console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      instanciaObjetoConexion.close();
+    }
+  }
+
 }
-//let dao = new UserDAO(); Para testing
+//const dao = new UserDAO();
+
 
 export default UserDAO;
