@@ -14,14 +14,13 @@ export class SendEmail {
     static sendConfirmationEmail = async ( user, token ) => {
         const info = await transporter.sendMail({
             from: 'EPS placeholder <lana@eps.com>',
-            to: user.email,
+            to: user.correo_usuario,
             subject: 'EPS - Confirma tu cuenta',
             text: 'EPS - Confirma tu cuenta',
             html: `
-            <p>Hola: ${user.name}, has creado tu cuenta, solo falta que verifiques tu cuenta</p>
+            <p>Hola, has creado tu cuenta, solo falta que verifiques tu cuenta</p>
                 <p>Visita el siguiente enlace:</p>
                 <a a href="#">Confirmar cuenta</a>
-                <p>E ingresa el código: <b>${token.token}</b></p>
             `
         });
 
@@ -38,10 +37,9 @@ export class SendEmail {
             to: user.email,
             subject: 'EPS - Reestablece tu contraseña',
             text: 'EPS - Reestablece tu contraseña',
-            html: `<p>Hola: ${user.name}, has solicitado reestablecer tu contraseña.</p>
+            html: `<p>Hola, has solicitado reestablecer tu contraseña.</p>
                 <p>Visita el siguiente enlace:</p>
                 <a href="#">Reestablecer contraseña</a>
-                <p>E ingresa el código: <b>${token.token}</b></p>
             `
         });
 

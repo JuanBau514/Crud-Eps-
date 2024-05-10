@@ -5,17 +5,16 @@ class UserDAO {
   constructor() {}
 
   create = async (values) => {
+    const { correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
     let instanciaObjetoConexion = Connection.getInstance();
     try {
-      const { id_usuario, correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
-      let insertValues = [id_usuario, correo_usuario, password, estado, token];
-      console.log(id_usuario, correo_usuario, password, estado, token);
+      const insertValues = [correo_usuario, password, estado, token];
       const [results, fields] = await instanciaObjetoConexion.query(
-        "INSERT INTO usuarios (id_usuario, correo_usuario, password, estado, token) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO usuarios (correo_usuario, password, estado, token) VALUES (?, ?, ?, ?)",
         insertValues
       );
-      console.log(results); // Resultados de la consulta
-      console.log(fields); // Metadatos adicionales de los resultados
+      console.log(`resultscreate:`,results); // Resultados de la consulta
+      return results;
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
@@ -104,8 +103,13 @@ class UserDAO {
         "SELECT * FROM usuarios WHERE correo_usuario=? AND password=?",
         [correo_usuario, password]
       );
-      console.log(results); // Resultados de la consulta
-      console.log(fields); // Metadatos adicionales de los resultados
+      //console.log(results); // Resultados de la consulta
+      //console.log(fields); // Metadatos adicionales de los resultados
+      if (results.length > 0) {
+        return results[0]; // Retorna el primer objeto usuario si la consulta fue exitosa y encontró al menos un usuario
+      } else {
+        return null; // Retorna null si no se encontró ningún usuario
+      }
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
