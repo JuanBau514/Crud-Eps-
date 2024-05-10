@@ -1,8 +1,13 @@
 // Get the client
 import dotenv from "dotenv";
 import mysql from "mysql2/promise";
+import { fileURLToPath } from "url";
+import path from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-dotenv.config();
+// Configurar dotenv con la ruta absoluta al archivo .env
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 const dbHost = process.env.HOST;
 const dbUser = process.env.USER;
 const db = process.env.DATABASE;
@@ -10,13 +15,13 @@ const dbPassword = process.env.PASSWORD;
 const dbPort = process.env.PORT;
 console.log(db, dbPassword, dbPort);
 // Create the connection to database
-class Database {
+export default class Connection {
   static #instance = null;
   static getInstance() {
-    if (!Database.#instance) {
-      Database.#instance = new Database();
+    if (!Connection.#instance) {
+      Connection.#instance = new Connection();
     }
-    return Database.#instance;
+    return Connection.#instance;
   }
 
   #connection = null;
@@ -37,6 +42,7 @@ class Database {
   async query(sql, values = []) {
     try {
       const [results, fields] = await this.#connection.execute(sql, values);
+      console.log(results, fields);
       return [results, fields];
     } catch (error) {
       throw new Error(`Error executing query: ${error.message}`);
@@ -59,7 +65,7 @@ class Database {
   }
 }
 // Ejemplo de uso del Singleton Database con placeholders
-(async () => {
+/* (async () => {
   const dbInstance = Database.getInstance();
   try {
     const id = 1;
@@ -74,7 +80,7 @@ class Database {
   } finally {
     await dbInstance.close(); // Cerrar la conexión al finalizar
   }
-})();
+})(); */
 // Ejemplo de uso del Singleton Database
 /* (async () => {
   const dbInstance = Database.getInstance();
