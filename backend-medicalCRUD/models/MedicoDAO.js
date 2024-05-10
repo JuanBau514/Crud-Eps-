@@ -1,16 +1,33 @@
 import Connection from "../bd/connection.js";
 
-class UserDAO {
+class MedicoDAO {
   // Cambiar por tabla de usuarios
   constructor() {}
 
   create = async (values) => {
-    const { correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
+    const {
+      id_medico,
+      nombre,
+      direccion,
+      ciudad,
+      licencia_medica,
+      especialidad,
+      tipo_licencia,
+      id_usuario,
+    } = values; // Cambiado a propiedades de usuario
     let instanciaObjetoConexion = Connection.getInstance();
     try {
-      const insertValues = [correo_usuario, password, estado, token];
+      const insertValues = [
+        nombre,
+        direccion,
+        ciudad,
+        licencia_medica,
+        especialidad,
+        tipo_licencia,
+        id_usuario,
+      ];
       const [results, fields] = await instanciaObjetoConexion.query(
-        "INSERT INTO usuarios (correo_usuario, password, estado, token) VALUES (?, ?, ?, ?)",
+        "INSERT INTO medico (nombre, direccion, ciudad, licencia_medica, especialidad, tipo_licencia,id_usuario) VALUES(?, ?, ?, ?, ?, ?, ?)",
         insertValues
       );
       console.log(`resultscreate:`, results); // Resultados de la consulta
@@ -27,7 +44,7 @@ class UserDAO {
     try {
       console.log(instanciaObjetoConexion);
       const [results, fields] = await instanciaObjetoConexion.query(
-        "SELECT * FROM usuarios" // Cambiado a tabla de usuarios
+        "SELECT * FROM medico" // Cambiado a tabla de usuarios
       );
       console.log(results); // Resultados de la consulta
       console.log(fields); // Metadatos adicionales de los resultados
@@ -39,18 +56,28 @@ class UserDAO {
   };
 
   update = async (values) => {
+    const {
+      id_medico,
+      nombre,
+      direccion,
+      ciudad,
+      licencia_medica,
+      especialidad,
+      tipo_licencia,
+    } = values; // Cambiado a propiedades de usuario
     let instanciaObjetoConexion = Connection.getInstance();
     try {
-      const { id_usuario, correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
       const updateValues = [
-        correo_usuario,
-        password,
-        estado,
-        token,
-        id_usuario,
+        nombre,
+        direccion,
+        ciudad,
+        licencia_medica,
+        especialidad,
+        tipo_licencia,
+        id_medico,
       ];
       const [results, fields] = await instanciaObjetoConexion.query(
-        "UPDATE usuarios SET correo_usuario=?, password=?, estado=?, token=? WHERE id_usuario = ?",
+        "UPDATE medico SET nombre=?, direccion=?, ciudad=?, licencia_medica=?, especialidad=?, tipo_licencia=? WHERE id_medico = ?",
         updateValues
       );
       console.log(results); // Resultados de la consulta
@@ -64,11 +91,11 @@ class UserDAO {
 
   delete = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
+    let { id_medico } = values;
     try {
-      let { id_usuario } = values;
       const [results, fields] = await instanciaObjetoConexion.query(
-        "DELETE FROM usuarios WHERE id_usuario=?",
-        [id_usuario]
+        "DELETE FROM medico WHERE id_medico=?",
+        [id_medico]
       );
       console.log(results); // Resultados de la consulta
       console.log(fields); // Metadatos adicionales de los resultados
@@ -80,11 +107,11 @@ class UserDAO {
   };
   searchById = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
+    let { id_medico } = values;
     try {
-      let { id_usuario } = values;
       const [results, fields] = await instanciaObjetoConexion.query(
-        "SELECT * FROM usuarios WHERE id_usuario=?",
-        [id_usuario]
+        "SELECT * FROM medico WHERE id_medico=?",
+        [id_medico]
       );
       console.log(results); // Resultados de la consulta
       console.log(fields); // Metadatos adicionales de los resultados
@@ -94,27 +121,23 @@ class UserDAO {
       instanciaObjetoConexion.close();
     }
   };
-
-  searchByEmailAndPassword = async (values) => {
-    let instanciaObjetoConexion = Connection.getInstance();
-    try {
-      const { correo_usuario, password } = values;
-      const [results, fields] = await instanciaObjetoConexion.query(
-        "SELECT * FROM usuarios WHERE correo_usuario=? AND password=?",
-        [correo_usuario, password]
-      );
-      //console.log(results); // Resultados de la consulta
-      //console.log(fields); // Metadatos adicionales de los resultados
-      if (results.length > 0) {
-        return results[0]; // Retorna el primer objeto usuario si la consulta fue exitosa y encontró al menos un usuario
-      } else {
-        return null; // Retorna null si no se encontró ningún usuario
-      }
-    } catch (error) {
-      console.log(error); // Manejo de errores
-    } finally {
-      instanciaObjetoConexion.close();
-    }
-  };
 }
-export default UserDAO;
+export default MedicoDAO;
+/* const medicoDAO = new MedicoDAO();
+const medico = {
+  id_medico:4007,
+  nombre: "Dr. Hermenegildo Gutierrez",
+  direccion: "Calle Principal 123",
+  ciudad: 2,
+  licencia_medica: "12345",
+  especialidad: 2001,
+  tipo_licencia: 3001,
+  id_usuario: 13002,
+}; */
+
+//medicoDAO.create(medico);
+//medicoDAO.read();
+//medicoDAO.update(medico);
+//medicoDAO.searchById(medico)
+//medicoDAO.delete(medico);
+/* FALTARIA UPDATE */
