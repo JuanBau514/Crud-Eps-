@@ -1,16 +1,38 @@
 import Connection from "../bd/connection.js";
 
-class UserDAO {
+class PacienteDAO {
   // Cambiar por tabla de usuarios
   constructor() {}
 
   create = async (values) => {
-    const { correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
+    const {
+      nombres,
+      apellidos,
+      fecha_naci,
+      lugar_naci,
+      direccion_re,
+      direccion_cor,
+      estrato,
+      ciudad_resi,
+      ciudad_afili,
+      id_usuario,
+    } = values; // Cambiado a propiedades de usuario
     let instanciaObjetoConexion = Connection.getInstance();
     try {
-      const insertValues = [correo_usuario, password, estado, token];
+      const insertValues = [
+        nombres,
+        apellidos,
+        fecha_naci,
+        lugar_naci,
+        direccion_re,
+        direccion_cor,
+        estrato,
+        ciudad_resi,
+        ciudad_afili,
+        id_usuario,
+      ];
       const [results, fields] = await instanciaObjetoConexion.query(
-        "INSERT INTO usuarios (correo_usuario, password, estado, token) VALUES (?, ?, ?, ?)",
+        "INSERT INTO paciente (nombres, apellidos, fecha_naci, lugar_naci, direccion_re, direccion_cor, estrato,ciudad_resi, ciudad_afili, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         insertValues
       );
       console.log(`resultscreate:`, results); // Resultados de la consulta
@@ -27,7 +49,7 @@ class UserDAO {
     try {
       console.log(instanciaObjetoConexion);
       const [results, fields] = await instanciaObjetoConexion.query(
-        "SELECT * FROM usuarios" // Cambiado a tabla de usuarios
+        "SELECT * FROM paciente" // Cambiado a tabla de usuarios
       );
       console.log(results); // Resultados de la consulta
       console.log(fields); // Metadatos adicionales de los resultados
@@ -40,17 +62,33 @@ class UserDAO {
 
   update = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
+    const {
+      id_paciente,
+      nombres,
+      apellidos,
+      fecha_naci,
+      lugar_naci,
+      direccion_re,
+      direccion_cor,
+      estrato,
+      ciudad_resi,
+      ciudad_afili,
+    } = values; // Cambiado a propiedades de usuario
+    const updateValues = [
+      nombres,
+      apellidos,
+      fecha_naci,
+      lugar_naci,
+      direccion_re,
+      direccion_cor,
+      estrato,
+      ciudad_resi,
+      ciudad_afili,
+      id_paciente,
+    ];
     try {
-      const { id_usuario, correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
-      const updateValues = [
-        correo_usuario,
-        password,
-        estado,
-        token,
-        id_usuario,
-      ];
       const [results, fields] = await instanciaObjetoConexion.query(
-        "UPDATE usuarios SET correo_usuario=?, password=?, estado=?, token=? WHERE id_usuario = ?",
+        "UPDATE paciente SET nombres=?, apellidos=?, fecha_naci=?, lugar_naci=?, direccion_re=?, direccion_cor=?, estrato=?,ciudad_resi=?, ciudad_afili=? WHERE id_paciente = ?",
         updateValues
       );
       console.log(results); // Resultados de la consulta
@@ -64,11 +102,11 @@ class UserDAO {
 
   delete = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
+    let { id_paciente } = values;
     try {
-      let { id_usuario } = values;
       const [results, fields] = await instanciaObjetoConexion.query(
-        "DELETE FROM usuarios WHERE id_usuario=?",
-        [id_usuario]
+        "DELETE FROM paciente WHERE id_paciente=?",
+        [id_paciente]
       );
       console.log(results); // Resultados de la consulta
       console.log(fields); // Metadatos adicionales de los resultados
@@ -80,11 +118,11 @@ class UserDAO {
   };
   searchById = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
+    let { id_paciente } = values;
     try {
-      let { id_usuario } = values;
       const [results, fields] = await instanciaObjetoConexion.query(
-        "SELECT * FROM usuarios WHERE id_usuario=?",
-        [id_usuario]
+        "SELECT * FROM paciente WHERE id_paciente=?",
+        [id_paciente]
       );
       console.log(results); // Resultados de la consulta
       console.log(fields); // Metadatos adicionales de los resultados
@@ -94,27 +132,34 @@ class UserDAO {
       instanciaObjetoConexion.close();
     }
   };
-
-  searchByEmailAndPassword = async (values) => {
-    let instanciaObjetoConexion = Connection.getInstance();
-    try {
-      const { correo_usuario, password } = values;
-      const [results, fields] = await instanciaObjetoConexion.query(
-        "SELECT * FROM usuarios WHERE correo_usuario=? AND password=?",
-        [correo_usuario, password]
-      );
-      //console.log(results); // Resultados de la consulta
-      //console.log(fields); // Metadatos adicionales de los resultados
-      if (results.length > 0) {
-        return results[0]; // Retorna el primer objeto usuario si la consulta fue exitosa y encontró al menos un usuario
-      } else {
-        return null; // Retorna null si no se encontró ningún usuario
-      }
-    } catch (error) {
-      console.log(error); // Manejo de errores
-    } finally {
-      instanciaObjetoConexion.close();
-    }
-  };
 }
-export default UserDAO;
+
+export default PacienteDAO;
+
+//const dao = new UserDAO();
+//pruebas.php
+/* const daoPaciente = new PacienteDAO();
+
+//daoPaciente.read();
+
+const pacientePrueba = {
+  id_paciente: 1005,
+  nombres: "Atún",
+  apellidos: "Limón",
+  fecha_naci: "2007-05-20",
+  lugar_naci: 1,
+  direccion_re: "Avenida desespero",
+  direccion_cor: "atoutlemonda@email.com",
+  estrato: 1,
+  ciudad_resi: 1,
+  ciudad_afili: 1,
+  id_usuario: 13001,
+};
+ */
+//daoPaciente.create(pacientePrueba);
+
+//daoPaciente.update(pacientePrueba);
+
+//daoPaciente.delete(pacientePrueba);
+
+//daoPaciente.searchById(pacientePrueba);
