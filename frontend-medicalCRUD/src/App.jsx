@@ -1,13 +1,18 @@
 import "./App.css";
-import Login from "./Components/Login/Login";
-import Register from "./Components/Register/Register";
-import Dashboard from "./Components/Dashboard/Dashboard";
-import Forgot from "./Components/Forgot/Forgot";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import Forgot from "./Pages/Forgot/Forgot";
+import MainPage from "./Pages/MainPage/MainPage";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
-  {
+   {
     path: '/',
+    element: <div><MainPage/></div>,
+  },
+  {
+    path: '/login',
     element: <div><Login/></div>,
   },
   {
