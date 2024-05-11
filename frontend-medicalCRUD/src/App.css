@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
 }
 
-:root{
-    --primaryColor: hsl(94,55%,56%);
-    --hoverColor: hsl(93,75%,76%);
-    --paleGreen: hsl(96,75%,89%);
-    --whiteColor: hsl(0,0%,100%);
-    --blackColor: hsl(0,0%,18%);
-    --greyText: hsl(0,0%,75%);
-    --bgColor: hsl(113,11%,85%);
-    --inputColor: hsl(330,12%,97%);
+:root {
+    --primaryColor: hsl(94, 55%, 56%);
+    --hoverColor: hsl(93, 75%, 76%);
+    --paleGreen: hsl(96, 75%, 89%);
+    --whiteColor: hsl(0, 0%, 100%);
+    --blackColor: hsl(0, 0%, 18%);
+    --greyText: hsl(0, 0%, 75%);
+    --bgColor: hsl(113, 11%, 85%);
+    --inputColor: hsl(330, 12%, 97%);
     /* --inputColor: hsl(154,14%,90%); */
 
     /*FONT AND TYPOGRAPHY*/
@@ -28,52 +28,52 @@
     --smallestFontSize: .75rem;
 }
 
-.flex{
-    display: flex;    
+.flex {
+    display: flex;
     align-items: center;
 }
 
-.grid{
+.grid {
     display: grid;
     align-items: center;
     gap: 1.5rem;
 }
 
-html{
+html {
     font-size: 90%;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-li{
- list-style: none;
+li {
+    list-style: none;
 }
 
-.icon{
+.icon {
     font-size: var(--h2FontSize);
     cursor: pointer;
 }
 
-img, video{
+img, video {
     height: auto;
     width: 100%;
 }
 
-.message{
+.message {
     display: none;
 }
 
-.showMessage{
+.showMessage {
     display: block;
     color: var(--whiteColor);
-    background: rgb(255,0,0);
+    background: rgb(255, 0, 0);
     border-radius: 3px;
     text-align: center;
 }
 
-.btn{
+.btn {
     border: none;
     outline: none;
     cursor: pointer;
@@ -82,45 +82,47 @@ img, video{
     color: var(--greyText);
 }
 
-.btn .icon{
+.btn .icon {
     margin-left: .5rem;
 }
 
-.btn:hover{
+.btn:hover {
     color: var(--primary-color);
     background: var(--paleGreen);
 
 }
 
-.form{
-    max-width: 400px; /* Por ejemplo, establece un ancho máximo para el formulario */
-  width: 80%;   
+.form {
+    max-width: 400px;
+    /* Por ejemplo, establece un ancho máximo para el formulario */
+    width: 80%;
 }
 
-.container {        
-    min-height: 85vh; /* Establecer una altura mínima del 80% del viewport */
+.container {
+    min-height: 85vh;
+    /* Establecer una altura mínima del 80% del viewport */
     width: auto;
 }
 
 
 /*PAGES STYLYNG*/
-.loginPage, .registerPage{
+.loginPage, .registerPage {
     height: 100vh;
     width: 100%;
-    margin:auto;
+    margin: auto;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 7px 50px rgb(214,223,213);
+    box-shadow: 0 7px 50px rgb(214, 223, 213);
 
-    .container{
+    .container {
         height: 75vh;
         width: 60%;
         margin: auto;
         justify-content: space-between;
         border-radius: 10px;
-        background: hsl(0,0%,91%);
+        background: hsl(0, 0%, 91%);
 
-        .videoDiv{
+        .videoDiv {
             position: relative;
             display: flex;
             flex-basis: 50%;
@@ -133,12 +135,12 @@ img, video{
             margin: auto;
             border-radius: 10px;
             overflow: hidden;
-            
-            video, .footerDiv{
+
+            video, .footerDiv {
                 position: absolute;
             }
-            
-            video{
+
+            video {
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -148,16 +150,16 @@ img, video{
                 left: 0;
             }
 
-            .textDiv{
+            .textDiv {
                 position: relative;
 
-                .title{
+                .title {
                     color: var(--whiteColor);
                     font-size: 35px;
-                    font-weight: 800;                    
+                    font-weight: 800;
                 }
 
-                p{
+                p {
                     color: var(--whiteColor);
                     padding: 1rem;
                     font-weight: 400;
@@ -165,22 +167,22 @@ img, video{
                 }
             }
 
-            .footerDiv{
+            .footerDiv {
                 bottom: 10px;
                 padding: 0 1rem;
                 height: 60px;
-                background: rgba(255,255,255,0.248);
+                background: rgba(255, 255, 255, 0.248);
                 left: 10px;
                 right: 10px;
                 justify-content: space-between;
                 backdrop-filter: blur(1px);
                 border-radius: 10px;
 
-                .text{
-                    color: var(--whiteColor);                    
+                .text {
+                    color: var(--whiteColor);
                 }
 
-                .btn{
+                .btn {
                     background: var(--whiteColor);
                     color: var(--primaryColor);
                     padding: .8rem 1.5rem;
@@ -188,7 +190,7 @@ img, video{
                     font-weight: 400;
                     transition: .3s ease;
 
-                    &:hover{
+                    &:hover {
                         background: var(--hoverColor);
                         color: var(--blackColor);
                     }
@@ -196,45 +198,45 @@ img, video{
             }
         }
 
-        .formDiv{
+        .formDiv {
             flex-basis: 50%;
             margin: auto;
             flex-direction: column;
             gap: 1.5rem;
             transform: translateY(-1rem);
 
-            .headerDiv{
+            .headerDiv {
                 text-align: center;
                 padding: 1.5rem 0;
 
-                img{
+                img {
                     width: 60px;
                     padding-bottom: .5rem;
                 }
 
-                h3{
+                h3 {
                     font-size: 25px;
                     color: var(--blackColor);
                     font-weight: 600;
                 }
             }
 
-            .form{
+            .form {
                 gap: 1rem;
 
-                .inputDiv{
-                    .icon{
+                .inputDiv {
+                    .icon {
                         color: var(--greyText)
                     }
 
-                    input{
+                    input {
                         background: none;
                         outline: none;
                         border: none;
                         width: 200px;
                     }
 
-                    label{
+                    label {
                         color: var(--blackColor);
                         font-weight: 400;
                         font-size: 14px;
@@ -242,7 +244,7 @@ img, video{
                         display: block;
                     }
 
-                    .input{
+                    .input {
                         gap: .5rem;
                         padding: 1rem;
                         background: var(--inputColor);
@@ -250,7 +252,7 @@ img, video{
                     }
                 }
 
-                .btn{
+                .btn {
                     padding: .8rem;
                     background: var(--primaryColor);
                     border-radius: 10px;
@@ -259,33 +261,33 @@ img, video{
                     margin: auto;
                     justify-content: center;
                     font-size: 16px;
-                    width: 100%;                    
+                    width: 100%;
                     gap: .5rem;
                     transition: .3s ease;
 
-                    .icon{
+                    .icon {
                         font-size: 25px;
-                        transition: .3s ease;                        
+                        transition: .3s ease;
                     }
 
-                    &:hover{
+                    &:hover {
                         background: var(--hoverColor);
                         color: var(--blackColor);
-                        
-                        .icon{
+
+                        .icon {
                             color: var(--blackColor);
-                            transition: translateX(5px);                        
+                            transition: translateX(5px);
                         }
                     }
                 }
 
-                .forgotPassword{
+                .forgotPassword {
                     font-size: 13px;
                     color: var(--blackColor);
                     opacity: .7;
                     text-align: center;
 
-                    a{
+                    a {
                         text-decoration: underline;
                         cursor: pointer;
                         opacity: 1;
@@ -299,57 +301,58 @@ img, video{
 
 /* MEDIA QUERIES FOR MAKE THE APP RESPONSIVE */
 @media screen and (max-width: 602px) {
-    .loginPage, .registerPage{
-        .container{
+    .loginPage, .registerPage {
+        .container {
             height: 100%;
             width: 100%;
             flex-direction: column;
             padding: 1.5rem;
 
-            .videoDiv{
+            .videoDiv {
                 width: 100%;
-                .textDiv{
-                    .title{
-                         font-size: 20px; 
+
+                .textDiv {
+                    .title {
+                        font-size: 20px;
                     }
 
-                    p{
+                    p {
                         padding: 1rem;
                     }
                 }
 
-                .footerDiv{
-                    .text{
-                         font-size: 12px; 
+                .footerDiv {
+                    .text {
+                        font-size: 12px;
                     }
 
-                    .btn{
+                    .btn {
                         padding: .4rem 1.5rem;
                     }
                 }
             }
 
-            .formDiv{
+            .formDiv {
                 gap: 1rem;
                 transform: translateY(-.5rem);
 
-                .headerDiv{
+                .headerDiv {
                     padding: 1rem 0;
 
-                    img{
+                    img {
                         width: 40px;
                     }
 
-                    h3{
+                    h3 {
                         font-size: 20px;
-                    }                    
+                    }
                 }
 
-                .form{
+                .form {
                     gap: .5rem;
 
-                    .inputDiv{
-                        input{
+                    .inputDiv {
+                        input {
                             width: 100%;
                         }
                     }
@@ -360,41 +363,42 @@ img, video{
 }
 
 @media screen and (max-width: 678px) {
-    .loginPage, .registerPage{
-        .container{
-            .videoDiv{                
-                .textDiv{
-                    .title{
-                         font-size: 25px; 
+    .loginPage, .registerPage {
+        .container {
+            .videoDiv {
+                .textDiv {
+                    .title {
+                        font-size: 25px;
                     }
 
-                    p{
+                    p {
                         padding: 1rem;
                     }
                 }
 
-                .footerDiv{
-                    .text{
-                         font-size: 12px; 
+                .footerDiv {
+                    .text {
+                        font-size: 12px;
                     }
 
-                    .btn{
+                    .btn {
                         padding: .8rem 1.5rem;
                     }
                 }
             }
 
-            .formDiv{
-                .headerDiv{
+            .formDiv {
+                .headerDiv {
                     padding: 1.5rem 0;
-                    h3{
+
+                    h3 {
                         font-size: 20px;
-                    }                    
+                    }
                 }
 
-                .form{
-                    .inputDiv{
-                        input{
+                .form {
+                    .inputDiv {
+                        input {
                             width: 100%;
                             max-width: 200px;
                         }
@@ -406,8 +410,8 @@ img, video{
 }
 
 @media screen and (max-width: 927px) {
-    .loginPage, .registerPage{
-        .container{
+    .loginPage, .registerPage {
+        .container {
             width: 85%;
         }
     }
