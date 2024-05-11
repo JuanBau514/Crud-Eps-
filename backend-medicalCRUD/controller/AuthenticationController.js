@@ -10,23 +10,25 @@ export class AuthController {
     static createAccount = async (email, pass) => {
         try {
             //un usuario no está activo si no está verificado
-            //creando contraseña para prueba
-            
+            //verificar si ya hay un correo
+            const minusEmail = email.toLowerCase();
+            const verifyEmail = await instanciaUserConsult.searchByEmail(minusEmail);
+            if (verifyEmail) {
+                throw new Error ("Ya hay un correo registrado");
+            }
             // Hash Password
             const passHash = await hashPassword(pass);
 
-            // Prevenir duplicados
-
             // Crea un usuario
             const usuarioPrueba = new User({
-                correo_usuario: email,
+                id_usuario: 13000,
+                correo_usuario: minusEmail,
                 password: passHash,
                 estado: 0,
                 token: " "
             });
 
             // Generar el token, el id debe ser consultado en la bd y traido acá
-            
             //c inserts y lo demás
             
             const userMat = await instanciaUserConsult.create(usuarioPrueba);
@@ -37,15 +39,19 @@ export class AuthController {
                 createdAt: new Date().toISOString().replace('T', ' ').substring(0, 19),
             });
             usuarioPrueba.token = token.token;
+            usuarioPrueba.id_usuario = userMat.insertId;
+            
+            //actualizar usuario con el token
+            await instanciaUserConsult.update(usuarioPrueba);
+
+            await instanciaUserConsult.close();
             // enviar el email
-            console.table(usuarioPrueba);
-            console.table(token);
             await SendEmail.sendConfirmationEmail(usuarioPrueba, token);
             console.log('Cuenta creada, revisa tu email para confirmarla');
             
         } catch (error) {
-            console.log('Hubo un error');
-            console.log(error);
+            console.error("Error creating account:", error);
+            throw new Error(error.message);
         }
     }
 
@@ -70,5 +76,8 @@ export class AuthController {
         }
     }
 
+    static loginAccount = async (req, res) => {
+
+    }
 
 }
