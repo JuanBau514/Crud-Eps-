@@ -1,5 +1,5 @@
 import Connection from "../bd/connection.js";
-
+import User from "../models/User.js";
 class UserDAO {
   // Cambiar por tabla de usuarios
   constructor() {}
@@ -17,8 +17,9 @@ class UserDAO {
       return results;
     } catch (error) {
       console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta create');
     } finally {
-      instanciaObjetoConexion.close();
+      //await instanciaObjetoConexion.close();
     }
   };
 
@@ -33,32 +34,34 @@ class UserDAO {
       console.log(fields); // Metadatos adicionales de los resultados
     } catch (error) {
       console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta read');
     } finally {
-      instanciaObjetoConexion.close();
+      //await instanciaObjetoConexion.close();
     }
   };
 
   update = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
+    const { id_usuario, correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
+    const updateValues = [
+      correo_usuario,
+      password,
+      estado,
+      token,
+      id_usuario,
+    ];
     try {
-      const { id_usuario, correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
-      const updateValues = [
-        correo_usuario,
-        password,
-        estado,
-        token,
-        id_usuario,
-      ];
       const [results, fields] = await instanciaObjetoConexion.query(
         "UPDATE usuarios SET correo_usuario=?, password=?, estado=?, token=? WHERE id_usuario = ?",
         updateValues
       );
       console.log(results); // Resultados de la consulta
-      console.log(fields); // Metadatos adicionales de los resultados
+      //console.log(fields); // Metadatos adicionales de los resultados
     } catch (error) {
       console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta update');
     } finally {
-      instanciaObjetoConexion.close();
+      //await instanciaObjetoConexion.close();
     }
   };
 
@@ -74,8 +77,9 @@ class UserDAO {
       console.log(fields); // Metadatos adicionales de los resultados
     } catch (error) {
       console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta delete');
     } finally {
-      instanciaObjetoConexion.close();
+      //await instanciaObjetoConexion.close();
     }
   };
   searchById = async (values) => {
@@ -90,11 +94,33 @@ class UserDAO {
       console.log(fields); // Metadatos adicionales de los resultados
     } catch (error) {
       console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta searchById');
     } finally {
-      instanciaObjetoConexion.close();
+      //await instanciaObjetoConexion.close();
     }
   };
-
+  searchByEmail = async (email) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      const correo_usuario = email;
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "SELECT * FROM usuarios WHERE correo_usuario=?",
+        [correo_usuario]
+      );
+      //console.log(results); // Resultados de la consulta
+      //console.log(fields); // Metadatos adicionales de los resultados
+      if (results.length > 0) {
+        return results[0]; // Retorna el primer objeto usuario si la consulta fue exitosa y encontró al menos un usuario
+      } else {
+        return null; // Retorna null si no se encontró ningún usuario
+      }
+    } catch (error) {
+      console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta searchByEmail');
+    } finally {
+      //await instanciaObjetoConexion.close();
+    }    
+  }
   searchByEmailAndPassword = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
     try {
@@ -112,9 +138,17 @@ class UserDAO {
       }
     } catch (error) {
       console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta searchByEmailAndPassword');
     } finally {
-      instanciaObjetoConexion.close();
+      //await instanciaObjetoConexion.close();
     }
   };
+
+  close = async () => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    await instanciaObjetoConexion.close();
+  }
+  
 }
+
 export default UserDAO;
