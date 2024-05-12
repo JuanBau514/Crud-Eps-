@@ -42,17 +42,18 @@ class UserDAO {
 
   update = async (values) => {
     let instanciaObjetoConexion = Connection.getInstance();
-    const { id_usuario, correo_usuario, password, estado, token } = values; // Cambiado a propiedades de usuario
+    const { id_usuario, correo_usuario, password, estado, token, token_creado } = values; // Cambiado a propiedades de usuario
     const updateValues = [
       correo_usuario,
       password,
       estado,
       token,
+      token_creado,
       id_usuario,
     ];
     try {
       const [results, fields] = await instanciaObjetoConexion.query(
-        "UPDATE usuarios SET correo_usuario=?, password=?, estado=?, token=? WHERE id_usuario = ?",
+        "UPDATE usuarios SET correo_usuario=?, password=?, estado=?, token=?, token_creado=? WHERE id_usuario = ?",
         updateValues
       );
       console.log(results); // Resultados de la consulta
@@ -82,16 +83,18 @@ class UserDAO {
       //await instanciaObjetoConexion.close();
     }
   };
-  searchById = async (values) => {
+  searchById = async (id_usuario) => {
     let instanciaObjetoConexion = Connection.getInstance();
     try {
-      let { id_usuario } = values;
       const [results, fields] = await instanciaObjetoConexion.query(
         "SELECT * FROM usuarios WHERE id_usuario=?",
         [id_usuario]
       );
-      console.log(results); // Resultados de la consulta
-      console.log(fields); // Metadatos adicionales de los resultados
+      if (results.length > 0) {
+        return results[0]; // Retorna el primer objeto usuario si la consulta fue exitosa y encontró al menos un usuario
+      } else {
+        return null; // Retorna null si no se encontró ningún usuario
+      }
     } catch (error) {
       console.log(error); // Manejo de errores
       throw new Error ('No se ha hecho la consulta searchById');
@@ -177,9 +180,42 @@ class UserDAO {
     } 
   }
 
+  updateToken = async (values) => {
+    const instanciaObjetoConexion = Connection.getInstance();
+    const { id_usuario, estado, token, token_creado } = values; // Cambiado a propiedades de usuario
+    const updateValues = [
+      estado,
+      token,
+      token_creado,
+      id_usuario,
+    ];
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "UPDATE usuarios SET estado=?, token=?, token_creado=? WHERE id_usuario = ?",
+        updateValues
+      );
+      console.log(results); // Resultados de la consulta
+      //console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta updateToken');
+    } finally {
+      //await instanciaObjetoConexion.close();
+    }
+  }
+
   close = async () => {
-    let instanciaObjetoConexion = Connection.getInstance();
-    await instanciaObjetoConexion.close();
+    try {
+        const instanciaObjetoConexion = Connection.getInstance();
+        if (instanciaObjetoConexion) {
+            await instanciaObjetoConexion.close();
+        } else {
+            console.log("No se encontró una instancia de conexión activa para cerrar.");
+        }
+    } catch (error) {
+        console.error("Error al cerrar la conexión:", error);
+        throw new Error ('Error al cerrar la conexión');
+    }
   }
   
 }

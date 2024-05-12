@@ -1,8 +1,9 @@
 import User from '../models/User.js';
 import Token from '../models/Token.js';
 import { checkPassword, hashPassword } from '../utils/auth.js';
-import { generarToken, hashToken } from '../utils/tokenG.js';
+import { generarToken, hashToken, checkToken } from '../utils/tokenG.js';
 import { SendEmail } from '../emails/SendEmail.js';
+import { comparaFecha } from '../utils/dateCompare.js';
 import UserDAO from '../models/UserDAO.js';
 
 export class AuthController {
@@ -25,7 +26,8 @@ export class AuthController {
                 correo_usuario: minusEmail,
                 password: passHash,
                 estado: 0,
-                token: " "
+                token: " ",
+                token_creado: " "
             });
 
             // Generar el token, el id debe ser consultado en la bd y traido acá
@@ -39,6 +41,7 @@ export class AuthController {
                 createdAt: new Date().toISOString().replace('T', ' ').substring(0, 19),
             });
             usuarioPrueba.token = await hashToken(token.token);
+            usuarioPrueba.token_creado = token.createdAt;
             usuarioPrueba.id_usuario = userMat.insertId;
             
             //actualizar usuario con el token
@@ -55,25 +58,32 @@ export class AuthController {
         }
     }
 
-    static confirmAccount = async (req, res) => {
+    static confirmAccount = async (token, userId) => {
         try {
-            const { token } = req.body;
-            
-            
-            const tokenExists = await Token.findOne({ token });
-            if (!tokenExists) {
-                const error = new Error('Token no válido');
-                return res.status(404).json({ error: error.message });
+            const instanciaUserConfirm = new UserDAO();
+            const objectUser = await instanciaUserConfirm.searchById(userId);
+            console.log(objectUser);
+            if (!objectUser) {
+                throw new Error ('No hay un usuario según las credenciales previstas');
             }
+            if (!checkToken(token, objectUser.token)) {
+                throw new Error ('El token no es válido');
+            }
+            const tiempo = await comparaFecha(objectUser.token_creado);
+            console.log(tiempo);
+            const userBD = new User({
+                id_usuario: userId,
+                estado: 1,
+                token: " ",
+                token_creado: " "
+            });
+            await instanciaUserConfirm.updateToken(userBD);
+            await instanciaUserConfirm.close();
+            console.log('Confirmación exitosa');
 
-            const user = await User.findById(tokenExists.user);
-            user.confirmed = true;
-
-            await Promise.allSettled([user.save(), tokenExists.deleteOne()]);
-            res.send('Cuenta confirmada correctamente');
         } catch (error) {
-            res.status(500).json({ error: 'Hubo un error' });
-            console.log(error);
+            console.error("Error about confirmAccount:", error);
+            throw new Error(error.message);
         }
     }
 

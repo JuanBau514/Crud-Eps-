@@ -40,22 +40,14 @@ app.post('/register', async (req, res) => {
 
 app.get('/confirm', async (req, res) => {
     const { token, userId } = req.query;
-
+    console.log('Entrando a /confirm');
     try {
-        const user = await instanciaUserConsult.getUserById(userId);
-        if (!user) {
-            return res.status(404).send('Usuario no encontrado.');
-        }
-        if (user.token !== token) {
-            return res.status(400).send('Token inválido.');
-        }
-
-        // Activar la cuenta
-        await instanciaUserConsult.activateUser(userId);
+        console.log(`Confirmando según Token ${token} y id_user ${userId}`);
+        await AuthController.confirmAccount(token, userId);
         res.send('Cuenta activada exitosamente.');
     } catch (error) {
         console.error('Error al confirmar la cuenta:', error);
-        res.status(500).send('Error interno del servidor.');
+        res.status(500).send(error.message);
     }
 });
 
