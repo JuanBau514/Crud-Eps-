@@ -2,13 +2,14 @@ export default class User {
 
     /**
      * 
-     * @param {email String, password String, name String, active Boolean} userData 
+     * @param {id_usuario number, email String, password String, estado Boolean (0, 1), token String, token_creado String} userData 
      */
-    constructor( { id_usuario, correo_usuario, password, estado, token } ) {
+    constructor( { id_usuario, correo_usuario, password, estado, token, token_creado } ) {
         this.id_usuario           = id_usuario;
         this.correo_usuario       = correo_usuario;
         this.password             = password;
         this.estado               = estado;
         this.token                = token;
+        this.token_creado         = token_creado;
     }
 }

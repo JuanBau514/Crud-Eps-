@@ -17,16 +17,23 @@ console.log(db, dbPassword, dbPort);
 // Create the connection to database
 export default class Connection {
   static #instance = null;
+  #connection = null;
+
+  constructor() {
+      this.initializeConnection(); // Cambio de lógica
+  }
+
   static getInstance() {
     if (!Connection.#instance) {
-      Connection.#instance = new Connection();
+        Connection.#instance = new Connection();
+    } else if (!Connection.#instance.connection) {
+        console.log("Reinicializando la conexión.");
+        Connection.#instance.initializeConnection();
     }
     return Connection.#instance;
   }
 
-  #connection = null;
-
-  constructor() {
+  initializeConnection() {
     // Crear la conexión a la base de datos
     this.#connection = mysql.createPool({
       host: dbHost,
@@ -48,7 +55,7 @@ export default class Connection {
       throw new Error(`Error executing query: ${error.message}`);
     }
   }
-  async queryWithPlaceholders(sql, placeholders = {}) {
+  /*async queryWithPlaceholders(sql, placeholders = {}) {
     const formattedSql = sql.replace(/\?/g, (match) => {
       if (placeholders[match] !== undefined) {
         return this.#connection.escape(placeholders[match]);
@@ -56,7 +63,7 @@ export default class Connection {
       return match;
     });
     return this.query(formattedSql);
-  }
+  }*/
   async close() {
     if (this.#connection) {
       await this.#connection.end();
