@@ -38,6 +38,27 @@ app.post('/register', async (req, res) => {
     }   
 });
 
+app.get('/confirm', async (req, res) => {
+    const { token, userId } = req.query;
+
+    try {
+        const user = await instanciaUserConsult.getUserById(userId);
+        if (!user) {
+            return res.status(404).send('Usuario no encontrado.');
+        }
+        if (user.token !== token) {
+            return res.status(400).send('Token inválido.');
+        }
+
+        // Activar la cuenta
+        await instanciaUserConsult.activateUser(userId);
+        res.send('Cuenta activada exitosamente.');
+    } catch (error) {
+        console.error('Error al confirmar la cuenta:', error);
+        res.status(500).send('Error interno del servidor.');
+    }
+});
+
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     console.log('Entrando a /login');

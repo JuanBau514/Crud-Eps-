@@ -1,4 +1,8 @@
-Muchachos y gente de internet para poder ejecutar el proyecto completo es importante tener isntalado node
-luego de eso tanto en el caso de la carpeta frontend y backend se debe ejecutar esta linea en terminal
+# EPS proyepto
 
-npm install
+Muchachos y gente de interné para poder ejecutar el proyecto completo es importante tener instalado node
+luego de eso tanto en el caso de la carpeta frontend y backend se debe ejecutar esta webonada:
+
+Instrucciones:
+1. Ejecutar ```npm install```
+2. Correr ```npm run dev```

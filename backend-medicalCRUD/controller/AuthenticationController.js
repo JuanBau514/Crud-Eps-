@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 import Token from '../models/Token.js';
 import { checkPassword, hashPassword } from '../utils/auth.js';
-import { generarToken } from '../utils/tokenG.js';
+import { generarToken, hashToken } from '../utils/tokenG.js';
 import { SendEmail } from '../emails/SendEmail.js';
 import UserDAO from '../models/UserDAO.js';
 
@@ -38,7 +38,7 @@ export class AuthController {
                 userID: userMat.insertId,
                 createdAt: new Date().toISOString().replace('T', ' ').substring(0, 19),
             });
-            usuarioPrueba.token = token.token;
+            usuarioPrueba.token = await hashToken(token.token);
             usuarioPrueba.id_usuario = userMat.insertId;
             
             //actualizar usuario con el token
