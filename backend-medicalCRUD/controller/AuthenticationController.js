@@ -1,14 +1,14 @@
 import User from '../models/User.js';
 import Token from '../models/Token.js';
-import { hashPassword } from '../utils/auth.js';
+import { checkPassword, hashPassword } from '../utils/auth.js';
 import { generarToken } from '../utils/tokenG.js';
 import { SendEmail } from '../emails/SendEmail.js';
 import UserDAO from '../models/UserDAO.js';
 
-const instanciaUserConsult = new UserDAO();
 export class AuthController {
     static createAccount = async (email, pass) => {
         try {
+            const instanciaUserConsult = new UserDAO();
             //un usuario no está activo si no está verificado
             //verificar si ya hay un correo
             const minusEmail = email.toLowerCase();
@@ -58,7 +58,8 @@ export class AuthController {
     static confirmAccount = async (req, res) => {
         try {
             const { token } = req.body;
-
+            
+            
             const tokenExists = await Token.findOne({ token });
             if (!tokenExists) {
                 const error = new Error('Token no válido');
@@ -76,8 +77,46 @@ export class AuthController {
         }
     }
 
-    static loginAccount = async (req, res) => {
+    static loginAccount = async (email, pass) => {
+        try {
+            const instanciaUserLogin = new UserDAO();
+            const minusEmail = email.toLowerCase();
+            const verifyEmail = await instanciaUserLogin.searchByEmail(minusEmail);
+            if (!verifyEmail) {
+                throw new Error ("No hay un correo en nuestra base de datos");
+            } 
 
+            /*if (verifyEmail.estado === 0) {
+                throw new Error ("Primero activa tu cuenta");
+            }*/
+            
+            //0 -> paciente, 1 -> médico, 2 -> admin
+            if (!await checkPassword(pass, verifyEmail.password)) {
+                throw new Error ("Correo y contraseña no válidos");
+            }
+            /*
+            const tipo_usuario = await instanciaUserLogin.searchByTypeUser(minusEmail);
+            switch(tipo_usuario.tipo_usuario) {
+                case '0':
+                    console.log('hola soy paciente');
+                    break;
+                case '1':
+                    console.log('hola soy medico');
+                    break;
+                case '2':
+                    console.log('hola soy admin');
+                    break;
+                default:
+                    console.log('hola soy nadie');
+                    throw new Error ('Usuario sin relación');  
+            }
+            */ 
+            await instanciaUserLogin.close();
+            console.log('Inicio exitoso');
+        }catch (error) {
+            console.error("Error about Login:", error);
+            throw new Error(error.message);
+        }
     }
 
 }

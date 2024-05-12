@@ -25,17 +25,31 @@ app.use((req, res, next) => {
     next();
   });
 
-  app.post('/register', async (req, res) => {  // Agregar 'async' aquí
+app.post('/register', async (req, res) => {
     console.log('Entrando a /register');
     const { email, password } = req.body;
     try {
         console.log(`Registrando ${email} y ${password}`);
-        await AuthController.createAccount(email, password);  // Agregar 'await' aquí
+        await AuthController.createAccount(email, password);
         res.status(201).send('Usuario registrado con éxito, revisa tu correo para ver la confirmación');
     } catch(error) {
         console.log('Error en la creación de cuenta:', error);
         res.status(500).send(error.message);
     }   
+});
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    console.log('Entrando a /login');
+    try {
+        console.log(`Iniciando sesión de ${email} y ${password}`);
+        
+        await AuthController.loginAccount(email, password);
+        res.status(201).send('Inicio de sesión exitoso');
+    } catch (error) {
+        console.error('Error en el inicio de sesión:', error);
+        res.status(400).send(error.message);
+    }
 });
 
 export default app;
