@@ -144,6 +144,39 @@ class UserDAO {
     }
   };
 
+  searchByTypeUser = async (email) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      const correo_usuario = email;
+      const [results, fields] = await instanciaObjetoConexion.query(
+        `
+        SELECT '0' AS tipo_usuario FROM paciente p
+        INNER JOIN usuarios u ON p.id_usuario = u.id_usuario
+        WHERE u.correo_usuario = ? AND u.estado = 1
+        UNION
+        SELECT '1' AS tipo_usuario FROM medico m
+        INNER JOIN usuarios u ON m.id_usuario = u.id_usuario
+        WHERE u.correo_usuario = ? AND u.estado = 1
+        UNION
+        SELECT '2' AS tipo_usuario FROM admin a
+        INNER JOIN usuarios u ON a.id_usuario = u.id_usuario
+        WHERE u.correo_usuario = ? AND u.estado = 1;
+        `,
+        [correo_usuario, correo_usuario, correo_usuario]
+      );
+      //console.log(results); // Resultados de la consulta
+      //console.log(fields); // Metadatos adicionales de los resultados
+      if (results.length > 0) {
+        return results[0]; // Retorna el primer objeto usuario si la consulta fue exitosa y encontró al menos un usuario
+      } else {
+        return null; // Retorna null si no se encontró ningún usuario
+      }
+    } catch (error) {
+      console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta searchByTypeUser');
+    } 
+  }
+
   close = async () => {
     let instanciaObjetoConexion = Connection.getInstance();
     await instanciaObjetoConexion.close();
