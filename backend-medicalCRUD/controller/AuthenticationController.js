@@ -66,10 +66,21 @@ export class AuthController {
             if (!objectUser) {
                 throw new Error ('No hay un usuario según las credenciales previstas');
             }
+
+            if (objectUser.estado === 1) {
+                throw new Error ('El usuario ya está activo');
+            }
+
             if (!checkToken(token, objectUser.token)) {
                 throw new Error ('El token no es válido');
             }
             const tiempo = await comparaFecha(objectUser.token_creado);
+            //lógica de vencimiento
+            /*
+            if (tiempo > 600) { // 600 segundos son 10 minutos
+                throw new Error ('El token está vencido, pide otro');
+            }
+            */
             console.log(tiempo);
             const userBD = new User({
                 id_usuario: userId,
@@ -96,9 +107,9 @@ export class AuthController {
                 throw new Error ("No hay un correo en nuestra base de datos");
             } 
 
-            /*if (verifyEmail.estado === 0) {
+            if (verifyEmail.estado === 0) {
                 throw new Error ("Primero activa tu cuenta");
-            }*/
+            }
             
             //0 -> paciente, 1 -> médico, 2 -> admin
             if (!await checkPassword(pass, verifyEmail.password)) {
