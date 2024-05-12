@@ -12,6 +12,7 @@ export class SendEmail {
     * @param {User} user - El usuario a quien enviar el correo.
     */
     static sendConfirmationEmail = async ( user, token ) => {
+        const confirmationUrl = `http://localhost:3000/confirm?token=${encodeURIComponent(token.token)}&userId=${encodeURIComponent(user.id_usuario)}`;
         const info = await transporter.sendMail({
             from: 'EPS placeholder <lana@eps.com>',
             to: user.correo_usuario,
@@ -20,7 +21,7 @@ export class SendEmail {
             html: `
             <p>Hola, has creado tu cuenta, solo falta que verifiques tu cuenta</p>
                 <p>Visita el siguiente enlace:</p>
-                <a a href="#">Confirmar cuenta</a>
+                <a a href="${confirmationUrl}">Confirmar cuenta</a>
             `
         });
 
