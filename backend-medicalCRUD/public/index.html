@@ -22,6 +22,15 @@
   <button type="submit">Iniciar Sesión</button>
 </form>
 <div id="loginMessage"></div>
+<h1>
+  Recuperar contraseña
+</h1>
+<form id="recoveryForm">
+  <label for="recoveryEmail">Correo Electrónico:</label>
+  <input type="email" id="recoveryEmail" name="recoveryEmail" placeholder="Ingresa tu email" required>
+  <button type="submit">Recuperar Contraseña</button>
+</form>
+<div id="recoveryMessage"></div>
 <script>
   document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -44,7 +53,7 @@
 
     const email = document.getElementById('emailLogin').value;
     const password = document.getElementById('passwordLogin').value;
-    const loginMessage = document.getElementById('loginMessage'); // Obtiene el elemento donde mostrarás los mensajes
+    const loginMessage = document.getElementById('loginMessage'); // Obtiene el elemento donde mostrará los mensajes
 
     fetch('http://localhost:3000/login', {
         method: 'POST',
@@ -72,6 +81,40 @@
         });
     });
 });
+
+document.getElementById('recoveryForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Previene el envío normal del formulario
+
+    const email = document.getElementById('recoveryEmail').value;
+    const recoveryMessage = document.getElementById('recoveryMessage'); // Obtiene el elemento donde mostrarás los mensajes
+
+    fetch('http://localhost:3000/recover', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw response;
+        }
+        return response.text();
+    })
+    .then(data => {
+        recoveryMessage.textContent = data; // Muestra mensaje de éxito
+        recoveryMessage.style.color = 'green'; // Verde = éxito
+        //redireccionar...
+    })
+    .catch(error => {
+        error.text().then(errorMessage => {
+            console.error('Error:', errorMessage);
+            recoveryMessage.textContent = errorMessage; // Muestra mensaje de error
+            recoveryMessage.style.color = 'red'; // Rojo = peligro
+        });
+    });
+});
+
 </script>
 </body>
 </html>

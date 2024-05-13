@@ -140,4 +140,90 @@ export class AuthController {
         }
     }
 
+    static recoverAccount = async (email) => {
+        try {
+            const instanciaUserRecover = new UserDAO();
+            const minusEmail = email.toLowerCase();
+            const verifyEmail = await instanciaUserRecover.searchByEmail(minusEmail);
+            if (!verifyEmail) {
+                throw new Error ("No hay un correo en nuestra base de datos");
+            } 
+
+            if (verifyEmail.estado === 0) {
+                throw new Error ("Primero activa tu cuenta");
+            }
+            //usuario para actualizar en la bd con el token
+            const usuarioUpdateToken = new User({
+                id_usuario: verifyEmail.id_usuario,
+                estado: 0,
+                token: " ",
+                token_creado: " "
+            });
+
+            // Generar el token
+                        
+            const token = new Token({
+                token: generarToken(),
+                userID: usuarioUpdateToken.insertId,
+                createdAt: new Date().toISOString().replace('T', ' ').substring(0, 19),
+            });
+
+            usuarioUpdateToken.token = await hashToken(token.token);
+            usuarioUpdateToken.token_creado = token.createdAt;
+            usuarioUpdateToken.correo_usuario = minusEmail;
+
+            await instanciaUserRecover.updateToken(usuarioUpdateToken);
+
+            await instanciaUserRecover.close();
+
+            await SendEmail.sendPasswordResetEmail(usuarioUpdateToken, token);
+
+            console.log('Correo de recuperación enviado de manera exitosa');
+        }catch (error) {
+            console.error("Error about RecoverPass:", error);
+            throw new Error(error.message);
+        }
+    }
+
+    static recoverPassAccount = async (token, userId) => {
+        try {
+            
+            const instanciaUserConfirm = new UserDAO();
+            const objectUser = await instanciaUserConfirm.searchById(userId);
+            console.log(objectUser);
+            if (!objectUser) {
+                throw new Error ('No hay un usuario según las credenciales previstas');
+            }
+
+            if (objectUser.estado === 1) {
+                throw new Error ('El usuario no tiene un token pendiente');
+            }
+
+            if (!checkToken(token, objectUser.token)) {
+                throw new Error ('El token no es válido');
+            }
+            const tiempo = await comparaFecha(objectUser.token_creado);
+            //lógica de vencimiento
+            /*
+            if (tiempo > 600) { // 600 segundos son 10 minutos
+                throw new Error ('El token está vencido, pide otro');
+            }
+            */
+            console.log(tiempo);
+            const userBD = new User({
+                id_usuario: userId,
+                estado: 1,
+                token: " ",
+                token_creado: " "
+            });
+            await instanciaUserConfirm.updateToken(userBD);
+            await instanciaUserConfirm.close();
+            console.log('Confirmación de recuperación exitosa');
+
+        } catch (error) {
+            console.error("Error about confirmRecoverAccount:", error);
+            throw new Error(error.message);
+        }
+    }    
+
 }
