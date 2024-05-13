@@ -65,4 +65,30 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.post('/recover', async (req, res) => {
+    const { email } = req.body;
+    console.log('Entrando a /recover');
+    try {
+        console.log(`Mandando correo de recuperación de contraseña a ${email}`);
+        await AuthController.recoverAccount(email);
+        res.status(201).send('Se ha enviado el enlace al correo proporcionado');
+    } catch (error) {
+        console.error('Error en la recuperación de contraseña:', error);
+        res.status(400).send(error.message);
+    }
+});
+
+app.post('/recoverPass', async (req, res) => {
+    const { token, userId } = req.query;
+    console.log('Entrando a /recoverPass');
+    try {
+        console.log(`Recuperando según Token ${token} y id_user ${userId}`);
+        await AuthController.recoverPassAccount(token, userId);
+        res.send('Cuenta activada exitosamente.');
+    } catch (error) {
+        console.error('Error al confirmar la cuenta:', error);
+        res.status(500).send(error.message);
+    }
+});
+
 export default app;

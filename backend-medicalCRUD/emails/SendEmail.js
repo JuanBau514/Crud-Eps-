@@ -22,6 +22,7 @@ export class SendEmail {
             <p>Hola, has creado tu cuenta, solo falta que verifiques tu cuenta</p>
                 <p>Visita el siguiente enlace:</p>
                 <a href="${confirmationUrl}">Confirmar cuenta</a>
+                <p>Ten en cuenta que el enlace vence en 10 minutos</p>
             `
         });
 
@@ -33,14 +34,17 @@ export class SendEmail {
     * @param {User} user - El usuario a quien enviar el correo.
     */
     static sendPasswordResetEmail = async ( user, token ) => {
+        const recoverUrl = `http://localhost:3000/recoverPass?token=${encodeURIComponent(token.token)}&userId=${encodeURIComponent(user.id_usuario)}`;
         const info = await transporter.sendMail({
-            from: 'EPS placeholder <lana@eps.com>',
-            to: user.email,
-            subject: 'EPS - Reestablece tu contraseña',
-            text: 'EPS - Reestablece tu contraseña',
-            html: `<p>Hola, has solicitado reestablecer tu contraseña.</p>
+            from: 'EPS Account Logistics <epsal@eps.com>',
+            to: user.correo_usuario,
+            subject: 'EPS - Recupera tu contraseña',
+            text: 'EPS - Recupera tu contraseña',
+            html: `
+            <p>Hola, has olvidado tu contraseña</p>
                 <p>Visita el siguiente enlace:</p>
-                <a href="#">Reestablecer contraseña</a>
+                <a href="${recoverUrl}">Confirmar cuenta</a>
+                <p>Ten en cuenta que el enlace vence en 10 minutos</p>
             `
         });
 
