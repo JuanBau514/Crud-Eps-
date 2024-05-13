@@ -40,7 +40,7 @@ class PacienteDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.close();
+      //instanciaObjetoConexion.close();
     }
   };
 
@@ -56,7 +56,7 @@ class PacienteDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.close();
+      //instanciaObjetoConexion.close();
     }
   };
 
@@ -96,7 +96,7 @@ class PacienteDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.close();
+      //instanciaObjetoConexion.close();
     }
   };
 
@@ -113,7 +113,7 @@ class PacienteDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.close();
+      //instanciaObjetoConexion.close();
     }
   };
   searchById = async (values) => {
@@ -129,9 +129,24 @@ class PacienteDAO {
     } catch (error) {
       console.log(error); // Manejo de errores
     } finally {
-      instanciaObjetoConexion.close();
+      //instanciaObjetoConexion.close();
     }
   };
+
+  close = async () => {
+    try {
+        const instanciaObjetoConexion = Connection.getInstance();
+        if (instanciaObjetoConexion) {
+            await instanciaObjetoConexion.close();
+        } else {
+            console.log("No se encontró una instancia de conexión activa para cerrar.");
+        }
+    } catch (error) {
+        console.error("Error al cerrar la conexión:", error);
+        throw new Error ('Error al cerrar la conexión');
+    }
+  }
+
 }
 
 export default PacienteDAO;

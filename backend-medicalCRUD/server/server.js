@@ -44,13 +44,38 @@ app.post('/register', async (req, res) => {
 
 app.get('/confirm', async (req, res) => {
     const { token, userId } = req.query;
-    console.log('Entrando a /confirm');
     try {
-        console.log(`Confirmando según Token ${token} y id_user ${userId}`);
-        await AuthController.confirmAccount(token, userId);
-        res.send('Cuenta activada exitosamente.');
+        console.log(`Preparando formulario de confirmación de cuenta para token ${token} y ID ${userId}`);
+        //Verificar que el token y el usuario son válidos antes de enviar el formulario
+        const isValid = await AuthController.verifyTokenAndUser(token, userId);
+        if (!isValid) {
+            return res.status(400).send('Token inválido o expirado');
+        }
+        // redirigr al archivo html
+        const filePath = path.join(__dirname, '..', 'public', 'registrop.html');
+        console.log("Intentando enviar archivo:", filePath);
+        res.sendFile(filePath, (err) => {
+            if (err) {
+            console.error("Error al enviar el archivo:", err);
+            return res.status(500).send("No se pudo enviar el archivo.");
+            }
+        });
+
     } catch (error) {
-        console.error('Error al confirmar la cuenta:', error);
+        console.error('Error preparando el registro de cuenta:', error);
+        res.status(500).send(error.message);
+    }
+});
+
+app.post('/registerP', async(req, res) => {
+    const { token, paciente } = req.body;
+    console.log('Entrando a /registerP');
+    try {
+        console.log(`Registrando como paciente a ${paciente.id_usuario}`);
+        await AuthController.register(token, paciente);
+        res.status(201).send('Se ha registrado de manera exitosa, volverás al login en 5 segundos');
+    } catch (error) {
+        console.error('Error en el registro:', error);
         res.status(500).send(error.message);
     }
 });
@@ -61,13 +86,15 @@ app.post('/login', async (req, res) => {
     try {
         console.log(`Iniciando sesión de ${email} y ${password}`);
         
-        await AuthController.loginAccount(email, password);
-        res.status(201).send('Inicio de sesión exitoso');
+        const type = await AuthController.loginAccount(email, password);
+        res.status(201).send(`Inicio de sesión exitoso, eres ${type}`);
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);
         res.status(400).send(error.message);
     }
 });
+
+//recuperar contraseña
 
 app.post('/recover', async (req, res) => {
     const { email } = req.body;
