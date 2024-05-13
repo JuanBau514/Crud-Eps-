@@ -2,6 +2,8 @@ import dotenv from "dotenv"
 dotenv.config();
 import express from 'express';
 import morgan from 'morgan';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { AuthController } from '../controller/AuthenticationController.js';
 //import router from '../routes/authRoutes.js'
 //const authRouter = router();
@@ -17,6 +19,8 @@ app.use(express.json());
 //static
 app.use(express.static('public'));
 
+//url actual
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Routes
 
@@ -78,17 +82,44 @@ app.post('/recover', async (req, res) => {
     }
 });
 
-app.post('/recoverPass', async (req, res) => {
+app.get('/recoverPass', async (req, res) => {
     const { token, userId } = req.query;
-    console.log('Entrando a /recoverPass');
     try {
-        console.log(`Recuperando según Token ${token} y id_user ${userId}`);
-        await AuthController.recoverPassAccount(token, userId);
-        res.send('Cuenta activada exitosamente.');
+        console.log(`Preparando formulario de recuperación para token ${token} y ID ${userId}`);
+        //Verificar que el token y el usuario son válidos antes de enviar el formulario
+        const isValid = await AuthController.verifyTokenAndUser(token, userId);
+        if (!isValid) {
+            return res.status(400).send('Token inválido o expirado');
+        }
+        // redirigr al archivo html
+        const filePath = path.join(__dirname, '..', 'public', 'recuperarcontra.html');
+        console.log("Intentando enviar archivo:", filePath);
+        res.sendFile(filePath, (err) => {
+            if (err) {
+            console.error("Error al enviar el archivo:", err);
+            return res.status(500).send("No se pudo enviar el archivo.");
+            }
+        });
+
     } catch (error) {
-        console.error('Error al confirmar la cuenta:', error);
+        console.error('Error preparando la recuperación de contraseña:', error);
         res.status(500).send(error.message);
     }
 });
+
+//para la interfaz de recuperar contra
+app.post('/resetPassword', async (req, res) => {
+    const { token, userId, newPassword } = req.body;
+    console.log('Entrando a /resetPassword');
+    try {
+        console.log(`Actualizando Password a ${userId}`);
+        await AuthController.resetPassword(token, userId, newPassword);
+        res.status(201).send('Se ha enviado la contraseña de manera exitosa, volverás al login en 5 segundos');
+    } catch (error) {
+        console.error('Error en la recuperación de contraseña:', error);
+        res.status(500).send(error.message);
+    }
+});
+
 
 export default app;

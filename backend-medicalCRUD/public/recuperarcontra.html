@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restablecer Contraseña</title>
+  </head>
+  <body>
+    <h1>Restablecer Contraseña</h1>
+    <form id="recoveryPassForm">
+      <input type="hidden" name="token" value="{{token}}" />
+      <input type="hidden" name="userId" value="{{userId}}" />
+      <label for="newPassword">Nueva Contraseña:</label>
+      <input type="password" id="newPassword" name="newPassword" required />
+      <label for="confirmPassword">Confirma tu Contraseña:</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        required
+      />
+      <button type="submit">Restablecer Contraseña</button>
+    </form>
+    <div id="message"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("token");
+        const userId = urlParams.get("userId");
+
+        // Configurar el formulario con estos valores
+        const form = document.getElementById("recoveryPassForm");
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          submitNewPassword(token, userId);
+        });
+      });
+
+      function submitNewPassword(token, userId) {
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        const messageElement = document.getElementById("message");
+
+        if (newPassword !== confirmPassword) {
+          messageElement.textContent = "Las contraseñas no coinciden.";
+          messageElement.style.color = "red";
+          return;
+        }
+
+        fetch("http://localhost:3000/resetPassword", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: token,
+            userId: userId,
+            newPassword: newPassword,
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw response;
+            }
+            return response.text();
+          })
+         .then((data) => {
+            messageElement.textContent = data; // Muestra mensaje de éxito
+            messageElement.style.color = "green"; // Verde = éxito
+            setTimeout(() => { //el redireccionador
+                window.location.href = "/"; //
+            }, 5000); // Redirecciona después de 5 segundos
+          }) 
+          .catch((error) => {
+            error.text().then((errorMessage) => {
+              console.error("Error:", errorMessage);
+              messageElement.textContent = errorMessage; // Muestra mensaje de error
+              messageElement.style.color = "red"; // Rojo = peligro
+            });
+          });
+      }
+    </script>
+  </body>
+</html>

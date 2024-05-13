@@ -190,7 +190,6 @@ export class AuthController {
             
             const instanciaUserConfirm = new UserDAO();
             const objectUser = await instanciaUserConfirm.searchById(userId);
-            console.log(objectUser);
             if (!objectUser) {
                 throw new Error ('No hay un usuario según las credenciales previstas');
             }
@@ -204,11 +203,11 @@ export class AuthController {
             }
             const tiempo = await comparaFecha(objectUser.token_creado);
             //lógica de vencimiento
-            /*
+            
             if (tiempo > 600) { // 600 segundos son 10 minutos
                 throw new Error ('El token está vencido, pide otro');
             }
-            */
+            
             console.log(tiempo);
             const userBD = new User({
                 id_usuario: userId,
@@ -224,6 +223,88 @@ export class AuthController {
             console.error("Error about confirmRecoverAccount:", error);
             throw new Error(error.message);
         }
-    }    
+    }
+
+    static resetPassword = async (token, userId, newPassword) => {
+        try {
+            if (!token || !userId, !newPassword) {
+                throw new Error ('Hay datos incongruentes, vuelva a la página');
+            }
+            
+            const instanciaUserResetPass = new UserDAO();
+            const objectUser = await instanciaUserResetPass.searchById(userId);
+            if (!objectUser) {
+                throw new Error ('No hay un usuario según las credenciales previstas');
+            }
+
+            if (objectUser.estado === 1) {
+                throw new Error ('El usuario no tiene un token pendiente');
+            }
+
+            if (await checkPassword(newPassword, objectUser.password)) {
+                throw new Error ('Las contraseñas son iguales');
+            }
+
+            if (!checkToken(token, objectUser.token)) {
+                throw new Error ('El token no es válido');
+            }
+            const tiempo = await comparaFecha(objectUser.token_creado);
+            //lógica de vencimiento
+            
+            if (tiempo > 600) { // 600 segundos son 10 minutos
+                console.log(tiempo);
+                throw new Error ('El token está vencido, pide otro');
+            }
+            
+            const hashPass = await hashPassword(newPassword);
+
+            const userBD = new User({
+                id_usuario: userId,
+                password: hashPass,
+                estado: 1,
+                token: " ",
+                token_creado: " "
+            });
+            await instanciaUserResetPass.updatePassword(userBD);
+            await instanciaUserResetPass.close();
+            console.log('Actualización de contraseña exitosa');
+
+        } catch (error) {
+            console.error("Error about confirmRecoverAccount:", error);
+            throw new Error(error.message);
+        }
+    }
+
+    static verifyTokenAndUser = async(token, userId) => {
+        try {
+            const instanciaUserVerify = new UserDAO();
+            const objectUser = await instanciaUserVerify.searchById(userId);
+            if (!objectUser) {
+                throw new Error ('No hay un usuario según las credenciales previstas');
+            }
+
+            if (objectUser.estado === 1) {
+                throw new Error ('El usuario no tiene un token pendiente');
+            }
+
+            if (!checkToken(token, objectUser.token)) {
+                throw new Error ('El token no es válido');
+            }
+            const tiempo = await comparaFecha(objectUser.token_creado);
+            //lógica de vencimiento
+            
+            if (tiempo > 600) { // 600 segundos son 10 minutos
+                throw new Error ('El token está vencido, pide otro');
+            }
+            
+            await instanciaUserVerify.close();
+            console.log('Confirmación de token y userID exitosa');
+            return true;
+
+        } catch (error) {
+            console.error("Error about verifyTokenAndUser:", error);
+            throw new Error(error.message);
+        }
+    }
 
 }
