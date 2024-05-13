@@ -11,6 +11,7 @@
     <input type="password" id="password" placeholder="Contraseña" required>
     <button type="submit">Registrar</button>
 </form>
+<div id="registerMessage"></div>
 <h1>
   Inicio de sesión
 </h1>
@@ -36,6 +37,7 @@
     event.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const registerMessage = document.getElementById('registerMessage');
     
     fetch('http://localhost:3000/register', {
       method: 'POST',
@@ -43,9 +45,24 @@
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email, password })
-    }).then(response => response.text())
-      .then(data => alert(data))
-      .catch(error => console.error('Error:', error));
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw response;
+        }
+        return response.text();
+    })
+    .then(data => {
+        registerMessage.textContent = data; // Muestra mensaje de éxito
+        registerMessage.style.color = 'green'; // verde = exito
+    })
+    .catch(error => {
+        error.text().then(errorMessage => {
+            console.error('Error:', errorMessage);
+            registerMessage.textContent = errorMessage; // Muestra mensaje de error
+            registerMessage.style.color = 'red'; //SIGNIFICA PELIGRO
+        });
+    });
   });
 
   document.getElementById('loginForm').addEventListener('submit', function(event) {

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Registro</title>
+  </head>
+  <body>
+    <h1>Formulario de Registro</h1>
+    <form id="registrationForm">
+      <label for="nombres">Nombres:</label>
+      <input type="text" id="nombres" name="nombres" required /><br />
+
+      <label for="apellidos">Apellidos:</label>
+      <input type="text" id="apellidos" name="apellidos" required /><br />
+
+      <label for="fecha_naci">Fecha de Nacimiento:</label>
+      <input type="date" id="fecha_naci" name="fecha_naci" required /><br />
+
+      <label for="lugar_naci">Lugar de Nacimiento:</label>
+      <select id="lugar_naci" name="lugar_naci" required>
+        <option value="1">Bogotá</option>
+        <option value="2">Medellín</option>
+        <option value="3">Cali</option></select
+      ><br />
+
+      <label for="direccion_re">Dirección de Residencia:</label>
+      <input type="text" id="direccion_re" name="direccion_re" required /><br />
+
+      <label for="direccion_cor">Dirección Correspondecia:</label>
+      <input
+        type="text"
+        id="direccion_cor"
+        name="direccion_cor"
+        required
+      /><br />
+
+      <label for="estrato">Estrato:</label>
+      <input
+        type="number"
+        id="estrato"
+        name="estrato"
+        min="0"
+        max="6"
+        required
+      /><br />
+
+      <label for="ciudad_resi">Ciudad de Residencia:</label>
+      <select id="ciudad_resi" name="ciudad_resi" required>
+        <option value="1">Bogotá</option>
+        <option value="2">Medellín</option>
+        <option value="3">Cali</option></select
+      ><br />
+
+      <label for="ciudad_afili">Ciudad de Afiliación:</label>
+      <select id="ciudad_afili" name="ciudad_afili" required>
+        <option value="1">Bogotá</option>
+        <option value="2">Medellín</option>
+        <option value="3">Cali</option></select
+      ><br />
+
+      <button type="submit">Registrar</button>
+    </form>
+    <div id="message"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get("userId");
+        const token = urlParams.get("token");
+
+        const form = document.getElementById("registrationForm");
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          
+          submitRegistrationForm(token, userId);
+        });
+      });
+
+      function submitRegistrationForm(token, userId) {
+
+        const paciente = {
+            nombres: document.getElementById("nombres").value,
+            apellidos: document.getElementById("apellidos").value,
+            fecha_naci: document.getElementById("fecha_naci").value,
+            lugar_naci: parseInt(document.getElementById("lugar_naci").value),
+            direccion_re: document.getElementById("direccion_re").value,
+            direccion_cor: document.getElementById("direccion_cor").value,
+            estrato: parseInt(document.getElementById("estrato").value),
+            ciudad_resi: parseInt(document.getElementById("ciudad_resi").value),
+            ciudad_afili: parseInt(document.getElementById("ciudad_afili").value),
+            id_usuario: userId
+        };
+
+        const messageElement = document.getElementById("message");
+
+        fetch("http://localhost:3000/registerP", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: token,
+            paciente: paciente
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw response;
+            }
+            return response.text();
+          })
+         .then((data) => {
+            messageElement.textContent = data; // Muestra mensaje de éxito
+            messageElement.style.color = "green"; // Verde = éxito
+            setTimeout(() => { //el redireccionador
+                window.location.href = "/"; //
+            }, 5000); // Redirecciona después de 5 segundos
+          }) 
+          .catch((error) => {
+            if (error instanceof Response) {
+              // Solo si el error es un objeto Response, se intenta obtener el texto
+              error.text().then((errorMessage) => {
+                console.error("Error:", errorMessage);
+                messageElement.textContent = errorMessage;
+                messageElement.style.color = "red";
+              });
+            } else {
+              //de lo contrario puede ser otro error
+              console.error("Error:", error);
+              messageElement.textContent = "Error al procesar la solicitud.";
+              messageElement.style.color = "red";
+            }
+          });
+      }
+    </script>
+  </body>
+</html>

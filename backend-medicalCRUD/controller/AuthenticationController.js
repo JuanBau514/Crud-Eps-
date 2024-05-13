@@ -5,6 +5,7 @@ import { generarToken, hashToken, checkToken } from '../utils/tokenG.js';
 import { SendEmail } from '../emails/SendEmail.js';
 import { comparaFecha } from '../utils/dateCompare.js';
 import UserDAO from '../models/UserDAO.js';
+import PacienteDAO from '../models/PacienteDAO.js';
 
 export class AuthController {
     static createAccount = async (email, pass) => {
@@ -58,17 +59,20 @@ export class AuthController {
         }
     }
 
-    static confirmAccount = async (token, userId) => {
+    static register = async (token, paciente) => {
         try {
-            const instanciaUserConfirm = new UserDAO();
-            const objectUser = await instanciaUserConfirm.searchById(userId);
-            console.log(objectUser);
+            if (!token || !paciente) {
+                throw new Error ('Hay datos incongruentes, vuelva a la página');
+            }
+            
+            const instanciaUserRegisterUser = new UserDAO();
+            const objectUser = await instanciaUserRegisterUser.searchById(paciente.id_usuario);
             if (!objectUser) {
                 throw new Error ('No hay un usuario según las credenciales previstas');
             }
 
             if (objectUser.estado === 1) {
-                throw new Error ('El usuario ya está activo');
+                throw new Error ('El usuario no tiene un token pendiente');
             }
 
             if (!checkToken(token, objectUser.token)) {
@@ -76,24 +80,38 @@ export class AuthController {
             }
             const tiempo = await comparaFecha(objectUser.token_creado);
             //lógica de vencimiento
-            /*
-            if (tiempo > 600) { // 600 segundos son 10 minutos
+            
+            if (tiempo > 900) { // 900 segundos son 15 minutos
+                console.log(tiempo);
                 throw new Error ('El token está vencido, pide otro');
             }
-            */
-            console.log(tiempo);
+        
+            const instanciaPacienteRegister = new PacienteDAO ();
+
+            const pacienteMatR = await instanciaPacienteRegister.create(paciente);
+            if (!pacienteMatR) {
+                throw new Error('Falló el registro');
+            }
+
+            await instanciaPacienteRegister.close();
+
+            await SendEmail.sendWelcomeEmail(objectUser, paciente);
+
+            //cerrar token
             const userBD = new User({
-                id_usuario: userId,
+                id_usuario: paciente.id_usuario,
                 estado: 1,
                 token: " ",
                 token_creado: " "
             });
-            await instanciaUserConfirm.updateToken(userBD);
-            await instanciaUserConfirm.close();
-            console.log('Confirmación exitosa');
+            await instanciaUserRegisterUser.updateToken(userBD);
+
+            await instanciaUserRegisterUser.close();
+       
+            console.log('Registro exitoso');
 
         } catch (error) {
-            console.error("Error about confirmAccount:", error);
+            console.error("Error about confirmRecoverAccount:", error);
             throw new Error(error.message);
         }
     }
@@ -293,7 +311,7 @@ export class AuthController {
             const tiempo = await comparaFecha(objectUser.token_creado);
             //lógica de vencimiento
             
-            if (tiempo > 600) { // 600 segundos son 10 minutos
+            if (tiempo > 900) { // 900 segundos son 15 minutos
                 throw new Error ('El token está vencido, pide otro');
             }
             
