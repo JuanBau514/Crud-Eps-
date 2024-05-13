@@ -133,25 +133,31 @@ export class AuthController {
             if (!await checkPassword(pass, verifyEmail.password)) {
                 throw new Error ("Correo y contraseña no válidos");
             }
-            /*
+            
             const tipo_usuario = await instanciaUserLogin.searchByTypeUser(minusEmail);
+
+            await instanciaUserLogin.close();
+            if (!tipo_usuario) {
+                throw new Error('Usuario sin relación');
+            }
             switch(tipo_usuario.tipo_usuario) {
                 case '0':
-                    console.log('hola soy paciente');
-                    break;
+                    console.log('Inicio exitoso');
+                    tipo_usuario.tipo_usuario = 'paciente';
+                    return tipo_usuario.tipo_usuario;
                 case '1':
-                    console.log('hola soy medico');
-                    break;
+                    console.log('Inicio exitoso');
+                    tipo_usuario.tipo_usuario = 'medico';
+                    return tipo_usuario.tipo_usuario;
                 case '2':
-                    console.log('hola soy admin');
-                    break;
+                    console.log('Inicio exitoso');
+                    tipo_usuario.tipo_usuario = 'admin';
+                    return tipo_usuario.tipo_usuario;
                 default:
                     console.log('hola soy nadie');
-                    throw new Error ('Usuario sin relación');  
+                    throw new Error ('Usuario no identificado');  
             }
-            */ 
-            await instanciaUserLogin.close();
-            console.log('Inicio exitoso');
+            
         }catch (error) {
             console.error("Error about Login:", error);
             throw new Error(error.message);
