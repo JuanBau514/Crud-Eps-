@@ -204,6 +204,31 @@ class UserDAO {
     }
   }
 
+  updatePassword = async (values) => {
+    const instanciaObjetoConexion = Connection.getInstance();
+    const { id_usuario, password, estado, token, token_creado } = values; // Cambiado a propiedades de usuario
+    const updateValues = [
+      password,
+      estado,
+      token,
+      token_creado,
+      id_usuario,
+    ];
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "UPDATE usuarios SET password=?, estado=?, token=?, token_creado=? WHERE id_usuario = ?",
+        updateValues
+      );
+      console.log(results); // Resultados de la consulta
+      //console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+      throw new Error ('No se ha hecho la consulta updateToken');
+    } finally {
+      //await instanciaObjetoConexion.close();
+    }
+  }
+
   close = async () => {
     try {
         const instanciaObjetoConexion = Connection.getInstance();
