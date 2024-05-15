@@ -6,9 +6,9 @@ import video from "../../LogginAssets/video.mp4";
 import logo from "../../LogginAssets/logo.png";
 
 //IMPORT ICONS
+import { IoMdMail } from "react-icons/io";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
-import { FaIdCard } from "react-icons/fa";
 
 
 function Login() {
@@ -35,13 +35,14 @@ function Login() {
           </div>
           <form action="" className="form grid">   
             <div className="inputDiv">
-              <label htmlFor="username">Cedula</label>
+              <label htmlFor="correo">Correo</label>
               <div className="input flex">
-                <FaIdCard className="icon" />
+                <IoMdMail className="icon" />
                 <input
-                  type="text"
-                  id="username"
-                  placeholder="Ingrese la Cedula"
+                  type="email"
+                  id="correo"
+                  pattern=".+@gmail\.com"
+                  placeholder="Ingrese su Correo"
                 />
               </div>
             </div>

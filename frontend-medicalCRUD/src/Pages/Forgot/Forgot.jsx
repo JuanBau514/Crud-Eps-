@@ -5,7 +5,7 @@ import video from "../../LogginAssets/video.mp4";
 import logo from "../../LogginAssets/logo.png";
 
 //IMPORT ICONS
-import { MdMarkEmailRead } from "react-icons/md";
+import { IoMdMail } from "react-icons/io";
 import { AiOutlineSwapRight } from "react-icons/ai";
 
 //IMPORT SWEET ALERT
@@ -20,7 +20,7 @@ function Forgot() {
       text: "Por favor revise su correo para restablecer la contraseña",
       icon: "success"
     }).then(() =>{
-      window.location.href = "/"; 
+      window.location.href = "/login"; 
     })
   }
 
@@ -35,7 +35,7 @@ function Forgot() {
           </div>
           <div className="footerDiv flex">
           <span className="text">Ya tienes cuenta?</span>
-          <Link to={"/"}>
+          <Link to={"/login"}>
               <button className="btn">Iniciar Sesion</button>
             </Link>
           </div>
@@ -49,11 +49,12 @@ function Forgot() {
             <div className="inputDiv">
               <label htmlFor="email">Correo</label>
               <div className="input flex">
-                <MdMarkEmailRead className="icon" />
+                <IoMdMail className="icon" />
                 <input
                   type="email"
-                  id="email"
-                  placeholder="Ingrese el Correo"
+                  id="correo"
+                  pattern=".+@gmail\.com"
+                  placeholder="Ingrese su Correo"
                 />
               </div>
             </div>
