@@ -1,4 +1,4 @@
-import "../../App.css";
+import "./Login.scss";
 import { Link } from "react-router-dom";
 
 //IMPORT ASSETS
@@ -6,9 +6,10 @@ import video from "../../LogginAssets/video.mp4";
 import logo from "../../LogginAssets/logo.png";
 
 //IMPORT ICONS
-import { FaUserShield } from "react-icons/fa";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
+import { FaIdCard } from "react-icons/fa";
+
 
 function Login() {
   return (
@@ -32,16 +33,15 @@ function Login() {
             <img src={logo} alt="Logo Image" />
             <h3>Bienvenido de Nuevo!</h3>
           </div>
-          <form action="" className="form grid">
-            <span className="showMessage">Login Status Will go here</span>
+          <form action="" className="form grid">   
             <div className="inputDiv">
-              <label htmlFor="username">Usuario</label>
+              <label htmlFor="username">Cedula</label>
               <div className="input flex">
-                <FaUserShield className="icon" />
+                <FaIdCard className="icon" />
                 <input
                   type="text"
                   id="username"
-                  placeholder="Ingrese el Usuario"
+                  placeholder="Ingrese la Cedula"
                 />
               </div>
             </div>

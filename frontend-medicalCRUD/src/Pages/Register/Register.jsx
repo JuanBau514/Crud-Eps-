@@ -1,6 +1,4 @@
-import "../../App.css";
 import { Link } from "react-router-dom";
-
 
 //IMPORT ASSETS
 import video from "../../LogginAssets/video.mp4";
@@ -8,7 +6,6 @@ import logo from "../../LogginAssets/logo.png";
 
 //IMPORT ICONS
 import { MdMarkEmailRead } from "react-icons/md";
-import { FaUserShield } from "react-icons/fa";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
 
@@ -48,17 +45,6 @@ function Register() {
               </div>
             </div>
             <div className="inputDiv">
-              <label htmlFor="username">Usuario</label>
-              <div className="input flex">
-                <FaUserShield className="icon" />
-                <input
-                  type="text"
-                  id="username"
-                  placeholder="Ingrese el Usuario"
-                />
-              </div>
-            </div>
-            <div className="inputDiv">
               <label htmlFor="password">Contraseña</label>
               <div className="input flex">
                 <BsFillShieldLockFill className="icon" />
@@ -66,6 +52,17 @@ function Register() {
                   type="password"
                   id="password"
                   placeholder="Ingrese la Contraseña"
+                />
+              </div>
+            </div>
+            <div className="inputDiv">
+              <label htmlFor="password">Verifica la Contraseña</label>
+              <div className="input flex">
+                <BsFillShieldLockFill className="icon" />
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Ingrese la Contraseña Nuevamente"
                 />
               </div>
             </div>
