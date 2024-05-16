@@ -43,6 +43,7 @@ function Login() {
                   id="correo"
                   pattern=".+@gmail\.com"
                   placeholder="Ingrese su Correo"
+                  required
                 />
               </div>
             </div>
@@ -53,16 +54,18 @@ function Login() {
                 <input
                   type="password"
                   id="password"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
                   placeholder="Ingrese la Contraseña"
+                  required
                 />
               </div>
             </div>
-            <Link to={"/dashboard"}>
+            <Link to={"/dashboard"}> 
               <button type="submit" className="btn flex">
                 <span>Login</span>
                 <AiOutlineSwapRight className="icon" />
               </button>
-            </Link>
+             </Link>
             
             <Link to={"/forgot"}>
               <span className="forgotPassword">
