@@ -4,7 +4,7 @@ import './activity.css'
 function Activity() {
     return (
         <div>
-
+            Activity
         </div>
     )
 }

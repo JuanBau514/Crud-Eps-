@@ -1,14 +1,16 @@
+.dashboard-container {
+  display: flex;
+}
+
+/* Estilos para el Body */
 .mainContent {
-  width: 85%;
+  width: 80%;
   height: 100%;
   padding: 2rem;
   overflow: auto;
 }
-
 .mainContent .bottom {
   margin-top: 2rem;
   gap: 2rem;
   align-items: flex-start;
-}
-
-/*# sourceMappingURL=body.css.map */
+}/*# sourceMappingURL=body.css.map */

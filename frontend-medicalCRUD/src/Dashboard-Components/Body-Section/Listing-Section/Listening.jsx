@@ -3,7 +3,7 @@ import './listening.css'
 function Listening() {
     return (
         <div>
-
+            Listening
         </div>
     )
 }

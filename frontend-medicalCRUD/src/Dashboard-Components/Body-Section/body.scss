@@ -1,12 +1,20 @@
-.mainContent{
-    width: 85%;
-    height: 100%;
-    padding: 2rem;
-    overflow: auto;
+.dashboard-container {
+  display: flex;
+}
 
-    .bottom{
-        margin-top: 2rem;
-        gap: 2rem;
-        align-items: flex-start;
-    }
+
+
+/* Estilos para el Body */
+.mainContent {
+
+  width: 80%;
+  height: 100%;
+  padding: 2rem;
+  overflow: auto;
+
+  .bottom {
+    margin-top: 2rem;
+    gap: 2rem;
+    align-items: flex-start;
+  }
 }

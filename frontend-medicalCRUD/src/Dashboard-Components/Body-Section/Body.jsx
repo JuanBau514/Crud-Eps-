@@ -1,16 +1,16 @@
 import React from 'react'
+import Top from '../Body-Section/Top-section/Top'
+import Listening from '../Body-Section/Listing-Section/Listening'
+import Activity from '../Body-Section/Activity-Section/Activity'
 import './body.css'
-import Top from './Top-section/Top'
-import Listing from './Activity-Section/Activity.jsx'
-import Activity from './Listing-Section/Listening.jsx'
 
 const Body = () => {
   return (
     <div className='mainContent'>
-      <Top />
+      <Top/>
 
-      <div className='bottom flex'>
-        <Listing />
+      <div className='="bottom flex'>
+        <Listening />
         <Activity />
       </div>
     </div>

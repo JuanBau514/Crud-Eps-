@@ -4,7 +4,7 @@ import Body from '../../Dashboard-Components/Body-Section/Body';
 
 function Dashboard() {
   return (
-    <div>
+    <div className="dashboard-container">
       <Sidebar />
       <Body />
     </div>
