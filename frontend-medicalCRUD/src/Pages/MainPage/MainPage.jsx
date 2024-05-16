@@ -1,28 +1,26 @@
+import Navbar from "./Components/Navbar";
+import Hero from "./Components/Hero";
+import Info from "./Components/Info";
+import About from "./Components/About";
+import BookAppointment from "./Components/BookAppointment";
+import Reviews from "./Components/Reviews";
+import Doctors from "./Components/Doctors";
+import Footer from "./Components/Footer";
+import "./MainPage.scss";
+
 function MainPage() {
-    return (
-      <div>   
-         <br/>
-        MainPage
-         <br/>
-        <br/>
-        <h1>Navigation</h1>
-        <br/>
-        <br/>
-        <a href="/login">Login</a>
-         <br/>
-        <br/>
-        <a href="/register">Register</a>
-         <br/>
-        <br/>
-        <a href="/dashboard">Dashboard</a>
-         <br/>
-        <br/>
-        <a href="/forgot">Forgot</a>
-        <br/>
-        <br/>
-      </div>
-    )
-  }
-  
-  export default MainPage
-  
+  return (
+    <div className="home-section">
+      <Navbar />
+      <Hero />
+      <Info />
+      <About />
+      <BookAppointment />
+      <Reviews />
+      <Doctors />
+      <Footer />
+    </div>
+  );
+}
+
+export default MainPage;
