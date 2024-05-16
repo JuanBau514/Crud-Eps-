@@ -54,10 +54,10 @@ img {
 }
 
 
-// .flex {
-//     display: flex;
-//     align-items: center;
-// }
+ .flex {
+     display: flex;
+     align-items: center;
+ }
 
 .grid {
     display: grid;
@@ -85,23 +85,16 @@ img {
     color: var(--primaryColor);
 }
 
-// body { ESTO ES LO QUE GENERA CONFLICTO
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     margin: auto;
-//     padding: 1rem;
-// }
 
-// .container {
-//     position: relative;
-//     width: 95vw;
-//     height: 95vh;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     background-color: var(--bgColor);
-//     overflow: hidden;
-//     border-radius: 1rem;
-//     box-shadow: 2px 2px 9px var(--greyText);
-// }
+ .container {
+     position: relative;
+     width: 95vw;
+     height: 95vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: var(--bgColor);
+    overflow: hidden;
+     border-radius: 1rem;
+    box-shadow: 2px 2px 9px var(--greyText);
+}

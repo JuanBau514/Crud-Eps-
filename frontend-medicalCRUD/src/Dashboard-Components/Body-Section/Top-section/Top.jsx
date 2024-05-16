@@ -4,7 +4,7 @@ import './top.css'
 function Top() {
     return (
         <div>
-
+            Top
         </div>
     )
 }
