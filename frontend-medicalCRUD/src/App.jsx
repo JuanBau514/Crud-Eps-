@@ -3,6 +3,7 @@ import Register from "./Pages/Register/Register";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Forgot from "./Pages/Forgot/Forgot";
 import MainPage from "./Pages/MainPage/MainPage";
+import RegisterToken from "./Pages/RegisterToken/RegisterToken";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/forgot',
     element: <div><Forgot/></div>
+  },
+  {
+    path: '/registertoken',
+    element: <div><RegisterToken/></div>
   }
 ]);
 
