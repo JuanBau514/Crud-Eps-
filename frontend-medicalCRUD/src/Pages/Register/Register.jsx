@@ -128,6 +128,7 @@ function Register() {
                 <input
                   type="password"
                   id="password"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
                   placeholder="Ingrese la Contraseña"
                 />
               </div>
@@ -139,6 +140,7 @@ function Register() {
                 <input
                   type="password"
                   id="password"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
                   placeholder="Ingrese la Contraseña Nuevamente"
                 />
               </div>
