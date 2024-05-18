@@ -39,6 +39,7 @@ const LoginUser = () => {
         loginMessage.textContent = data; // Muestra mensaje de éxito
         loginMessage.style.color = 'green'; // verde = exito
         //redireccionar.txt
+        //-> jwt hacer todo eso
         setTimeout(() => { //el redireccionador
           window.location.href = "/dashboard"; //
         }, 5000); // Redirecciona después de 5 segundos

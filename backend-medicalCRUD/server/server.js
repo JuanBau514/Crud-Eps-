@@ -113,8 +113,9 @@ app.get('/recoverPass', async (req, res) => {
         }
         // redirigr al archivo html
         // redirigr a register token
-        // res.redirect(`http://localhost:5173/registerToken?token=${encodeURIComponent(token)}&userId=${encodeURIComponent(userId)}`);
-        return res.status(200).send("Se ha hecho de manera exitosa, solo que el perro malparido de cristian se le olvidó el modal");
+        res.redirect(`http://localhost:5173/passwordToken?token=${encodeURIComponent(token)}&userId=${encodeURIComponent(userId)}`);
+        //cristian tonto
+        //return res.status(200).send("Se ha hecho de manera exitosa, solo que el perro malparido de cristian se le olvidó el modal");
 
     } catch (error) {
         console.error('Error preparando la recuperación de contraseña:', error);

@@ -12,6 +12,61 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 
+const passwordTokenBackend = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+  const userId = urlParams.get("userId");
+  
+  if (!token || !userId) {
+    messageElement.textContent = "Datos incongruentes";
+    messageElement.style.color = "red";
+    return;    
+  }
+
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmPassword =
+    document.getElementById("confirmPassword").value;
+  const messageElement = document.getElementById("message");
+
+  if (newPassword !== confirmPassword) {
+    messageElement.textContent = "Las contraseñas no coinciden.";
+    messageElement.style.color = "red";
+    return;
+  }
+
+  fetch("api/resetPassword", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: token,
+      userId: userId,
+      newPassword: newPassword,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw response;
+      }
+      return response.text();
+    })
+    .then((data) => {
+      messageElement.textContent = data; // Muestra mensaje de éxito
+      messageElement.style.color = "green"; // Verde = éxito
+      setTimeout(() => { //el redireccionador
+        window.location.href = "/login"; //
+      }, 5000); // Redirecciona después de 5 segundos
+    })
+    .catch((error) => {
+      error.text().then((errorMessage) => {
+        console.error("Error:", errorMessage);
+        messageElement.textContent = errorMessage; // Muestra mensaje de error
+        messageElement.style.color = "red"; // Rojo = peligro
+      });
+    });
+}
+
 function passwordToken() {
 
   return (
@@ -37,32 +92,32 @@ function passwordToken() {
           </div>
           <form action="" className="form grid">
             <div className="inputDiv">
-              <label htmlFor="email">Nueva Contraseña:</label>
+              <label htmlFor="newPassword">Nueva Contraseña:</label>
               <div className="input flex">
                 <IoMdMail className="icon" />
                 <input
-                  type="email"
-                  id="correo"
-                  pattern=".+@gmail\.com"
+                  type="password"
+                  id="newPassword"
+                  //pattern=".+@gmail\.com"
                   placeholder="Nueva Contraseña"
                 />
               </div>   
             </div>
 
              <div className="inputDiv">
-              <label htmlFor="email">Confirmar Contraseña</label>
+              <label htmlFor="confirmPassword">Confirmar Contraseña</label>
               <div className="input flex">
                 <IoMdMail className="icon" />
                 <input
-                  type="email"
-                  id="correo"
-                  pattern=".+@gmail\.com"
+                  type="password"
+                  id="confirmPassword"
+                  //pattern=".+@gmail\.com"
                   placeholder="Confirmar Contraseña:"
                 />
               </div>   
             </div>
-            
-              <button type="button" className="btn flex">
+            <div id="message"></div>
+              <button type="button" onClick={passwordTokenBackend} className="btn flex">
                 <span>Restablecer Contraseña</span>
                 <AiOutlineSwapRight className="icon" />
               </button>
