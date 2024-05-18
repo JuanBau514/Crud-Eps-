@@ -10,6 +10,48 @@ import { IoMdMail } from "react-icons/io";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
 
+const LoginUser = () => {
+    const email = document.getElementById('emailLogin').value;
+    const password = document.getElementById('passwordLogin').value;
+    const loginMessage = document.getElementById('loginMessage');
+    console.log(email, password);
+    try {
+      if (!email || !password) {
+        throw new Error('No hay weas definidas');
+      }
+    }catch(error) {
+      console.log('Falló los datos:', error);
+    }
+    fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, password: password })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw response;
+        }
+        return response.text();
+    })
+    .then(data => {
+        loginMessage.textContent = data; // Muestra mensaje de éxito
+        loginMessage.style.color = 'green'; // verde = exito
+        //redireccionar.txt
+        setTimeout(() => { //el redireccionador
+          window.location.href = "/dashboard"; //
+        }, 5000); // Redirecciona después de 5 segundos
+    })
+    .catch(error => {
+        error.text().then(errorMessage => {
+            console.error('Error:', errorMessage);
+            loginMessage.textContent = errorMessage; // Muestra mensaje de error
+            loginMessage.style.color = 'red'; //SIGNIFICA PELIGRO
+        });
+    });  
+}
+
 
 function Login() {
   return (
@@ -40,7 +82,7 @@ function Login() {
                 <IoMdMail className="icon" />
                 <input
                   type="email"
-                  id="correo"
+                  id="emailLogin"
                   pattern=".+@gmail\.com"
                   placeholder="Ingrese su Correo"
                   required
@@ -53,19 +95,20 @@ function Login() {
                 <BsFillShieldLockFill className="icon" />
                 <input
                   type="password"
-                  id="password"
+                  id="passwordLogin"
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"
                   placeholder="Ingrese la Contraseña"
                   required
                 />
               </div>
             </div>
-            <Link to={"/dashboard"}> 
-              <button type="submit" className="btn flex">
+            <div id="loginMessage"></div>
+            
+              <button type="button" onClick={LoginUser} className="btn flex">
                 <span>Login</span>
                 <AiOutlineSwapRight className="icon" />
               </button>
-             </Link>
+             
             
             <Link to={"/forgot"}>
               <span className="forgotPassword">

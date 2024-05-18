@@ -87,7 +87,7 @@ app.post('/login', async (req, res) => {
         console.log(`Iniciando sesión de ${email} y ${password}`);
         
         const type = await AuthController.loginAccount(email, password);
-        res.status(201).send(`Inicio de sesión exitoso, eres ${type}`);
+        res.status(201).send(`Inicio de sesión exitoso, eres ${type} y serás redireccionado en 5 segundos`);
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);
         res.status(400).send(error.message);
