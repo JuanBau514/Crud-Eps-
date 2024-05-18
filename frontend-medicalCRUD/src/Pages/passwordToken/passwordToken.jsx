@@ -12,17 +12,7 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 
-function Forgot() {
-
-  const showSwal = () => {
-    withReactContent(Swal).fire({
-      title: "El código ha sido enviado",
-      text: "Por favor revise su correo para restablecer la contraseña",
-      icon: "success"
-    }).then(() =>{
-      window.location.href = "/login"; 
-    })
-  }
+function passwordToken() {
 
   return (
     <div className="loginPage flex">
@@ -47,20 +37,33 @@ function Forgot() {
           </div>
           <form action="" className="form grid">
             <div className="inputDiv">
-              <label htmlFor="email">Correo</label>
+              <label htmlFor="email">Nueva Contraseña:</label>
               <div className="input flex">
                 <IoMdMail className="icon" />
                 <input
                   type="email"
                   id="correo"
                   pattern=".+@gmail\.com"
-                  placeholder="Ingrese su Correo"
+                  placeholder="Nueva Contraseña"
                 />
-              </div>
-              
+              </div>   
             </div>
-              <button type="button" onClick={showSwal} className="btn flex">
-                <span>Enviar Código</span>
+
+             <div className="inputDiv">
+              <label htmlFor="email">Confirmar Contraseña</label>
+              <div className="input flex">
+                <IoMdMail className="icon" />
+                <input
+                  type="email"
+                  id="correo"
+                  pattern=".+@gmail\.com"
+                  placeholder="Confirmar Contraseña:"
+                />
+              </div>   
+            </div>
+            
+              <button type="button" className="btn flex">
+                <span>Restablecer Contraseña</span>
                 <AiOutlineSwapRight className="icon" />
               </button>
           </form>
@@ -70,4 +73,4 @@ function Forgot() {
   );
 }
 
-export default Forgot;
+export default passwordToken;

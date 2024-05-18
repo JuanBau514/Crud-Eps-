@@ -4,6 +4,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Forgot from "./Pages/Forgot/Forgot";
 import MainPage from "./Pages/MainPage/MainPage";
 import RegisterToken from "./Pages/RegisterToken/RegisterToken";
+import PasswordToken from "./Pages/passwordToken/passwordToken";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: '/registertoken',
     element: <div><RegisterToken/></div>
+  },
+  {
+    path:'/passwordToken',
+    element: <div><PasswordToken/></div>
   }
 ]);
 
