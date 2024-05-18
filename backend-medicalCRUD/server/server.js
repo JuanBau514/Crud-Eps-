@@ -35,7 +35,7 @@ app.post('/register', async (req, res) => {
     try {
         console.log(`Registrando ${email} y ${password}`);
         await AuthController.createAccount(email, password);
-        res.status(201).send('Usuario registrado con éxito, revisa tu correo para ver la confirmación');
+        res.status(201).send('Usuario registrado con éxito, revisa tu correo para ver la confirmación...');
     } catch(error) {
         console.log('Error en la creación de cuenta:', error);
         res.status(500).send(error.message);
@@ -51,15 +51,8 @@ app.get('/confirm', async (req, res) => {
         if (!isValid) {
             return res.status(400).send('Token inválido o expirado');
         }
-        // redirigr al archivo html
-        const filePath = path.join(__dirname, '..', 'public', 'registrop.html');
-        console.log("Intentando enviar archivo:", filePath);
-        res.sendFile(filePath, (err) => {
-            if (err) {
-            console.error("Error al enviar el archivo:", err);
-            return res.status(500).send("No se pudo enviar el archivo.");
-            }
-        });
+        // redirigr a register token
+        res.redirect(`http://localhost:5173/registerToken?token=${encodeURIComponent(token)}&userId=${encodeURIComponent(userId)}`);
 
     } catch (error) {
         console.error('Error preparando el registro de cuenta:', error);

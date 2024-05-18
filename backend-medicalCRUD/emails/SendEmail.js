@@ -12,7 +12,7 @@ export class SendEmail {
     * @param {User} user - El usuario a quien enviar el correo.
     */
     static sendConfirmationEmail = async ( user, token ) => {
-        const confirmationUrl = `http://localhost:3000/confirm?token=${encodeURIComponent(token.token)}&userId=${encodeURIComponent(user.id_usuario)}`;
+        const confirmationUrl = `http://localhost:5173/api/confirm?token=${encodeURIComponent(token.token)}&userId=${encodeURIComponent(user.id_usuario)}`;
         const info = await transporter.sendMail({
             from: 'EPS Account Logistics <epsal@eps.com>',
             to: user.correo_usuario,
@@ -34,7 +34,7 @@ export class SendEmail {
     * @param {User} user - El usuario a quien enviar el correo.
     */
     static sendPasswordResetEmail = async ( user, token ) => {
-        const recoverUrl = `http://localhost:3000/recoverPass?token=${encodeURIComponent(token.token)}&userId=${encodeURIComponent(user.id_usuario)}`;
+        const recoverUrl = `http://localhost:5173/recoverPass?token=${encodeURIComponent(token.token)}&userId=${encodeURIComponent(user.id_usuario)}`;
         const info = await transporter.sendMail({
             from: 'EPS Account Logistics <epsal@eps.com>',
             to: user.correo_usuario,

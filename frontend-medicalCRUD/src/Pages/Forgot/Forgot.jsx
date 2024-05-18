@@ -14,7 +14,7 @@ import withReactContent from 'sweetalert2-react-content';
 
 function Forgot() {
 
-  const showSwal = () => {
+  /*const showSwal = () => {
     withReactContent(Swal).fire({
       title: "El código ha sido enviado",
       text: "Por favor revise su correo para restablecer la contraseña",
@@ -22,7 +22,7 @@ function Forgot() {
     }).then(() =>{
       window.location.href = "/login"; 
     })
-  }
+  }*/
 
   return (
     <div className="loginPage flex">
