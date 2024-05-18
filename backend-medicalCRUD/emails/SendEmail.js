@@ -34,7 +34,7 @@ export class SendEmail {
     * @param {User} user - El usuario a quien enviar el correo.
     */
     static sendPasswordResetEmail = async ( user, token ) => {
-        const recoverUrl = `http://localhost:5173/recoverPass?token=${encodeURIComponent(token.token)}&userId=${encodeURIComponent(user.id_usuario)}`;
+        const recoverUrl = `http://localhost:5173/api/recoverPass?token=${encodeURIComponent(token.token)}&userId=${encodeURIComponent(user.id_usuario)}`;
         const info = await transporter.sendMail({
             from: 'EPS Account Logistics <epsal@eps.com>',
             to: user.correo_usuario,
@@ -60,7 +60,7 @@ export class SendEmail {
             html: `
                     <p>Hola <strong>${paciente.nombres}</strong>, te damos la bienvenida a EPS.</p>
                     <p>Ahora como miembro, tienes acceso a todos nuestros servicios exclusivos. Estamos aquí para ayudarte en lo que necesites.</p>
-                    <p>Para empezar, puedes visitar <a href="https://www.colsubsidio.com/">nuestra página de bienvenida</a>.</p>
+                    <p>Para empezar, puedes visitar <a href="http://localhost:5173/">nuestra página de bienvenida</a>.</p>
                     <p>Si tienes alguna pregunta, no dudes en contactarnos a través de nuestro soporte: <a href="#">support@eps.com</a>.</p>
                     <p>¡Gracias por unirte a nosotros!</p>
                     <p>Saludos,</p>

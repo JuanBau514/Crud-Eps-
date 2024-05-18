@@ -112,14 +112,9 @@ app.get('/recoverPass', async (req, res) => {
             return res.status(400).send('Token inválido o expirado');
         }
         // redirigr al archivo html
-        const filePath = path.join(__dirname, '..', 'public', 'recuperarcontra.html');
-        console.log("Intentando enviar archivo:", filePath);
-        res.sendFile(filePath, (err) => {
-            if (err) {
-            console.error("Error al enviar el archivo:", err);
-            return res.status(500).send("No se pudo enviar el archivo.");
-            }
-        });
+        // redirigr a register token
+        // res.redirect(`http://localhost:5173/registerToken?token=${encodeURIComponent(token)}&userId=${encodeURIComponent(userId)}`);
+        return res.status(200).send("Se ha hecho de manera exitosa, solo que el perro malparido de cristian se le olvidó el modal");
 
     } catch (error) {
         console.error('Error preparando la recuperación de contraseña:', error);
