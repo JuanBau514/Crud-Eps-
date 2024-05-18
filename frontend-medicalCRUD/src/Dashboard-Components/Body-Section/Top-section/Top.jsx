@@ -27,7 +27,6 @@ function Top() {
                 </div>
 
             </div>
-            
         </div>
     )
 }
