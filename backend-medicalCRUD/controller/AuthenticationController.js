@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import Token from '../models/Token.js';
 import { checkPassword, hashPassword } from '../utils/auth.js';
@@ -133,26 +134,34 @@ export class AuthController {
             if (!await checkPassword(pass, verifyEmail.password)) {
                 throw new Error ("Correo y contraseña no válidos");
             }
-            
+
+            const userLogin = new User({
+                id_usuario: verifyEmail.id_usuario,
+                correo_usuario: verifyEmail.correo_usuario
+            });
             const tipo_usuario = await instanciaUserLogin.searchByTypeUser(minusEmail);
 
             await instanciaUserLogin.close();
             if (!tipo_usuario) {
                 throw new Error('Usuario sin relación');
             }
+            
             switch(tipo_usuario.tipo_usuario) {
                 case '0':
                     console.log('Inicio exitoso');
                     tipo_usuario.tipo_usuario = 'paciente';
-                    return tipo_usuario.tipo_usuario;
+                    userLogin.type_user = tipo_usuario.tipo_usuario;
+                    return userLogin;
                 case '1':
                     console.log('Inicio exitoso');
                     tipo_usuario.tipo_usuario = 'medico';
-                    return tipo_usuario.tipo_usuario;
+                    userLogin.type_user = tipo_usuario.tipo_usuario;
+                    return userLogin;
                 case '2':
                     console.log('Inicio exitoso');
                     tipo_usuario.tipo_usuario = 'admin';
-                    return tipo_usuario.tipo_usuario;
+                    userLogin.type_user = tipo_usuario.tipo_usuario;
+                    return userLogin;
                 default:
                     console.log('hola soy nadie');
                     throw new Error ('Usuario no identificado');  
@@ -327,6 +336,24 @@ export class AuthController {
 
         } catch (error) {
             console.error("Error about verifyTokenAndUser:", error);
+            throw new Error(error.message);
+        }
+    }
+
+    static validateJWT = async (tokenJWT) => {
+        try {
+            if (!tokenJWT) {
+                throw new Error('No se proporcionó token');
+            }
+            const token = tokenJWT.split(' ')[1];
+            if (!token) {
+                throw new Error('Token no encontrado en la cabecera');
+            }
+            const decoded = jwt.verify(token, process.env.SECRET_JWT);
+            console.log('Token verificado de manera exitosa');
+            return decoded;
+        }catch (error) {
+            console.error("Error about validateJWT:", error);
             throw new Error(error.message);
         }
     }

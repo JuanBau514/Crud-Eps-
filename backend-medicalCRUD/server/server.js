@@ -2,8 +2,7 @@ import dotenv from "dotenv"
 dotenv.config();
 import express from 'express';
 import morgan from 'morgan';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import jwt from 'jsonwebtoken';
 import { AuthController } from '../controller/AuthenticationController.js';
 //import router from '../routes/authRoutes.js'
 //const authRouter = router();
@@ -18,9 +17,6 @@ app.use(express.json());
 
 //static
 app.use(express.static('public'));
-
-//url actual
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Routes
 
@@ -77,13 +73,23 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     console.log('Entrando a /login');
     try {
-        console.log(`Iniciando sesión de ${email} y ${password}`);
-        
-        const type = await AuthController.loginAccount(email, password);
-        res.status(201).send(`Inicio de sesión exitoso, eres ${type} y serás redireccionado en 5 segundos`);
+        console.log(`Iniciando sesión de ${email}`);
+        const user = await AuthController.loginAccount(email, password);
+        // Genera un token JWT con la información del usuario
+        const jwtToken = jwt.sign(
+            { id: user.id_usuario, email: user.correo_usuario, type: user.type_user },
+            process.env.SECRET_JWT, // Usa la variable de entorno para el secreto
+            { expiresIn: '1h' }
+        );
+        // Enviar el token al cliente
+        res.status(200).json({
+            message: `Inicio de sesión exitoso, eres ${user.type_user}.`,
+            token: jwtToken // Envía el token para que el cliente lo pueda usar
+        });
+
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);
-        res.status(400).send(error.message);
+        res.status(401).json({ message: error.message });
     }
 });
 
@@ -137,5 +143,18 @@ app.post('/resetPassword', async (req, res) => {
     }
 });
 
+//Token jwt
+
+app.post('/JWTSession', async (req, res) => {
+    console.log('Entrando a /JWTSession...');
+    const jwtToken = req.body.token;
+    try {
+        const decoded = await AuthController.validateJWT(jwtToken);
+        res.json(decoded); // Envía el objeto decodificado directamente
+    } catch (error) {
+        console.error('Error en JWTSession:', error);
+        res.status(401).send('Token inválido: ' + error.message);
+    }
+});
 
 export default app;

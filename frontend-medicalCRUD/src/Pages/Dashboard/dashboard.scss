@@ -98,3 +98,16 @@ img {
      border-radius: 1rem;
     box-shadow: 2px 2px 9px var(--greyText);
 }
+
+.error-message {
+    color: #721c24; /* Color del texto, rojo oscuro para más visibilidad */
+    background-color: #f8d7da; /* Fondo claro rojizo para contraste */
+    border: 1px solid #f5c6cb; /* Borde sutil */
+    border-radius: 4px; /* Bordes redondeados para un look moderno */
+    padding: 10px 20px; /* Espaciado interno para no tener el texto pegado al borde */
+    margin: 20px; /* Margen alrededor del mensaje para separarlo de otros elementos */
+    width: auto; /* Ancho automático según el contenido, ajustable según necesidades */
+    text-align: center; /* Centra el texto para llamar la atención */
+    font-weight: bold; /* Texto en negrita para resaltar la importancia */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
+}

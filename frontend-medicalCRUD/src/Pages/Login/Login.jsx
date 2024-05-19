@@ -1,66 +1,14 @@
 import "./Login.scss";
 import { Link } from "react-router-dom";
+import LoginComponent from './LoginComponent.jsx';
 
 //IMPORT ASSETS
 import video from "../../LogginAssets/video.mp4";
 import logo from "../../LogginAssets/logo.png";
-import Swal from "sweetalert2";
-import withReactContent from 'sweetalert2-react-content';
 
 //IMPORT ICONS
 import { IoMdMail } from "react-icons/io";
 import { BsFillShieldLockFill } from "react-icons/bs";
-import { AiOutlineSwapRight } from "react-icons/ai";
-
-const LoginUser = () => {
-    const email = document.getElementById('emailLogin').value;
-    const password = document.getElementById('passwordLogin').value;
-    const loginMessage = document.getElementById('loginMessage');
-    console.log(email, password);
-    try {
-      if (!email || !password) {
-        throw new Error('No hay weas definidas');
-      }
-    }catch(error) {
-      console.log('Falló los datos:', error);
-    }
-    fetch('/api/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: email, password: password })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw response;
-        }
-        return response.text();
-    })
-   .then(data => {loginMessage.textContent = ''; // Limpia cualquier mensaje previo
-        Swal.fire({
-            icon: 'success',
-            title: 'Login Exitoso',
-            text: data,
-            showConfirmButton: true,
-            timer: 5000 // La alerta se cerrará automáticamente después de 5 segundos
-        }).then(() => {
-            window.location.href = "/dashboard"; // Redirecciona después de cerrar la alerta
-        });
-    })
-    .catch(error => {
-        error.text().then(errorMessage => {
-            console.error('Error:', errorMessage);
-            loginMessage.textContent = ''; // Limpia cualquier mensaje previo
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: errorMessage
-            });
-        });
-    });
-}
-
 
 function Login() {
   return (
@@ -78,15 +26,15 @@ function Login() {
               <button className="btn">Registrate</button>
             </Link>
           </div>
-        </div>    
+        </div>
         <div className="formDiv flex">
           <div className="headerDiv">
             <img src={logo} alt="Logo Image" />
             <h3>Bienvenido de Nuevo!</h3>
           </div>
-          <form action="" className="form grid">   
+          <form action="" className="form grid">
             <div className="inputDiv">
-              <label htmlFor="correo">Correo</label>
+              <label htmlFor="emailLogin">Correo</label>
               <div className="input flex">
                 <IoMdMail className="icon" />
                 <input
@@ -99,7 +47,7 @@ function Login() {
               </div>
             </div>
             <div className="inputDiv">
-              <label htmlFor="password">Contraseña</label>
+              <label htmlFor="passwordLogin">Contraseña</label>
               <div className="input flex">
                 <BsFillShieldLockFill className="icon" />
                 <input
@@ -111,22 +59,17 @@ function Login() {
                 />
               </div>
             </div>
-            <div id="loginMessage"></div>
-            
-              <button type="button" onClick={LoginUser} className="btn flex">
-                <span>Login</span>
-                <AiOutlineSwapRight className="icon" />
-              </button>
-             
-            
-            <Link to={"/forgot"}>
-              <span className="forgotPassword">
-                Olvidaste tu Contraseña? <a href="">Click Aqui</a>
-              </span>
-            </Link>
+            <LoginComponent />
+
+            <span className="forgotPassword">
+              <p>¿Olvidaste tu Contraseña?</p>
+              <Link to="/forgot" className="highlight">Click Aquí</Link>
+            </span>
+
+
           </form>
-        </div>    
-      </div>      
+        </div>
+      </div>
     </div>
   );
 }
