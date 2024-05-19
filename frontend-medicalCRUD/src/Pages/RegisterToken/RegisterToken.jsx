@@ -14,9 +14,70 @@ import { FaArrowsUpDown } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 
+const registerP = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get("userId");
+  const token = urlParams.get("token");
+
+  const paciente = {
+    nombres: document.getElementById("nombres").value,
+    apellidos: document.getElementById("apellidos").value,
+    fecha_naci: document.getElementById("fecha_naci").value,
+    lugar_naci: parseInt(document.getElementById("lugar_naci").value),
+    direccion_re: document.getElementById("direccion_re").value,
+    direccion_cor: document.getElementById("direccion_cor").value,
+    estrato: parseInt(document.getElementById("estrato").value),
+    ciudad_resi: parseInt(document.getElementById("ciudad_resi").value),
+    ciudad_afili: parseInt(document.getElementById("ciudad_afili").value),
+    id_usuario: userId
+  };
+
+  const messageElement = document.getElementById("message");
+
+  fetch("/api/registerP", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: token,
+      paciente: paciente
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw response;
+      }
+      return response.text();
+    })
+   .then((data) => {
+      messageElement.textContent = data; // Muestra mensaje de éxito
+      messageElement.style.color = "green"; // Verde = éxito
+      setTimeout(() => { //el redireccionador
+          window.location.href = "/"; //
+      }, 5000); // Redirecciona después de 5 segundos
+    }) 
+    .catch((error) => {
+      if (error instanceof Response) {
+        // Solo si el error es un objeto Response, se intenta obtener el texto
+        error.text().then((errorMessage) => {
+          console.error("Error:", errorMessage);
+          messageElement.textContent = errorMessage;
+          messageElement.style.color = "red";
+        });
+      } else {
+        //de lo contrario puede ser otro error
+        console.error("Error:", error);
+        messageElement.textContent = "Error al procesar la solicitud.";
+        messageElement.style.color = "red";
+      }
+    });
+
+}
+
 function RegisterToken() {
     
-  const showSwal = () => {
+  /*const showSwal = () => {
     withReactContent(Swal).fire({
       title: "Exito!",
       text: "Usuario Registrado Exitosamente",
@@ -24,7 +85,7 @@ function RegisterToken() {
     }).then(() =>{
       window.location.href = "/login"; 
     })
-  }
+  }*/
 
   return (
     <div className="registerPage flex">
@@ -137,8 +198,8 @@ function RegisterToken() {
                 </select>
               </div>
             </div>
-
-            <button type="button" onClick={showSwal} className="btn flex">
+            <div id="message"></div>
+            <button type="button" onClick={registerP} className="btn flex">
               <span>Registrar</span>
               <AiOutlineSwapRight className="icon" />
             </button>                        

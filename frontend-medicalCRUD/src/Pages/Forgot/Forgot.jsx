@@ -12,6 +12,40 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 
+const forgotPassword = () => {
+  const email = document.getElementById('recoveryEmail').value;
+  const recoveryMessage = document.getElementById('recoveryMessage'); // Obtiene el elemento donde mostrarás los mensajes
+
+  fetch('api/recover', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email })
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw response;
+      }
+      return response.text();
+  })
+  .then(data => {
+      recoveryMessage.textContent = data; // Muestra mensaje de éxito
+      recoveryMessage.style.color = 'green'; // Verde = éxito
+      //redireccionar...
+      setTimeout(() => { //el redireccionador
+        window.location.href = "/"; //
+    },  3000); // Redirecciona después de 5 segundos
+  })
+  .catch(error => {
+      error.text().then(errorMessage => {
+          console.error('Error:', errorMessage);
+          recoveryMessage.textContent = errorMessage; // Muestra mensaje de error
+          recoveryMessage.style.color = 'red'; // Rojo = peligro
+      });
+  });
+}
+
 function Forgot() {
 
   const showSwal = () => {
@@ -47,18 +81,20 @@ function Forgot() {
           </div>
           <form action="" className="form grid">
             <div className="inputDiv">
-              <label htmlFor="email">Correo</label>
+              <label htmlFor="recoveryEmail">Correo</label>
               <div className="input flex">
                 <IoMdMail className="icon" />
                 <input
                   type="email"
-                  id="correo"
+                  id="recoveryEmail"
                   pattern=".+@gmail\.com"
                   placeholder="Ingrese su Correo"
                 />
               </div>
+              
             </div>
-              <button type="button" onClick={showSwal} className="btn flex">
+            <div id="recoveryMessage"></div>
+              <button type="button" onClick={forgotPassword} className="btn flex">
                 <span>Enviar Código</span>
                 <AiOutlineSwapRight className="icon" />
               </button>

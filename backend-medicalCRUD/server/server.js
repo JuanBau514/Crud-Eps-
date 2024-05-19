@@ -35,7 +35,7 @@ app.post('/register', async (req, res) => {
     try {
         console.log(`Registrando ${email} y ${password}`);
         await AuthController.createAccount(email, password);
-        res.status(201).send('Usuario registrado con éxito, revisa tu correo para ver la confirmación');
+        res.status(201).send('Usuario registrado con éxito, revisa tu correo para ver la confirmación...');
     } catch(error) {
         console.log('Error en la creación de cuenta:', error);
         res.status(500).send(error.message);
@@ -51,15 +51,8 @@ app.get('/confirm', async (req, res) => {
         if (!isValid) {
             return res.status(400).send('Token inválido o expirado');
         }
-        // redirigr al archivo html
-        const filePath = path.join(__dirname, '..', 'public', 'registrop.html');
-        console.log("Intentando enviar archivo:", filePath);
-        res.sendFile(filePath, (err) => {
-            if (err) {
-            console.error("Error al enviar el archivo:", err);
-            return res.status(500).send("No se pudo enviar el archivo.");
-            }
-        });
+        // redirigr a register token
+        res.redirect(`http://localhost:5173/registerToken?token=${encodeURIComponent(token)}&userId=${encodeURIComponent(userId)}`);
 
     } catch (error) {
         console.error('Error preparando el registro de cuenta:', error);
@@ -87,7 +80,7 @@ app.post('/login', async (req, res) => {
         console.log(`Iniciando sesión de ${email} y ${password}`);
         
         const type = await AuthController.loginAccount(email, password);
-        res.status(201).send(`Inicio de sesión exitoso, eres ${type}`);
+        res.status(201).send(`Inicio de sesión exitoso, eres ${type} y serás redireccionado en 5 segundos`);
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);
         res.status(400).send(error.message);
@@ -119,14 +112,10 @@ app.get('/recoverPass', async (req, res) => {
             return res.status(400).send('Token inválido o expirado');
         }
         // redirigr al archivo html
-        const filePath = path.join(__dirname, '..', 'public', 'recuperarcontra.html');
-        console.log("Intentando enviar archivo:", filePath);
-        res.sendFile(filePath, (err) => {
-            if (err) {
-            console.error("Error al enviar el archivo:", err);
-            return res.status(500).send("No se pudo enviar el archivo.");
-            }
-        });
+        // redirigr a register token
+        res.redirect(`http://localhost:5173/passwordToken?token=${encodeURIComponent(token)}&userId=${encodeURIComponent(userId)}`);
+        //cristian tonto
+        //return res.status(200).send("Se ha hecho de manera exitosa, solo que el perro malparido de cristian se le olvidó el modal");
 
     } catch (error) {
         console.error('Error preparando la recuperación de contraseña:', error);
