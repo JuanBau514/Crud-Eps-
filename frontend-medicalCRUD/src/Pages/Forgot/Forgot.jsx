@@ -12,11 +12,12 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 
+const errorSweet = withReactContent(Swal);
+
 const forgotPassword = () => {
   const email = document.getElementById('recoveryEmail').value;
-  const recoveryMessage = document.getElementById('recoveryMessage'); // Obtiene el elemento donde mostrarás los mensajes
 
-  fetch('api/recover', {
+  fetch('/api/recover', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -30,35 +31,32 @@ const forgotPassword = () => {
       return response.text();
   })
   .then(data => {
-      recoveryMessage.textContent = data; // Muestra mensaje de éxito
-      recoveryMessage.style.color = 'green'; // Verde = éxito
-      //redireccionar...
-      setTimeout(() => { //el redireccionador
-        window.location.href = "/"; //
-    },  3000); // Redirecciona después de 5 segundos
+      errorSweet.fire({
+          icon: 'success',
+          title: 'Correo enviado',
+          text: 'Por favor revise su correo para restablecer la contraseña',
+          showConfirmButton: true,
+          timer: 3000 // La alerta se cerrará automáticamente después de 3 segundos
+      }).then(() => {
+          window.location.href = "/login"; // Redirecciona después de cerrar la alerta
+      });
   })
   .catch(error => {
       error.text().then(errorMessage => {
           console.error('Error:', errorMessage);
-          recoveryMessage.textContent = errorMessage; // Muestra mensaje de error
-          recoveryMessage.style.color = 'red'; // Rojo = peligro
+          errorSweet.fire({
+              icon: 'error',
+              title: 'Error',
+              text: errorMessage
+          });
       });
   });
 }
 
 function Forgot() {
 
-  const showSwal = () => {
-    withReactContent(Swal).fire({
-      title: "El código ha sido enviado",
-      text: "Por favor revise su correo para restablecer la contraseña",
-      icon: "success"
-    }).then(() =>{
-      window.location.href = "/login"; 
-    })
-  }
-
   return (
+    
     <div className="loginPage flex">
       <div className="container flex">
         <div className="videoDiv">
@@ -91,7 +89,6 @@ function Forgot() {
                   placeholder="Ingrese su Correo"
                 />
               </div>
-              
             </div>
             <div id="recoveryMessage"></div>
               <button type="button" onClick={forgotPassword} className="btn flex">
@@ -103,6 +100,7 @@ function Forgot() {
       </div>      
     </div>
   );
+  
 }
 
 export default Forgot;

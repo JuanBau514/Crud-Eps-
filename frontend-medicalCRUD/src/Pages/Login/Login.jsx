@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 //IMPORT ASSETS
 import video from "../../LogginAssets/video.mp4";
 import logo from "../../LogginAssets/logo.png";
+import Swal from "sweetalert2";
+import withReactContent from 'sweetalert2-react-content';
 
 //IMPORT ICONS
 import { IoMdMail } from "react-icons/io";
@@ -35,22 +37,28 @@ const LoginUser = () => {
         }
         return response.text();
     })
-    .then(data => {
-        loginMessage.textContent = data; // Muestra mensaje de éxito
-        loginMessage.style.color = 'green'; // verde = exito
-        //redireccionar.txt
-        //-> jwt hacer todo eso
-        setTimeout(() => { //el redireccionador
-          window.location.href = "/dashboard"; //
-        }, 5000); // Redirecciona después de 5 segundos
+   .then(data => {loginMessage.textContent = ''; // Limpia cualquier mensaje previo
+        Swal.fire({
+            icon: 'success',
+            title: 'Login Exitoso',
+            text: data,
+            showConfirmButton: true,
+            timer: 5000 // La alerta se cerrará automáticamente después de 5 segundos
+        }).then(() => {
+            window.location.href = "/dashboard"; // Redirecciona después de cerrar la alerta
+        });
     })
     .catch(error => {
         error.text().then(errorMessage => {
             console.error('Error:', errorMessage);
-            loginMessage.textContent = errorMessage; // Muestra mensaje de error
-            loginMessage.style.color = 'red'; //SIGNIFICA PELIGRO
+            loginMessage.textContent = ''; // Limpia cualquier mensaje previo
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMessage
+            });
         });
-    });  
+    });
 }
 
 
