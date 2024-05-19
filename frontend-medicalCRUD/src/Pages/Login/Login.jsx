@@ -10,6 +10,10 @@ import { IoMdMail } from "react-icons/io";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
 
+//IMPORT SWEET ALERT
+import Swal from "sweetalert2";
+import withReactContent from 'sweetalert2-react-content';
+
 const LoginUser = () => {
     const email = document.getElementById('emailLogin').value;
     const password = document.getElementById('passwordLogin').value;
@@ -38,19 +42,21 @@ const LoginUser = () => {
     .then(data => {
         loginMessage.textContent = data; // Muestra mensaje de éxito
         loginMessage.style.color = 'green'; // verde = exito
-        //redireccionar.txt
-        //-> jwt hacer todo eso
-        setTimeout(() => { //el redireccionador
+        setTimeout(() => { // el redireccionador
           window.location.href = "/dashboard"; //
         }, 5000); // Redirecciona después de 5 segundos
     })
-    .catch(error => {
+     .catch(error => {
         error.text().then(errorMessage => {
             console.error('Error:', errorMessage);
-            loginMessage.textContent = errorMessage; // Muestra mensaje de error
-            loginMessage.style.color = 'red'; //SIGNIFICA PELIGRO
+            loginMessage.textContent = ''; // Limpia cualquier mensaje previo
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMessage
+            });
         });
-    });  
+    });
 }
 
 
