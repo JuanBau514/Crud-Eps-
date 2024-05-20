@@ -135,31 +135,43 @@ class PacienteDAO {
 
   close = async () => {
     try {
-        const instanciaObjetoConexion = Connection.getInstance();
-        if (instanciaObjetoConexion) {
-            await instanciaObjetoConexion.close();
-        } else {
-            console.log("No se encontró una instancia de conexión activa para cerrar.");
-        }
+      const instanciaObjetoConexion = Connection.getInstance();
+      if (instanciaObjetoConexion) {
+        await instanciaObjetoConexion.close();
+      } else {
+        console.log(
+          "No se encontró una instancia de conexión activa para cerrar."
+        );
+      }
     } catch (error) {
-        console.error("Error al cerrar la conexión:", error);
-        throw new Error ('Error al cerrar la conexión');
+      console.error("Error al cerrar la conexión:", error);
+      throw new Error("Error al cerrar la conexión");
     }
-  }
-
+  };
+  datesForPatient = async (user) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    const { id_usuario } = user;
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        'SELECT m.nombre as "Doctor", es.nombre as "Especialidad",c.fecha_hora as "Hora y fecha",s.nombre as "SEDE", mo.tipo as "Modalidad" FROM cita c INNER JOIN paciente p ON (c.id_paciente=p.id_paciente) INNER JOIN usuarios u ON(u.id_usuario=p.id_usuario) INNER JOIN medico m ON (c.id_medico=m.id_medico)INNER JOIN especialidad es ON(m.especialidad=es.id) INNER JOIN sede s ON (c.id_sede=s.id_sede) INNER JOIN modalidad_consulta mo ON (c.id_modalidad=mo.id_modalidad)WHERE u.id_usuario=?;',
+        [id_usuario]
+      );
+      return results;
+      //console.log(results); // Resultados de la consulta
+      //console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      //instanciaObjetoConexion.close();
+    }
+  };
 }
 
-export default PacienteDAO;
-
-//const dao = new UserDAO();
-//pruebas.php
 /* const daoPaciente = new PacienteDAO();
-
 //daoPaciente.read();
-
 const pacientePrueba = {
-  id_paciente: 1005,
-  nombres: "Atún",
+  id_paciente: 1010,
+  nombres: "Enrique",
   apellidos: "Limón",
   fecha_naci: "2007-05-20",
   lugar_naci: 1,
@@ -170,7 +182,9 @@ const pacientePrueba = {
   ciudad_afili: 1,
   id_usuario: 13001,
 };
- */
+let data=daoPaciente.datesForPatient(pacientePrueba);
+console.log("Imprimiendo datos de la consulta"+data); */
+export default PacienteDAO;
 //daoPaciente.create(pacientePrueba);
 
 //daoPaciente.update(pacientePrueba);

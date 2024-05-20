@@ -121,20 +121,37 @@ class MedicoDAO {
       instanciaObjetoConexion.close();
     }
   };
+  datesForMedic = async (user) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    const { id_usuario } = user;
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        'SELECT  p.nombres as "NombrePaciente",p.apellidos as "Apellido", es.nombre as "Especialidad",c.fecha_hora as "Hora y fecha",s.nombre as "SEDE", mo.tipo as "Modalidad", c.asistencia FROM cita c INNER JOIN paciente p ON (c.id_paciente=p.id_paciente) INNER JOIN medico m ON (c.id_medico=m.id_medico) INNER JOIN usuarios u ON (m.id_usuario=u.id_usuario)INNER JOIN especialidad es ON(m.especialidad=es.id) INNER JOIN sede s ON (c.id_sede=s.id_sede) INNER JOIN modalidad_consulta mo ON (c.id_modalidad=mo.id_modalidad)WHERE u.id_usuario=?;',
+        [id_usuario]
+      );
+      return results;
+      //console.log(results); // Resultados de la consulta
+      //console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      //instanciaObjetoConexion.close();
+    }
+  };
 }
-export default MedicoDAO;
-/* const medicoDAO = new MedicoDAO();
+/* export default MedicoDAO;
+const medicoDAO = new MedicoDAO();
 const medico = {
-  id_medico:4007,
+  id_medico: 4004,
   nombre: "Dr. Hermenegildo Gutierrez",
   direccion: "Calle Principal 123",
   ciudad: 2,
   licencia_medica: "12345",
   especialidad: 2001,
   tipo_licencia: 3001,
-  id_usuario: 13002,
-}; */
-
+  id_usuario: 13004,
+};
+medicoDAO.datesForMedic(medico); */
 //medicoDAO.create(medico);
 //medicoDAO.read();
 //medicoDAO.update(medico);
