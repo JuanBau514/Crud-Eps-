@@ -14,6 +14,8 @@ import { FaArrowsUpDown } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 
+const errorSweet = withReactContent(Swal);
+
 const registerP = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("userId");
@@ -32,7 +34,7 @@ const registerP = () => {
     id_usuario: userId
   };
 
-  const messageElement = document.getElementById("message");
+  const messageElement = document.getElementById("message"); // para que esta vaina godo ?
 
   fetch("/api/registerP", {
     method: "POST",
@@ -51,41 +53,39 @@ const registerP = () => {
       return response.text();
     })
    .then((data) => {
-      messageElement.textContent = data; // Muestra mensaje de éxito
-      messageElement.style.color = "green"; // Verde = éxito
-      setTimeout(() => { //el redireccionador
-          window.location.href = "/"; //
-      }, 5000); // Redirecciona después de 5 segundos
+       errorSweet.fire({
+        icon: 'success',
+        title: 'Registro exitoso',
+        text: data,
+        showConfirmButton: true,
+        timer: 3000 // La alerta se cerrará automáticamente después de 3 segundos
+      }).then(() => {
+        window.location.href = "/"; // Redirecciona después de cerrar la alerta
+      });
     }) 
     .catch((error) => {
       if (error instanceof Response) {
-        // Solo si el error es un objeto Response, se intenta obtener el texto
         error.text().then((errorMessage) => {
           console.error("Error:", errorMessage);
-          messageElement.textContent = errorMessage;
-          messageElement.style.color = "red";
+          errorSweet.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage
+          });
         });
       } else {
-        //de lo contrario puede ser otro error
-        console.error("Error:", error);
-        messageElement.textContent = "Error al procesar la solicitud.";
-        messageElement.style.color = "red";
+          console.error("Error:", error);
+          errorSweet.fire({
+          icon: 'error',
+          title: 'Error',
+          text: "Error al procesar la solicitud."
+        });
       }
     });
 
 }
 
 function RegisterToken() {
-    
-  /*const showSwal = () => {
-    withReactContent(Swal).fire({
-      title: "Exito!",
-      text: "Usuario Registrado Exitosamente",
-      icon: "success"
-    }).then(() =>{
-      window.location.href = "/login"; 
-    })
-  }*/
 
   return (
     <div className="registerPage flex">
@@ -94,7 +94,7 @@ function RegisterToken() {
           <video src={video} autoPlay muted loop></video>
           <div className="textDiv">
             <h2 className="title">EPS Salud +</h2>
-            <p>Tu salud nuestra preocupacion</p>
+            <p>Tu salud nuestra preocupación</p>
           </div>
         </div>
         <div className="formDiv flex">
@@ -137,7 +137,7 @@ function RegisterToken() {
                 <CiCalendarDate className="icon" />
                 <select id="lugar_naci">
                   <option value="1">Bogotá</option>
-                  <option value="2">Medellin</option>
+                  <option value="2">Medellín</option>
                   <option value="3">Cali</option>
                 </select>
               </div>
@@ -160,7 +160,7 @@ function RegisterToken() {
                 <input
                   type="text"
                   id="direccion_cor"
-                  placeholder="Ingrese sus dirección de correspondencia"
+                  placeholder="Ingrese su dirección de correspondencia"
                 />
               </div>
             </div>
@@ -182,7 +182,7 @@ function RegisterToken() {
                 <CiCalendarDate className="icon" />
                 <select id="ciudad_resi">
                   <option value="1">Bogotá</option>
-                  <option value="2">Medellin</option>
+                  <option value="2">Medellín</option>
                   <option value="3">Cali</option>
                 </select>
               </div>
@@ -193,7 +193,7 @@ function RegisterToken() {
                 <CiCalendarDate className="icon" />
                 <select id="ciudad_afili">
                   <option value="1">Bogotá</option>
-                  <option value="2">Medellin</option>
+                  <option value="2">Medellín</option>
                   <option value="3">Cali</option>
                 </select>
               </div>

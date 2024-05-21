@@ -12,25 +12,32 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 
+const errorSweet = withReactContent(Swal);
+
 const passwordTokenBackend = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token");
   const userId = urlParams.get("userId");
-  
+  const messageElement = document.getElementById("message");
+
   if (!token || !userId) {
-    messageElement.textContent = "Datos incongruentes";
-    messageElement.style.color = "red";
-    return;    
+    MySwal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Datos incongruentes'
+    });
+    return;
   }
 
   const newPassword = document.getElementById("newPassword").value;
-  const confirmPassword =
-    document.getElementById("confirmPassword").value;
-  const messageElement = document.getElementById("message");
+  const confirmPassword = document.getElementById("confirmPassword").value;
 
   if (newPassword !== confirmPassword) {
-    messageElement.textContent = "Las contraseñas no coinciden.";
-    messageElement.style.color = "red";
+    errorSweet.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Las contraseñas no coinciden.'
+    });
     return;
   }
 
@@ -52,25 +59,33 @@ const passwordTokenBackend = () => {
       return response.text();
     })
     .then((data) => {
-      messageElement.textContent = data; // Muestra mensaje de éxito
-      messageElement.style.color = "green"; // Verde = éxito
-      setTimeout(() => { //el redireccionador
-        window.location.href = "/login"; //
-      }, 5000); // Redirecciona después de 5 segundos
+      errorSweet.fire({
+        icon: 'success',
+        title: 'Contraseña restablecida',
+        text: data,
+        showConfirmButton: true,
+        timer: 3000 // La alerta se cerrará automáticamente después de 3 segundos
+      }).then(() => {
+        window.location.href = "/login"; // Redirecciona después de cerrar la alerta
+      });
     })
     .catch((error) => {
       error.text().then((errorMessage) => {
         console.error("Error:", errorMessage);
-        messageElement.textContent = errorMessage; // Muestra mensaje de error
-        messageElement.style.color = "red"; // Rojo = peligro
+        errorSweet.fire({
+          icon: 'error',
+          title: 'Error',
+          text: errorMessage
+        });
       });
     });
 }
 
+
 function passwordToken() {
 
   return (
-    <div className="loginPage flex">
+     <div className="loginPage flex">
       <div className="container flex">
         <div className="videoDiv">
           <video src={video} autoPlay muted loop></video>
@@ -88,7 +103,7 @@ function passwordToken() {
         <div className="formDiv flex">
           <div className="headerDiv">
             <img src={logo} alt="Logo Image" />
-            <h3>¿Olvidaste tu Contraseña?</h3>
+            <h3>¿Restablecer tu Contraseña?</h3>
           </div>
           <form action="" className="form grid">
             <div className="inputDiv">
@@ -98,7 +113,6 @@ function passwordToken() {
                 <input
                   type="password"
                   id="newPassword"
-                  //pattern=".+@gmail\.com"
                   placeholder="Nueva Contraseña"
                 />
               </div>   
@@ -111,7 +125,6 @@ function passwordToken() {
                 <input
                   type="password"
                   id="confirmPassword"
-                  //pattern=".+@gmail\.com"
                   placeholder="Confirmar Contraseña:"
                 />
               </div>   

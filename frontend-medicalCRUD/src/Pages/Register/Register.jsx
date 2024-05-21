@@ -13,6 +13,8 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 
+const errorSweet = withReactContent(Swal);
+
 const registerUser = () => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
@@ -20,8 +22,11 @@ const registerUser = () => {
   const registerMessage = document.getElementById('registerMessage');
   
   if (password !== password2) {
-    registerMessage.textContent = "Las contraseñas no coinciden.";
-    registerMessage.style.color = "red";
+    errorSweet.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Las contraseñas no coinciden.'
+    });
     return;
   }
 
@@ -39,46 +44,43 @@ const registerUser = () => {
       return response.text();
   })
   .then(data => {
-      registerMessage.textContent = data; // Muestra mensaje de éxito
-      registerMessage.style.color = 'green'; // verde = exito
-      setTimeout(() => { //el redireccionador
-        window.location.href = "/login"; //
-      }, 3000); // Redirecciona después de 5 segundos
+      errorSweet.fire({
+        icon: 'success',
+        title: 'Registro exitoso',
+        text: data,
+        showConfirmButton: true,
+        timer: 3000 // La alerta se cerrará automáticamente después de 3 segundos
+      }).then(() => {
+        window.location.href = "/login"; // Redirecciona después de cerrar la alerta
+      });
   })
   .catch(error => {
-      error.text().then(errorMessage => {
+       error.text().then(errorMessage => {
           console.error('Error:', errorMessage);
-          registerMessage.textContent = errorMessage; // Muestra mensaje de error
-          registerMessage.style.color = 'red'; //SIGNIFICA PELIGRO
+          errorSweet.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage
+          });
       });
   });
 }
 
 function Register() {
-    
-  /*const showSwal = () => {
-    withReactContent(Swal).fire({
-      title: "El código ha sido enviado",
-      text: "Por favor revise su correo para Continuar con el Registro",
-      icon: "success"
-    }).then(() =>{
-      window.location.href = "/login"; 
-    })
-  }*/
 
   return (
-    <div className="registerPage flex">
+     <div className="registerPage flex">
       <div className="container flex">
         <div className="videoDiv">
           <video src={video} autoPlay muted loop></video>
           <div className="textDiv">
             <h2 className="title">EPS Salud +</h2>
-            <p>Tu salud nuestra preocupacion</p>
+            <p>Tu salud nuestra preocupación</p>
           </div>
           <div className="footerDiv flex">
-            <span className="text">Ya tienes cuenta?</span>
+            <span className="text">¿Ya tienes cuenta?</span>
             <Link to={"/login"}>
-              <button className="btn">Iniciar Sesion</button>
+              <button className="btn">Iniciar Sesión</button>
             </Link>
           </div>
         </div>
@@ -129,10 +131,9 @@ function Register() {
               <span>Registrarme</span>
               <AiOutlineSwapRight className="icon" />
             </button>                        
-
             <Link to={"/forgot"}>
               <span className="forgotPassword">
-                Olvidaste tu Contraseña? <a href="">Click Aqui</a>
+                ¿Olvidaste tu Contraseña? <a href="">Click Aquí</a>
               </span>
             </Link>
           </form>

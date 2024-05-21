@@ -1,5 +1,6 @@
 import "./Login.scss";
 import { Link } from "react-router-dom";
+import LoginComponent from './LoginComponent.jsx';
 
 //IMPORT ASSETS
 import video from "../../LogginAssets/video.mp4";
@@ -8,6 +9,7 @@ import logo from "../../LogginAssets/logo.png";
 //IMPORT ICONS
 import { IoMdMail } from "react-icons/io";
 import { BsFillShieldLockFill } from "react-icons/bs";
+<<<<<<< HEAD
 import { AiOutlineSwapRight } from "react-icons/ai";
 
 //IMPORT SWEET ALERT
@@ -59,6 +61,8 @@ const LoginUser = () => {
     });
 }
 
+=======
+>>>>>>> e80adb0b8d14b392bb06cd039e381fce62d70ae2
 
 function Login() {
   return (
@@ -76,15 +80,15 @@ function Login() {
               <button className="btn">Registrate</button>
             </Link>
           </div>
-        </div>    
+        </div>
         <div className="formDiv flex">
           <div className="headerDiv">
             <img src={logo} alt="Logo Image" />
             <h3>Bienvenido de Nuevo!</h3>
           </div>
-          <form action="" className="form grid">   
+          <form action="" className="form grid">
             <div className="inputDiv">
-              <label htmlFor="correo">Correo</label>
+              <label htmlFor="emailLogin">Correo</label>
               <div className="input flex">
                 <IoMdMail className="icon" />
                 <input
@@ -97,7 +101,7 @@ function Login() {
               </div>
             </div>
             <div className="inputDiv">
-              <label htmlFor="password">Contraseña</label>
+              <label htmlFor="passwordLogin">Contraseña</label>
               <div className="input flex">
                 <BsFillShieldLockFill className="icon" />
                 <input
@@ -109,22 +113,17 @@ function Login() {
                 />
               </div>
             </div>
-            <div id="loginMessage"></div>
-            
-              <button type="button" onClick={LoginUser} className="btn flex">
-                <span>Login</span>
-                <AiOutlineSwapRight className="icon" />
-              </button>
-             
-            
-            <Link to={"/forgot"}>
-              <span className="forgotPassword">
-                Olvidaste tu Contraseña? <a href="">Click Aqui</a>
-              </span>
-            </Link>
+            <LoginComponent />
+
+            <span className="forgotPassword">
+              <p>¿Olvidaste tu Contraseña?</p>
+              <Link to="/forgot" className="highlight">Click Aquí</Link>
+            </span>
+
+
           </form>
-        </div>    
-      </div>      
+        </div>
+      </div>
     </div>
   );
 }
