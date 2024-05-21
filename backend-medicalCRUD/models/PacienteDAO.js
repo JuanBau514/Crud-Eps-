@@ -148,23 +148,6 @@ class PacienteDAO {
       throw new Error("Error al cerrar la conexión");
     }
   };
-  datesForPatient = async (user) => {
-    let instanciaObjetoConexion = Connection.getInstance();
-    const { id_usuario } = user;
-    try {
-      const [results, fields] = await instanciaObjetoConexion.query(
-        'SELECT m.nombre as "Doctor", es.nombre as "Especialidad",c.fecha_hora as "Hora y fecha",s.nombre as "SEDE", mo.tipo as "Modalidad" FROM cita c INNER JOIN paciente p ON (c.id_paciente=p.id_paciente) INNER JOIN usuarios u ON(u.id_usuario=p.id_usuario) INNER JOIN medico m ON (c.id_medico=m.id_medico)INNER JOIN especialidad es ON(m.especialidad=es.id) INNER JOIN sede s ON (c.id_sede=s.id_sede) INNER JOIN modalidad_consulta mo ON (c.id_modalidad=mo.id_modalidad)WHERE u.id_usuario=?;',
-        [id_usuario]
-      );
-      return results;
-      //console.log(results); // Resultados de la consulta
-      //console.log(fields); // Metadatos adicionales de los resultados
-    } catch (error) {
-      console.log(error); // Manejo de errores
-    } finally {
-      //instanciaObjetoConexion.close();
-    }
-  };
 }
 
 /* const daoPaciente = new PacienteDAO();
