@@ -2,7 +2,7 @@ import React from 'react'
 import './listening.css'
 function Listening() {
     return (
-        <div>
+        <div className='listening'>
             Listening
         </div>
     )
