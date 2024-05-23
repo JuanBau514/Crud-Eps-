@@ -9,7 +9,6 @@ import logo from "../../LogginAssets/logo.png";
 //IMPORT ICONS
 import { IoMdMail } from "react-icons/io";
 import { BsFillShieldLockFill } from "react-icons/bs";
-<<<<<<< HEAD
 import { AiOutlineSwapRight } from "react-icons/ai";
 
 //IMPORT SWEET ALERT
@@ -61,8 +60,6 @@ const LoginUser = () => {
     });
 }
 
-=======
->>>>>>> e80adb0b8d14b392bb06cd039e381fce62d70ae2
 
 function Login() {
   return (
