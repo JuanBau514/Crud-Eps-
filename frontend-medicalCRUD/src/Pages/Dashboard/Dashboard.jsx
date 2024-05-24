@@ -8,6 +8,7 @@ const Dashboard = React.memo(function Dashboard() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
+  /*
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
     if (!token) {
@@ -43,6 +44,7 @@ const Dashboard = React.memo(function Dashboard() {
       }, 3000);
     });
   }, [navigate]);
+  */
 
   if (error) {
     return <div className="error-message">{error} Serás redirigido en 5 segundos</div>;
