@@ -17,6 +17,7 @@ import doc5 from '../../Assets/cancer.txt-.jpg'
 import doc6 from '../../Assets/el mejor asado del mundo.jpeg'
 import doc7 from '../../Assets/pingunin.jpeg'
 import doc8 from '../../Assets/:O.jpeg'
+import doc9 from '../../Assets/masturbinTurbo.jpeg'
 
 
 
@@ -134,10 +135,10 @@ function Listening() {
                         <div className="card flex">
                             <div className="medicos">
                                 <img src={doc} alt="Image Name" />
-                                <img src={doc1} alt="Image Name" />
+                                <img src={doc9} alt="Image Name" />
                                 <img src={doc7} alt="Image Name" />
                                 <img src={doc6} alt="Image Name" />
-                                <img src={doc5} alt="Image Name" />
+                                <img src={doc8} alt="Image Name" />
                             </div>
                             <div className="cardText">
                                 <span>
