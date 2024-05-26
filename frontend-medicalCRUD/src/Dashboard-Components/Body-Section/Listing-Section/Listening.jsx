@@ -27,7 +27,7 @@ function Listening() {
             <br/>
             <div className="heading">
                 <br/>
-                <h1>Listening</h1>
+                <h1>Especialidades</h1>
                  <br/>
                 <btn className="btn flex">
                     mirar todo
@@ -50,6 +50,11 @@ function Listening() {
                         <h3>Pediatria</h3>
                     </div>
                      <div className="singleItem">
+                        <AiFillHeart className='icon' />
+                        <img src={img3} alt="Image Name" />
+                        <h3>Cirugia General</h3>
+                    </div>
+                    <div className="singleItem">
                         <AiFillHeart className='icon' />
                         <img src={img3} alt="Image Name" />
                         <h3>Cirugia General</h3>

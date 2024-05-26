@@ -55,12 +55,12 @@
 
 .listeningSection .secContainer .singleItem {
   position: relative;
-  height: 220px;
-  width: 150px;
+  height: 200px;
+  width: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 10px;
   background: var(--itemCardColor);
 }
@@ -71,7 +71,7 @@
 }
 
 .listeningSection .secContainer .singleItem img {
-  max-width: 100px;
+  max-width: 100%;
 }
 
 .listeningSection .secContainer .singleItem .icon {
@@ -102,11 +102,10 @@
 }
 
 .listeningSection .especialistas .medicos .card {
-  margin: 1rem;
   padding: .5rem;
   border-radius: 1rem;
   background: var(--itemCardColor);
-  gap: 1rem;
+  gap: 1.5rem;
   box-shadow: 0 2px 4px var(--inputColor);
 }
 
