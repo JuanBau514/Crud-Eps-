@@ -1,16 +1,16 @@
 import Sidebar from "../../../Dashboard-Components/SideBar-Section/Sidebar";
 import BodyPerfil from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyPerfil";
 import '../dashboard.css';
-import BodyHistorialMedico from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyHistorialMedico";
+import BodyAutorizarMedicamentos from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyAutorizarMedicamentos";
 
 
-function HistorialMedico() {
+function AutorizarMedicamentos() {
     return (
         <div className="dashboard-container">
             <Sidebar />
-            <BodyHistorialMedico />
+            <BodyAutorizarMedicamentos />
       </div>
     );
   }
   
-  export default HistorialMedico;
+  export default AutorizarMedicamentos;

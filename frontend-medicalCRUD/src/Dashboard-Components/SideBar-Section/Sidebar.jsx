@@ -78,31 +78,39 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
+            <Link to={'/historialCitas'}>
             <a href="" className="menuLink flex">
               <MdDeliveryDining className="icon" />
               <span className="smallText">Historial de citas</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
+            <Link to={'/autorizarMedicamentos'}>
             <a href="" className="menuLink flex">
               <GiMedicines className="icon" />
               <span className="smallText">Autorizar medicamentos</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
+            <Link to={'/historialMedico'}>
             <a href="" className="menuLink flex">
               <MdFamilyRestroom className="icon" />
               <span className="smallText">Historial Medico</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
+            <Link to={'/consultarCitas'}>
             <a href="" className="menuLink flex">
               <AiOutlinePieChart className="icon" />
               <span className="smallText">Consultar citas</span>
             </a>
+            </Link>
           </li>
         </ul>
       </div>

@@ -1,5 +1,5 @@
 import Sidebar from "../../../Dashboard-Components/SideBar-Section/Sidebar";
-import BodyPerfil from "../../../Dashboard-Components/Body-Section/Perfil-section/BodyPerfil";
+import BodyPerfil from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyPerfil";
 import '../dashboard.css';
 
 
