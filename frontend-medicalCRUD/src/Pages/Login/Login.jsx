@@ -9,7 +9,6 @@ import logo from "../../LogginAssets/logo.png";
 //IMPORT ICONS
 import { IoMdMail } from "react-icons/io";
 import { BsFillShieldLockFill } from "react-icons/bs";
-import { AiOutlineSwapRight } from "react-icons/ai";
 
 //IMPORT SWEET ALERT
 import Swal from "sweetalert2";
