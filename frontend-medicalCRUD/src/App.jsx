@@ -8,7 +8,6 @@ import PasswordToken from "./Pages/passwordToken/passwordToken";
 import Perfil from "./Pages/Dashboard/Perfil/Perfil";
 import HistorialMedico from "./Pages/Dashboard/Historial medico/HistorialMedico";
 import HistorialCitas from "./Pages/Dashboard/Historial-Citas/HistorialCitas";
-import AutorizarMedicamentos from "./Pages/Dashboard/Autorizar medicamentos/AutorizarMedicamentos";
 import ConsultarCitas from "./Pages/Dashboard/Consultar citas/ConsultarCitas";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -52,11 +51,7 @@ const router = createBrowserRouter([
   {
     path:'/historialCitas',
     element: <div><HistorialCitas/></div>  
-  },
-  {
-    path:'/autorizarMedicamentos',
-    element: <div><AutorizarMedicamentos/></div>  
-  },
+  },  
   {
     path:'/consultarCitas',
     element: <div><ConsultarCitas/></div>  

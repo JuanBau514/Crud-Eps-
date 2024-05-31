@@ -84,16 +84,7 @@ const Sidebar = () => {
               <span className="smallText">Historial de citas</span>
             </a>
             </Link>
-          </li>
-
-          <li className="listItem">
-            <Link to={'/autorizarMedicamentos'}>
-            <a href="" className="menuLink flex">
-              <GiMedicines className="icon" />
-              <span className="smallText">Autorizar medicamentos</span>
-            </a>
-            </Link>
-          </li>
+          </li>         
 
           <li className="listItem">
             <Link to={'/historialMedico'}>

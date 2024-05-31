@@ -1,22 +1,50 @@
 import React from 'react';
-import useBootstrap from './useBootsrap';
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBtn
-} from 'mdb-react-ui-kit';
+import { useTable } from 'react-table';
+import useRows from './hooks/useRowsHistorialMedico';
+import useColumns from './hooks/useColumnsHistorialMedico';
 
 export const ConsultAppointment = () => {
-  useBootstrap();
+  const columns = useColumns();
+  const data = useRows();
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow
+  } = useTable({ columns, data });
 
   return (
     <div>
       <h1>Consultar Citas</h1>
+      <br/>
+      <table {...getTableProps()} style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps()} style={{ border: '1px solid black', padding: '5px' }}>
+                  {column.render('Header')}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map(row => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map(cell => (
+                  <td {...cell.getCellProps()} style={{ border: '1px solid black', padding: '5px' }}>
+                    {cell.render('Cell')}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
