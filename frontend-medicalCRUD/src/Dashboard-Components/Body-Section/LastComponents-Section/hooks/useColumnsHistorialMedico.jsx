@@ -7,6 +7,10 @@ const useColumns = () => {
       accessor: 'iddiagnostico'
     },
     {
+      Header: 'Descripcion',
+      accessor: 'descripcion'
+    },
+    {
       Header: 'Fecha Diagnostico',
       accessor: 'fechadiagnostico'
     },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTable } from 'react-table';
-import useRows from './hooks/useRowsHistorialMedico';
-import useColumns from './hooks/useColumnsHistorialMedico';
+import useRows from './hooks/useRowsConsultarCitas';
+import useColumns from './hooks/useColumnsConsultarCitas';
 
 export const ConsultAppointment = () => {
   const columns = useColumns();
