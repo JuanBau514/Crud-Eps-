@@ -1,6 +1,8 @@
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import MedicoDashboard from "./Pages/Dashboard medico/MedicoDashboard";
+import UserDashboard from "./Pages/Dashboard user/UserDashboard";
 import Forgot from "./Pages/Forgot/Forgot";
 import MainPage from "./Pages/MainPage/MainPage";
 import RegisterToken from "./Pages/RegisterToken/RegisterToken";
@@ -25,9 +27,19 @@ const router = createBrowserRouter([
   element: <div><Register/></div>,
   }, 
   {
-    path: '/dashboard',
+    path: '/dashboardAdmin',
     element: <div><Dashboard/></div>,
   },
+   
+  {
+    path: '/dashboardMedico',
+    element: <div><MedicoDashboard/></div>,
+  },
+   {
+    path: '/dashboardUser',
+    element: <div><UserDashboard/></div>,
+  },
+  
   {
     path: '/forgot',
     element: <div><Forgot/></div>

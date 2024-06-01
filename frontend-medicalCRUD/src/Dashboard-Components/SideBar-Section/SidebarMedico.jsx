@@ -27,7 +27,7 @@ const Sidebar = () => {
         <h3 className="divTittle">Menu Rapido</h3>
         <ul className="menuLists grid">
           <li className="listItem">
-            <Link to={'/dashboardAdmin'}>
+            <Link to={'/dashboardMedico'}>
             <a href="" className="menuLink flex">
               <IoMdSpeedometer className="icon" />
               <span className="smallText">Dashboard</span>
@@ -38,21 +38,21 @@ const Sidebar = () => {
           <li className="listItem">
             <a href="" className="menuLink flex">
               <MdDeliveryDining className="icon" />
-              <span className="smallText">Agenda tu cita</span>
+              <span className="smallText">Consulta de paciente</span>
             </a>
           </li>
 
           <li className="listItem">
             <a href="" className="menuLink flex">
               <MdOutlineExplore className="icon" />
-              <span className="smallText">Explorar servicios</span>
+              <span className="smallText">Historial de pacientes</span>
             </a>
           </li>
 
           <li className="listItem">
             <a href="" className="menuLink flex">
               <CiCircleCheck className="icon" />
-              <span className="smallText">Autoriza tu cita</span>
+              <span className="smallText">Generar medicamento</span>
             </a>
           </li>
 
@@ -95,14 +95,7 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          <li className="listItem">
-            <Link to={'/consultarCitas'}>
-            <a href="" className="menuLink flex">
-              <AiOutlinePieChart className="icon" />
-              <span className="smallText">Consultar citas</span>
-            </a>
-            </Link>
-          </li>
+      
         </ul>
       </div>
 

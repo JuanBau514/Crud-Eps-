@@ -27,7 +27,7 @@ const Sidebar = () => {
         <h3 className="divTittle">Menu Rapido</h3>
         <ul className="menuLists grid">
           <li className="listItem">
-            <Link to={'/dashboardAdmin'}>
+            <Link to={'/dashboardUser'}>
             <a href="" className="menuLink flex">
               <IoMdSpeedometer className="icon" />
               <span className="smallText">Dashboard</span>
@@ -56,12 +56,7 @@ const Sidebar = () => {
             </a>
           </li>
 
-          <li className="listItem">
-            <a href="" className="menuLink flex">
-              <CiSquareQuestion className="icon" />
-              <span className="smallText">Solicitudes</span>
-            </a>
-          </li>
+          
         </ul>
       </div>
 
@@ -91,15 +86,6 @@ const Sidebar = () => {
             <a href="" className="menuLink flex">
               <MdFamilyRestroom className="icon" />
               <span className="smallText">Historial Medico</span>
-            </a>
-            </Link>
-          </li>
-
-          <li className="listItem">
-            <Link to={'/consultarCitas'}>
-            <a href="" className="menuLink flex">
-              <AiOutlinePieChart className="icon" />
-              <span className="smallText">Consultar citas</span>
             </a>
             </Link>
           </li>
