@@ -11,6 +11,7 @@ import Perfil from "./Pages/Dashboard/Perfil/Perfil";
 import HistorialMedico from "./Pages/Dashboard/Historial medico/HistorialMedico";
 import HistorialCitas from "./Pages/Dashboard/Historial-Citas/HistorialCitas";
 import ConsultarCitas from "./Pages/Dashboard/Consultar citas/ConsultarCitas";
+import AgendarCitas from "./Pages/Dashboard/AgendarCita/AgendarCita";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -67,7 +68,12 @@ const router = createBrowserRouter([
   {
     path:'/consultarCitas',
     element: <div><ConsultarCitas/></div>  
+  },
+  {
+    path:'/agendarCitas',
+    element: <div><AgendarCitas/></div>  
   }
+  
 ]);
 
 function App() {  

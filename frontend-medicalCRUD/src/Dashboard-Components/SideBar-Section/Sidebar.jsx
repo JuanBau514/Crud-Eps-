@@ -36,10 +36,12 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
-            <a href="" className="menuLink flex">
-              <MdDeliveryDining className="icon" />
-              <span className="smallText">Agenda tu cita</span>
-            </a>
+            <Link to={"/agendarCitas"}>
+              <a href="" className="menuLink flex">
+                <MdOutlinePermContactCalendar className="icon" />
+                <span className="smallText">Agendar Citas</span>
+              </a>
+            </Link>
           </li>
 
           <li className="listItem">
