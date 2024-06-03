@@ -1,16 +1,15 @@
-import Sidebar from "../../../Dashboard-Components/SideBar-Section/Sidebar";
-import BodyPerfil from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyPerfil";
+import SidebarUser from '../../../Dashboard-Components/SideBar-Section/SidebarUser';
 import '../dashboardU.css';
 import BodyHistorialCitas from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyHistorialCitas";
 
 
-function HistorialCitas() {
+function HistorialCitasUser() {
     return (
         <div className="dashboard-container">
-            <Sidebar />
+            <SidebarUser />
             <BodyHistorialCitas />
       </div>
     );
   }
   
-  export default HistorialCitas;
+  export default HistorialCitasUser;

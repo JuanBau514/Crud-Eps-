@@ -10,7 +10,6 @@ import RegisterToken from "./Pages/RegisterToken/RegisterToken";
 import PasswordToken from "./Pages/passwordToken/passwordToken";
 import Perfil from "./Pages/Dashboard/Perfil/Perfil";
 import MedicoPerfil from "./Pages/Dashboard medico/Perfil/medicoPerfil";
-import UserPerfil from "./Pages/Dashboard user/Perfil/userPerfil";
 import HistorialMedico from "./Pages/Dashboard/Historial medico/HistorialMedico";
 import HistorialMedicoMedico from "./Pages/Dashboard medico/Historial medico/HistorialMedicoMedico";
 import HistorialCitas from "./Pages/Dashboard/Historial-Citas/HistorialCitas";
@@ -18,6 +17,10 @@ import ConsultarCitas from "./Pages/Dashboard/Consultar citas/ConsultarCitas";
 import AgregarMedico from "./Pages/Dashboard/AgregarMedico/AgregarMedico";
 import DeshabilitarMedico from "./Pages/Dashboard/DeshabilitarMedico/DeshabilitarMedico";
 import ReportesCitas from "./Pages/Dashboard/ReportesCitas/ReportesCitas";
+import ServiciosUser from "./Pages/Dashboard user/Servicios/Servicios";
+import PerfilUser from "./Pages/Dashboard user/Perfil/PerfilUser";
+import HistorialCitasUser from "./Pages/Dashboard user/HistorialCitas/HistorialCitas";
+import HistorialMedicoUser from "./Pages/Dashboard user/Historial medico/HistorialMedico";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -58,7 +61,7 @@ const router = createBrowserRouter([
     element: <div><PasswordToken/></div>
   },
   {
-    path:'/perfil',
+    path:'/dashboardAdmin/perfil',
     element: <div><Perfil/></div>
   },
   {
@@ -67,10 +70,10 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboardUser/perfil',
-    element: <div><UserPerfil/></div>
+    element: <div><PerfilUser/></div>
   },
   {
-    path:'/historialMedico',
+    path:'/dashboardAdmin/historialMedico',
     element: <div><HistorialMedico/></div>  
   },
   {
@@ -78,37 +81,48 @@ const router = createBrowserRouter([
     element: <div><HistorialMedicoMedico/></div>  
   },
   {
+    path:'/dashboardUser/historialMedico',
+    element: <div><HistorialMedicoUser/></div>  
+  },
+  {
     path:'/dashboardMedico/historialCitas',
     element: <div><HistorialCitas/></div>  
   },
   {
-    path:'/consultarCitas',
-    element: <div><ConsultarCitas/></div>  
-  },       
-  {
-    path:'/dashboardMedico/historialCitas',
-    element: <div><ConsultarCitas/></div>  
+    path:'/dashboardAdmin/historialCitas',
+    element: <div><HistorialCitas/></div>  
   },
+  {
+    path:'/dashboardUser/historialCitas',
+    element: <div><HistorialCitasUser/></div>  
+  },
+  {
+    path:'/dashboardAdmin/consultarCitas',
+    element: <div><ConsultarCitas/></div>  
+  },    
   {
     path:'/dashboardMedico/consultaPacienta',
     element: <div><ConsultarCitas/></div>  
   },
   {
-    path:'/agregarMedico',
+    path:'/dashboardAdmin/agregarMedico',
     element: <div><AgregarMedico/></div>  
   },
   {
-    path:'/deshabilitarMedico',
+    path:'/dashboardAdmin/deshabilitarMedico',
     element: <div><DeshabilitarMedico/></div>  
   },
   {
-    path:'/reportesCitas',
+    path:'/dashboardAdmin/reportesCitas',
     element: <div><ReportesCitas/></div>  
   },
   {
     path:'/dashboardUser/agendarCita',
     element: <div><AgendeCita/></div>
-
+  },
+  {
+    path:'/dashboardUser/servicios',
+    element: <div><ServiciosUser/></div>
   }
 ]);
 
