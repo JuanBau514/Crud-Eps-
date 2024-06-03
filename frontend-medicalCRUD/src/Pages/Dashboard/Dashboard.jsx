@@ -44,7 +44,7 @@ const Dashboard = React.memo(function Dashboard() {
       }, 3000);
     });
   }, [navigate]);
-  */
+  
 
   if (error) {
     return <div className="error-message">{error} Serás redirigido en 5 segundos</div>;

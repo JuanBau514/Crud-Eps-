@@ -8,7 +8,9 @@ import { MdOutlineExplore } from "react-icons/md";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiSquareQuestion } from "react-icons/ci";
 import { AiOutlinePieChart } from "react-icons/ai";
-import { GiMedicines } from "react-icons/gi";
+import { GiMedicines, GiPlagueDoctorProfile  } from "react-icons/gi";
+import { HiOutlineDocumentReport } from "react-icons/hi";
+import { IoPersonAdd } from "react-icons/io5";
 import { MdFamilyRestroom } from "react-icons/md";
 import { MdOutlinePermContactCalendar } from "react-icons/md";
 import { MdEmergency } from "react-icons/md";
@@ -36,33 +38,30 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
-            <Link to={"/agendarCitas"}>
+            <Link to={"/agregarMedico"}>
               <a href="" className="menuLink flex">
-                <MdOutlinePermContactCalendar className="icon" />
-                <span className="smallText">Agendar Citas</span>
+                <IoPersonAdd className="icon" />
+                <span className="smallText">Agregar Medico</span>
               </a>
             </Link>
           </li>
 
           <li className="listItem">
+            <Link to={"/deshabilitarMedico"}>
             <a href="" className="menuLink flex">
-              <MdOutlineExplore className="icon" />
-              <span className="smallText">Explorar servicios</span>
+              <GiPlagueDoctorProfile className="icon" />
+              <span className="smallText">Deshabilitar Medico</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
+            <Link to={"/reportesCitas"}>
             <a href="" className="menuLink flex">
-              <CiCircleCheck className="icon" />
-              <span className="smallText">Autoriza tu cita</span>
+              <HiOutlineDocumentReport className="icon" />
+              <span className="smallText">Reportes de Citas</span>
             </a>
-          </li>
-
-          <li className="listItem">
-            <a href="" className="menuLink flex">
-              <CiSquareQuestion className="icon" />
-              <span className="smallText">Solicitudes</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
