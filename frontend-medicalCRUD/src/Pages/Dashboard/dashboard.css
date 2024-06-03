@@ -1,5 +1,5 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-
 * {
   padding: 0;
   margin: 0;
@@ -105,10 +105,4 @@ img {
   text-align: center; /* Centra el texto para llamar la atención */
   font-weight: bold; /* Texto en negrita para resaltar la importancia */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
-/*# sourceMappingURL=dashboard.css.map */
+}/*# sourceMappingURL=dashboard.css.map */

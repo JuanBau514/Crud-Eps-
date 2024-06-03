@@ -1,13 +1,13 @@
 :root {
-  --primaryColor: #87cd51;
-  --hoverColor: #bdf094;
-  --paleGreen: #dff8ce;
-  --whiteColor: white;
-  --blackColor: #2e2e2e;
-  --textColor: #7a797c;
-  --greyText: #bfbfbf;
-  --bgColor: #d6ddd5;
-  --inputColor: #f8f6f7;
+  --primaryColor: hsl(94, 55%, 56%);
+  --hoverColor: hsl(93, 75%, 76%);
+  --paleGreen: hsl(96, 75%, 89%);
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(0, 0%, 18%);
+  --textColor: hsl(250, 1%, 48%);
+  --greyText: hsl(0, 0%, 75%);
+  --bgColor: hsl(113, 11%, 85%);
+  --inputColor: hsl(330, 12%, 97%);
   --biggestFontSize: 2.5rem;
   --h1FontSize: 1.5rem;
   --h2FontSize: 1.25rem;
@@ -21,6 +21,7 @@
   background: var(--whiteColor);
   box-shadow: 1px 0 4px var(--greyText);
   width: 16%;
+  height: 100vh;
   gap: 7rem;
   padding-left: 2rem;
   overflow: auto;
@@ -35,7 +36,7 @@
   max-width: 20px;
   margin-right: 1rem;
   background: var(--inputColor);
-  padding: .2rem;
+  padding: 0.2rem;
 }
 
 .sideBar .logoDiv h2 {
@@ -54,14 +55,14 @@ h3 {
 }
 
 .menuLists .listItem {
-  padding: .2rem 1.5rem;
+  padding: 0.2rem 1.5rem;
   width: 100%;
   position: relative;
 }
 
 .menuLists::before {
   position: absolute;
-  content: '';
+  content: "";
   height: 0%;
   left: 0;
   width: 5px;
@@ -77,7 +78,7 @@ h3 {
 }
 
 .menuLists .menuLink .icon {
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 
 .menuLists:hover .menuLink {
@@ -87,7 +88,7 @@ h3 {
 
 .menuLists:hover::before {
   height: 100%;
-  transform: .3s ease;
+  transform: 0.3s ease;
 }
 
 .sideBarCard {
@@ -144,7 +145,7 @@ h3 {
   position: absolute;
   background: var(--paleGreen);
   border-radius: 50%;
-  opacity: .7;
+  opacity: 0.7;
   z-index: 1;
 }
 
@@ -163,3 +164,5 @@ h3 {
   right: -70px;
   z-index: 1;
 }
+
+/*# sourceMappingURL=sidebar.css.map */

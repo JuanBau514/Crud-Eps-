@@ -1,6 +1,6 @@
 import Sidebar from "../../../Dashboard-Components/SideBar-Section/Sidebar";
 import BodyPerfil from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyPerfil";
-import '../dashboard.css';
+import '../dashboardU.css';
 import BodyHistorialCitas from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyHistorialCitas";
 
 

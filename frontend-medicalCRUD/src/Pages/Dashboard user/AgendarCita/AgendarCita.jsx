@@ -1,4 +1,4 @@
-import '../dashboard.css';
+import '../dashboardU.css';
 import SidebarUser from '../../../Dashboard-Components/SideBar-Section/SidebarUser';
 import AgendarCitas from '../../../Dashboard-Components/Body-Section/LastComponents-Section/bodyAgendarCita';
 function AgendeCita() {
