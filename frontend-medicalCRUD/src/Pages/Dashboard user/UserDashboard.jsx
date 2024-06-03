@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './dashboard.css';
-import Sidebar from '../../Dashboard-Components/SideBar-Section/SidebarUser';
+import SidebarUser from '../../Dashboard-Components/SideBar-Section/SidebarUser';
+
 import Body from '../../Dashboard-Components/Body-Section/Body';
 import { useNavigate } from 'react-router-dom';
 
@@ -52,7 +53,7 @@ const Dashboard = React.memo(function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <Sidebar />
+      <SidebarUser />
       <Body />
     </div>
   );

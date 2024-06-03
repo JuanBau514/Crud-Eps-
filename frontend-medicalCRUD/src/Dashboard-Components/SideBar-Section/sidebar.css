@@ -21,7 +21,6 @@
   background: var(--whiteColor);
   box-shadow: 1px 0 4px var(--greyText);
   width: 16%;
-  height: 100vh;
   gap: 7rem;
   padding-left: 2rem;
   overflow: auto;

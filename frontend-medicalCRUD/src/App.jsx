@@ -1,4 +1,5 @@
 import Login from "./Pages/Login/Login";
+import AgendeCita from "./Pages/Dashboard user/AgendarCita/AgendarCita";
 import Register from "./Pages/Register/Register";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import MedicoDashboard from "./Pages/Dashboard medico/MedicoDashboard";
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
     element: <div><ConsultarCitas/></div>  
   },
   {
+    path:'/dashboardMedico/consultaPacienta',
+    element: <div><ConsultarCitas/></div>  
+  },
+  {
     path:'/agregarMedico',
     element: <div><AgregarMedico/></div>  
   },
@@ -99,6 +104,11 @@ const router = createBrowserRouter([
   {
     path:'/reportesCitas',
     element: <div><ReportesCitas/></div>  
+  },
+  {
+    path:'/dashboardUser/agendarCita',
+    element: <div><AgendeCita/></div>
+
   }
 ]);
 
