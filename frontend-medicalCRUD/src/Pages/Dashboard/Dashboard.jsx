@@ -3,12 +3,12 @@ import './dashboard.css';
 import Sidebar from '../../Dashboard-Components/SideBar-Section/Sidebar';
 import Body from '../../Dashboard-Components/Body-Section/Body';
 import { useNavigate } from 'react-router-dom';
+import Top from '../../Dashboard-Components/Body-Section/Top-section/Top';
 
 const Dashboard = React.memo(function Dashboard() {
+  /*
   const navigate = useNavigate();
   const [error, setError] = useState('');
-
-  /*
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
     if (!token) {
@@ -49,10 +49,11 @@ const Dashboard = React.memo(function Dashboard() {
   if (error) {
     return <div className="error-message">{error} Serás redirigido en 5 segundos</div>;
   }
+  */
 
   return (
     <div className="dashboard-container">
-      <Sidebar />
+      <Sidebar/>
       <Body />
     </div>
   );
