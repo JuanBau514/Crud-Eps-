@@ -1,0 +1,52 @@
+.agendar-citas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 5rem;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.agendar-citas-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.agendar-citas-container .calendar {
+  width: 100%;
+  height: 30vh;
+  max-width: 120rem;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.agendar-citas-container .calendar .react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.agendar-citas-container .calendar .react-calendar__tile {
+  max-width: 100%;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.agendar-citas-container .calendar .react-calendar__tile:hover {
+  background-color: #eee;
+}
+
+.agendar-citas-container .calendar .react-calendar__tile--active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.agendar-citas-container .calendar .react-calendar__tile--active:hover {
+  background-color: #45a049;
+}
