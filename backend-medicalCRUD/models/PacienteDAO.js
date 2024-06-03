@@ -132,21 +132,92 @@ class PacienteDAO {
       //instanciaObjetoConexion.close();
     }
   };
+  getPatienID = async (values) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "SELECT p.id_paciente FROM paciente p INNER JOIN usuarios u ON(p.id_usuario=u.id_usuario) WHERE u.id_usuario=?",
+        [values]
+      );
+      console.log(results); // Resultados de la consulta
+      console.log(fields); // Metadatos adicionales de los resultados
+      if (results.length > 0) {
+        return results[0]; // Retorna el primer objeto usuario si la consulta fue exitosa y encontró al menos un usuario
+      } else {
+        return null; // Retorna null si no se encontró ningún usuario
+      }
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      //instanciaObjetoConexion.close();
+    }
+  };
+  dataPacienteByUserId = async (values) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "SELECT p.id_usuario,p.nombres,p.apellidos,u.correo_usuario,p.direccion_re, tp.telefonos FROM paciente p INNER JOIN telefono_paciente tp ON(tp.id_paciente=p.id_paciente) INNER JOIN usuarios u ON (p.id_usuario=u.id_usuario) WHERE p.id_usuario=?",
+        [values]
+      );
+      console.log(results[0]); // Resultados de la consulta
+      if (results.length > 0) {
+        return results[0]; // Retorna el primer objeto usuario si la consulta fue exitosa y encontró al menos un usuario
+      } else {
+        return null; // Retorna null si no se encontró ningún usuario
+      } // Result
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      //instanciaObjetoConexion.close();
+    }
+  };
+  updatedManualValues = async (values) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    let { nombres, apellidos, direccion_re, id_paciente } = values;
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "UPDATE paciente SET nombres=?, apellidos=?, direccion_re=? WHERE id_paciente=?",
+        [nombres, apellidos, direccion_re, id_paciente]
+      );
+      console.log(results); // Resultados de la consulta
+      console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+    }
+  };
+  updateTelefono = async (updatedValues) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    let { telefono, id_paciente } = updatedValues;
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        "UPDATE telefono_paciente SET telefonos=? WHERE id_paciente=?",
+        [telefono, id_paciente]
+      );
+      console.log(results); // Resultados de la consulta
+      console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      //instanciaObjetoConexion.close();
+    }
+  };
 
   close = async () => {
     try {
-        const instanciaObjetoConexion = Connection.getInstance();
-        if (instanciaObjetoConexion) {
-            await instanciaObjetoConexion.close();
-        } else {
-            console.log("No se encontró una instancia de conexión activa para cerrar.");
-        }
+      const instanciaObjetoConexion = Connection.getInstance();
+      if (instanciaObjetoConexion) {
+        await instanciaObjetoConexion.close();
+      } else {
+        console.log(
+          "No se encontró una instancia de conexión activa para cerrar."
+        );
+      }
     } catch (error) {
-        console.error("Error al cerrar la conexión:", error);
-        throw new Error ('Error al cerrar la conexión');
+      console.error("Error al cerrar la conexión:", error);
+      throw new Error("Error al cerrar la conexión");
     }
-  }
-
+  };
 }
 
 export default PacienteDAO;
