@@ -10,6 +10,56 @@ import logo from "../../LogginAssets/logo.png";
 import { IoMdMail } from "react-icons/io";
 import { BsFillShieldLockFill } from "react-icons/bs";
 
+//IMPORT SWEET ALERT
+import Swal from "sweetalert2";
+import withReactContent from 'sweetalert2-react-content';
+
+const LoginUser = () => {
+    const email = document.getElementById('emailLogin').value;
+    const password = document.getElementById('passwordLogin').value;
+    const loginMessage = document.getElementById('loginMessage');
+    console.log(email, password);
+    try {
+      if (!email || !password) {
+        throw new Error('No hay weas definidas');
+      }
+    }catch(error) {
+      console.log('Falló los datos:', error);
+    }
+    fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, password: password })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw response;
+        }
+        return response.text();
+    })
+    .then(data => {
+        loginMessage.textContent = data; // Muestra mensaje de éxito
+        loginMessage.style.color = 'green'; // verde = exito
+        setTimeout(() => { // el redireccionador
+          window.location.href = "/dashboard"; //
+        }, 5000); // Redirecciona después de 5 segundos
+    })
+     .catch(error => {
+        error.text().then(errorMessage => {
+            console.error('Error:', errorMessage);
+            loginMessage.textContent = ''; // Limpia cualquier mensaje previo
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMessage
+            });
+        });
+    });
+}
+
+
 function Login() {
   return (
     <div className="loginPage flex">

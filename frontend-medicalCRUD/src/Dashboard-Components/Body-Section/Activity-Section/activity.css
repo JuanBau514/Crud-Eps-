@@ -1,1 +1,89 @@
-/*# sourceMappingURL=activity.css.map */
+:root {
+  --primaryColor: #87cd51;
+  --hoverColor: #bdf094;
+  --paleGreen: #dff8ce;
+  --whiteColor: white;
+  --blackColor: #2e2e2e;
+  --textColor: #7a797c;
+  --greyText: #bfbfbf;
+  --bgColor: #d6ddd5;
+  --inputColor: #f8f6f7;
+  --itemCardColor: #dfe2df;
+  --itemCardShadow: #d5e7d5;
+  /* --inputColor: hsl(154,14%,90%); */
+  /*FONT AND TYPOGRAPHY*/
+  --biggestFontSize: 2.5rem;
+  --h1FontSize: 1.5rem;
+  --h2FontSize: 1.25rem;
+  --h3FontSize: 1rem;
+  --normalFontSize: .938rem;
+  --smallFontSize: .813rem;
+  --smallestFontSize: .75rem;
+}
+
+.activitySection {
+  margin: 1rem;
+  padding: 1rem;
+  flex-basis: 30%;
+}
+
+.activitySection .heading {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.activitySection .heading h1 {
+  font-size: var(--h2FontSize);
+  color: var(--blackColor);
+  font-weight: 700;
+}
+
+.activitySection .heading .btn {
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+
+.activitySection .heading .btn:hover {
+  border: 1px solid var(--primaryColor);
+}
+
+.activitySection .secContainer {
+  margin-top: 1rem;
+}
+
+.activitySection .secContainer .singleCustomer {
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.activitySection .secContainer .singleCustomer img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px var(--itemCardColor);
+  margin-right: 1rem;
+}
+
+.activitySection .secContainer .singleCustomer .customerDetails {
+  flex: 1;
+}
+
+.activitySection .secContainer .singleCustomer .customerDetails .name {
+  font-size: var(--h3FontSize);
+  font-weight: 600;
+  color: var(--blackColor);
+  display: block;
+}
+
+.activitySection .secContainer .singleCustomer .customerDetails small {
+  font-weight: 500;
+  color: var(--textColor);
+  font-size: var(--smallFontSize);
+}
+
+.activitySection .secContainer .singleCustomer .duration {
+  color: var(--textColor);
+  font-weight: 500;
+  font-size: var(--smallFontSize);
+}
