@@ -1,16 +1,15 @@
 import Sidebar from "../../../Dashboard-Components/SideBar-Section/Sidebar";
 import BodyPerfil from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyPerfil";
 import '../dashboard.css';
-import BodyHistorialMedico from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyHistorialMedico";
 
 
-function HistorialMedico() {
+function Perfil() {
     return (
         <div className="dashboard-container">
             <Sidebar />
-            <BodyHistorialMedico />
+            <BodyPerfil />
       </div>
     );
   }
   
-  export default HistorialMedico;
+  export default Perfil;

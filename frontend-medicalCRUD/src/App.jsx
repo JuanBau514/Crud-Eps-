@@ -8,7 +8,10 @@ import MainPage from "./Pages/MainPage/MainPage";
 import RegisterToken from "./Pages/RegisterToken/RegisterToken";
 import PasswordToken from "./Pages/passwordToken/passwordToken";
 import Perfil from "./Pages/Dashboard/Perfil/Perfil";
+import MedicoPerfil from "./Pages/Dashboard medico/Perfil/medicoPerfil";
+import UserPerfil from "./Pages/Dashboard user/Perfil/userPerfil";
 import HistorialMedico from "./Pages/Dashboard/Historial medico/HistorialMedico";
+import HistorialMedicoMedico from "./Pages/Dashboard medico/Historial medico/HistorialMedicoMedico";
 import HistorialCitas from "./Pages/Dashboard/Historial-Citas/HistorialCitas";
 import ConsultarCitas from "./Pages/Dashboard/Consultar citas/ConsultarCitas";
 import AgregarMedico from "./Pages/Dashboard/AgregarMedico/AgregarMedico";
@@ -33,7 +36,6 @@ const router = createBrowserRouter([
     path: '/dashboardAdmin',
     element: <div><Dashboard/></div>,
   },
-   
   {
     path: '/dashboardMedico',
     element: <div><MedicoDashboard/></div>,
@@ -42,7 +44,6 @@ const router = createBrowserRouter([
     path: '/dashboardUser',
     element: <div><UserDashboard/></div>,
   },
-  
   {
     path: '/forgot',
     element: <div><Forgot/></div>
@@ -60,13 +61,25 @@ const router = createBrowserRouter([
     element: <div><Perfil/></div>
   },
   {
+    path:'/dashboardMedico/perfil',
+    element: <div><MedicoPerfil/></div>
+  },
+  {
+    path:'/dashboardUser/perfil',
+    element: <div><UserPerfil/></div>
+  },
+  {
     path:'/historialMedico',
     element: <div><HistorialMedico/></div>  
   },
   {
-    path:'/historialCitas',
+    path:'/dashboardMedico/historialMedico',
+    element: <div><HistorialMedicoMedico/></div>  
+  },
+  {
+    path:'/dashboardMedico/historialCitas',
     element: <div><HistorialCitas/></div>  
-  },  
+  },       
   {
     path:'/consultarCitas',
     element: <div><ConsultarCitas/></div>  
