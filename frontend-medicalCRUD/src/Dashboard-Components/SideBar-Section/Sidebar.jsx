@@ -15,7 +15,7 @@ import { MdFamilyRestroom } from "react-icons/md";
 import { MdOutlinePermContactCalendar } from "react-icons/md";
 import { MdEmergency } from "react-icons/md";
 import "../../Pages/Dashboard/dashboard.css";
-import "./sidebar.css";
+import "./sidebarAD.css";
 import { BsQuestionCircle } from "react-icons/bs";
 
 const Sidebar = () => {

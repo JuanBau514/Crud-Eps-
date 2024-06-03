@@ -12,7 +12,7 @@ import { GiMedicines } from "react-icons/gi";
 import { MdFamilyRestroom } from "react-icons/md";
 import { MdOutlinePermContactCalendar } from "react-icons/md";
 import { MdEmergency } from "react-icons/md";
-import "../../Pages/Dashboard/dashboard.css";
+import "../../Pages/Dashboard/dashboardAdmin.css";
 import "./sidebar.css";
 import { BsQuestionCircle } from "react-icons/bs";
 

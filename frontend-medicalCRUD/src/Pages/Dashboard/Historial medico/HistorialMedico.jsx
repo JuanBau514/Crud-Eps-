@@ -1,5 +1,5 @@
 import Sidebar from "../../../Dashboard-Components/SideBar-Section/Sidebar";
-import '../dashboard.css';
+import '../dashboardAdmin.css';
 import BodyHistorialMedico from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyHistorialMedico";
 
 

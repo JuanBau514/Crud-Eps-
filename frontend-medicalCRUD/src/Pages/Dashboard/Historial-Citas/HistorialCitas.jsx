@@ -1,4 +1,4 @@
-import '../dashboard.css';
+import '../dashboardAdmin.css';
 import BodyHistorialCitas from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyHistorialCitas";
 import SidebarMedico from "../../../Dashboard-Components/SideBar-Section/SidebarMedico";
 
