@@ -79,9 +79,13 @@ const router = createBrowserRouter([
   {
     path:'/dashboardMedico/historialCitas',
     element: <div><HistorialCitas/></div>  
-  },       
+  },
   {
     path:'/consultarCitas',
+    element: <div><ConsultarCitas/></div>  
+  },       
+  {
+    path:'/dashboardMedico/historialCitas',
     element: <div><ConsultarCitas/></div>  
   },
   {
