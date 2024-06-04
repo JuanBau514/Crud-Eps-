@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dash Medic</title>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+  </head>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("jwtToken");
+
+        if (!token) {
+          alert("No estás iniciado para ver esto flaco");
+          window.location.href = "/index.html"; // Redirigir login
+        }
+
+        const decoded = jwt_decode(token);
+        if (decoded.type !== "medico") {
+          alert("Solo se puede acceder medicos flaco imposible");
+          window.location.href = "/index.html"; // Redirige a la página principal o a otro lugar adecuado
+          return;
+        }
+
+        fetch("http://localhost:3000/JWTSession", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token, // Colocar token aquí
+          },
+        })
+          .then(async (response) => {
+            if (!response.ok) {
+              throw new Error("Acceso denegado");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            fetchCitas();
+          })
+          .catch((error) => {
+            console.error("Error de acceso:", error);
+            window.location.href = "/index.html"; // Redirige al login si el token es inválido
+          });
+      });
+
+      fetchCitas = () => {
+        fetch("http://localhost:3000/listarCitas", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error al cargar citas");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const citas = data.citas;
+            const citasContainer = document.getElementById("lista-citas");
+            citasContainer.innerHTML = ""; // Limpiar contenido existente
+
+            citas.forEach((cita) => {
+              const citaDiv = document.createElement("div");
+              citaDiv.className = "cita"; // Agregar una clase para estilización
+              citaDiv.innerHTML = `
+                <h3>Cita # ${cita["Orden de cita"]}</h3>
+                <p><strong>Doctor:</strong> ${cita.Doctor}</p>
+                <p><strong>Paciente:</strong> ${cita.Paciente}</p>
+                <p><strong>Especialidad:</strong> ${cita.Especialidad}</p>
+                <p><strong>Hora y Fecha:</strong> ${new Date(
+                  cita["Hora y fecha"]
+                ).toLocaleString()}</p>
+                <p><strong>Sede:</strong> ${cita.Sede}</p>
+                <p><strong>Modalidad:</strong> ${cita.Modalidad}</p>
+                <form id="asistencia-form-${cita["Orden de cita"]}">
+                <p><strong>Asistencia:</strong></p>
+                <label>
+                    <input type="radio" name="asistencia" value="1" ${
+                      cita.Asistencia === 1 ? "checked" : ""
+                    }> Asistió
+                </label>
+                <label>
+                    <input type="radio" name="asistencia" value="0" ${
+                      cita.Asistencia === 0 ? "checked" : ""
+                    }> No asistió
+                </label>
+                <br>
+                <button type="button" onclick="guardarAsistencia(${
+                  cita["Orden de cita"]
+                })">Guardar Asistencia</button>
+                
+                </form>
+
+                <br>
+                <form id="form-${cita["Orden de cita"]}">
+                    <label for="nom_exam-${
+                      cita["Orden de cita"]
+                    }">Nombre del Examen:</label>
+                    <select id="nom_exam-${
+                      cita["Orden de cita"]
+                    }" name="nom_exam-${cita["Orden de cita"]}" required>
+                    <option value="10001" ${
+                      cita["Nombre del examen"] === "Examen de sangre"
+                        ? "selected"
+                        : ""
+                    }>Examen de sangre</option>
+                    <option value="10002" ${
+                      cita["Nombre del examen"] === "Radiografía"
+                        ? "selected"
+                        : ""
+                    }>Radiografía</option>
+                    <option value="10003" ${
+                      cita["Nombre del examen"] === "Electrocardiograma"
+                        ? "selected"
+                        : ""
+                    }>Electrocardiograma</option>
+                    </select>
+
+                        <label>Tipo de Examen:</label>
+                        <input type="text" value="${
+                          cita["Tipo de examen"] || ""
+                        }" name="tipoExamen"/>
+                        <label>Resultado del Examen:</label>
+                        <input type="text" value="${
+                          cita.Resultado || ""
+                        }" name="resultadoExamen"/>
+                        <button type="button" onclick="editarExamen(${
+                          cita["Orden de cita"]
+                        })">Guardar Examen</button>
+                </form>
+                <br>
+                <form id="diag-form-${cita["Orden de cita"]}">
+                    <label for="descripcionDiagnostico-${
+                      cita["Orden de cita"]
+                    }">Diagnóstico:</label>
+                    <textarea id="descripcionDiagnostico-${
+                      cita["Orden de cita"]
+                    }" name="descripcionDiagnostico">${
+                cita.Diagnostico || ""
+              }</textarea>
+                    
+                    <label for="fechaDiagnostico-${
+                      cita["Orden de cita"]
+                    }">Fecha de Diagnóstico:</label>
+                    <input type="date" id="fechaDiagnostico-${
+                      cita["Orden de cita"]
+                    }" name="fechaDiagnostico" value="${
+                cita["Fecha de diagnostico"]
+                  ? new Date(cita["Fecha de diagnostico"])
+                      .toISOString()
+                      .split("T")[0]
+                  : ""
+              }">
+    
+                    <button type="button" onclick="guardarDiagnostico(${
+                      cita["Orden de cita"]
+                    })">Guardar Diagnóstico</button>
+                </form>
+
+                <br>
+                <hr>
+            `;
+              citasContainer.appendChild(citaDiv);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al cargar las citas:", error);
+            alert("Error al cargar citas: " + error.message);
+          });
+      };
+
+      function editarExamen(idCita) {
+        event.preventDefault();
+        const form = document.getElementById(`form-${idCita}`);
+        const nombreExamen = parseInt(
+          document.getElementById(`nom_exam-${idCita}`).value
+        );
+        const tipoExamen = form["tipoExamen"].value;
+        const resultadoExamen = form["resultadoExamen"].value;
+
+        fetch(`http://localhost:3000/modificarExamen/${idCita}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+          },
+          body: JSON.stringify({
+            nombreExamen: nombreExamen,
+            tipoExamen: tipoExamen,
+            resultadoExamen: resultadoExamen,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert("Datos actualizados correctamente");
+            window.location.href = "./dashMedic.html";
+          })
+          .catch((error) => {
+            console.error("Error al actualizar los datos:", error);
+            alert("Error al actualizar datos");
+          });
+      }
+
+      function guardarDiagnostico(idCita) {
+        event.preventDefault();
+        const descripcion = document.getElementById(
+          `descripcionDiagnostico-${idCita}`
+        ).value;
+        const fechaDiagnostico = document.getElementById(
+          `fechaDiagnostico-${idCita}`
+        ).value;
+        fetch(`http://localhost:3000/actualizarDiagnostico/${idCita}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+          },
+          body: JSON.stringify({
+            descripcion: descripcion,
+            fechaDiagnostico: fechaDiagnostico,
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("No se pudo actualizar el diagnóstico");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            alert("Diagnóstico actualizado correctamente");
+            window.location.href = "./dashMedic.html";
+          })
+          .catch((error) => alert(error.message));
+      }
+      function guardarAsistencia(idCita) {
+        const form = document.getElementById(`asistencia-form-${idCita}`);
+        const asistencia = form.querySelector(
+          'input[name="asistencia"]:checked'
+        ).value;
+        fetch(`http://localhost:3000/actualizarAsistencia/${idCita}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+          },
+          body: JSON.stringify({ asistencia: asistencia }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("No se pudo actualizar la asistencia");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            alert("Asistencia actualizada correctamente");
+            window.location.href = "./dashMedic.html";
+          })
+          .catch((error) => alert(error.message));
+      }
+      /*Todo lo referente a médico como tal*/
+      function logout() {
+        // Lógica para cerrar sesión
+        localStorage.removeItem("jwtToken");
+        window.location.href = "/index.html";
+      }
+    </script>
+
+    <header>
+      <h1>Dashboard de Médico</h1>
+      <div>
+        <button onclick="logout()">Cerrar Sesión</button>
+      </div>
+    </header>
+    <section>
+      <div>
+        <button id="abrirModal" onclick="abrirModal()">
+          Modificar Datos Médico
+        </button>
+      </div>
+    </section>
+    <section id="citas">
+      <h2>Citas Programadas</h2>
+      <div id="lista-citas">
+        <!-- Las citas programadas se cargarán aquí -->
+      </div>
+    </section>
+
+    <script>
+      function abrirModal() {
+        window.location.href = "./updateMedic.html";
+      }
+
+    </script>
+  </body>
+</html>

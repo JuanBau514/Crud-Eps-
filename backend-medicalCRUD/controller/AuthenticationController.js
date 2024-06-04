@@ -345,17 +345,13 @@ export class AuthController {
             if (!tokenJWT) {
                 throw new Error('No se proporcionó token');
             }
-            const token = tokenJWT.split(' ')[1];
-            if (!token) {
-                throw new Error('Token no encontrado en la cabecera');
-            }
-            const decoded = jwt.verify(token, process.env.SECRET_JWT);
+            // Directamente verificar el token sin intentar dividirlo de nuevo
+            const decoded = jwt.verify(tokenJWT, process.env.SECRET_JWT);
             console.log('Token verificado de manera exitosa');
             return decoded;
-        }catch (error) {
+        } catch (error) {
             console.error("Error about validateJWT:", error);
-            throw new Error(error.message);
+            throw new Error('Token inválido o expirado');
         }
     }
-
 }

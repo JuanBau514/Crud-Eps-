@@ -220,17 +220,11 @@ class PacienteDAO {
   };
 }
 
-export default PacienteDAO;
-
-//const dao = new UserDAO();
-//pruebas.php
 /* const daoPaciente = new PacienteDAO();
-
 //daoPaciente.read();
-
 const pacientePrueba = {
-  id_paciente: 1005,
-  nombres: "Atún",
+  id_paciente: 1010,
+  nombres: "Enrique",
   apellidos: "Limón",
   fecha_naci: "2007-05-20",
   lugar_naci: 1,
@@ -241,7 +235,9 @@ const pacientePrueba = {
   ciudad_afili: 1,
   id_usuario: 13001,
 };
- */
+let data=daoPaciente.datesForPatient(pacientePrueba);
+console.log("Imprimiendo datos de la consulta"+data); */
+export default PacienteDAO;
 //daoPaciente.create(pacientePrueba);
 
 //daoPaciente.update(pacientePrueba);
