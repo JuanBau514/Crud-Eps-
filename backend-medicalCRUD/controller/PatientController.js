@@ -49,7 +49,10 @@ export class PatientController {
       throw new Error("No se encontro paciente");
     }
     const id_paciente = dataUser.id_paciente;
-    const { fecha_hora, id_medico, id_sede, id_modalidad, asistencia } = data;
+    const id_sede=7001;
+    const asistencia=0;
+    const id_modalidad=6001;
+    const { fecha_hora, id_medico  } = data;
     const result = await instanciaCitasConsulta.create({
       fecha_hora,
       id_paciente,
@@ -65,6 +68,16 @@ export class PatientController {
     const dataDates = await instanciaCitasConsulta.restDatesForPatient(
       id_usuario
     );
+    if (!dataDates) {
+      throw new Error("No se encontro citas");
+    }
+    console.log(dataDates);
+    return dataDates;
+  };
+
+  static pastDates = async (id_usuario) => {
+    const instanciaCitasConsulta = new CitasDAO();
+    const dataDates = await instanciaCitasConsulta.datesForPatient(id_usuario);
     if (!dataDates) {
       throw new Error("No se encontro citas");
     }

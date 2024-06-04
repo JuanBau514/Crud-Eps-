@@ -180,13 +180,13 @@ app.post("/JWTSession", async (req, res) => {
 });
 
 app.get("/perfil", async function (req, res) {
-  const {id_usuario} = req.body; // Usamos query en lugar de body para GET
+  //Esta bien, asegurar pasar en el body el ID de usuario
+  const { id_usuario } = req.body;
   console.log(id_usuario);
   try {
     const result = await PatientController.getPatient(id_usuario);
     console.log("Datos para envíar" + result);
-    res.json(result);
-    res.status(200);
+    res.status(200).json(result);
   } catch (error) {
     console.error("Error en traer data:", error);
     res.status(500).send("Data vacia: " + error.message);
@@ -194,17 +194,55 @@ app.get("/perfil", async function (req, res) {
 });
 
 app.post("/perfil", async (req, res) => {
-  const { id_usuario, nombres, apellidos, direccion_re } = req.body;
+  const { id_usuario, nombres, apellidos, direccion_re, telefono } = req.body;
   try {
     const result = await PatientController.modificatedPatient(id_usuario, {
       nombres,
       apellidos,
       direccion_re,
+      telefono,
     });
+    res.status(200).json(result);
   } catch (error) {
     console.error("Error al catualizar:", error);
     res.status(500).send("Error: " + error.message);
   }
 });
 
+app.post("/asignar", async (req, res) => {
+  const { fecha_hora, id_medico, id_usuario } = req.body;
+  try {
+    const result = await PatientController.assignDate(id_usuario, {
+      fecha_hora,
+      id_medico,
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error al asignar:", error);
+    res.status(500).send("Error: " + error.message);
+  }
+});
+app.get("/citasPendientes", async (req, res) => {
+  const { id_usuario } = req.body;
+  console.log(id_usuario);
+  try {
+    const result = await PatientController.restDates(id_usuario);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error al traer:", error);
+    res.status(500).send("Error: " + error.message);
+  }
+});
+app.get("/citasPasadas", async (req, res) => {
+    const { id_usuario } = req.body;
+    console.log(id_usuario);
+    try {
+      const result = await PatientController.pastDates(id_usuario);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error("Error al traer:", error);
+      res.status(500).send("Error: " + error.message);
+    }
+  
+});
 export default app;
