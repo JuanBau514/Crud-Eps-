@@ -35,24 +35,30 @@ const SidebarMedico = () => {
             </Link>
           </li>
           <li className="listItem">
+            <Link to={"/dashboardMedico/consultarPaciente"}>
             <a href="" className="menuLink flex">
               < MdEmergency className="icon" />
               <span className="smallText">Consulta de paciente</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
+            <Link to={"/dashboardMedico/historialDiagnosticos"}>
             <a href="" className="menuLink flex">
               <MdOutlineExplore className="icon" />
               <span className="smallText">Historial Diagnosticos</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
+            <Link to={"/dashboardMedico/horarioCitas"}>
             <a href="" className="menuLink flex">
               <CiSquareQuestion className="icon" />
               <span className="smallText">Horario de Citas</span>
             </a>
+            </Link>
           </li>
         </ul>
       </div>

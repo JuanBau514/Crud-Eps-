@@ -7,7 +7,7 @@ function HistorialMedicoMedico() {
     return (
         <div className="dashboard-container">
             <SidebarMedico />
-            <BodyHistorialMedico />
+            <BodyHistorialMedico />            
       </div>
     );
   }

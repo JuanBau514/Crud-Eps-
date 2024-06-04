@@ -1,13 +1,13 @@
 import '../dashboard.css';
-import BodyConsultarCitas from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyConsultarCitas";
 import SidebarMedico from "../../../Dashboard-Components/SideBar-Section/SidebarMedico";
+import BodyConsultarPacienteMedico from '../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyConsultarPacienteMedico';
 
 
 function ConsultarPaciente() {
     return (
         <div className="dashboard-container">
             <SidebarMedico />
-            <BodyConsultarCitas />
+            <BodyConsultarPacienteMedico />
       </div>
     );
   }

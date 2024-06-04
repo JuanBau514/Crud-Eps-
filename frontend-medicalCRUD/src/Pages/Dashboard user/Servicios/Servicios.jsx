@@ -7,7 +7,7 @@ function ServiciosUser() {
     return (
         <div className="dashboard-container">
             <SidebarUser />   
-            <BodyServiciosUser />           
+            <BodyServiciosUser />
       </div>
     );
   }

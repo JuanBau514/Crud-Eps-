@@ -1,15 +1,15 @@
 import '../dashboard.css';
-import BodyHistorialCitas from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyHistorialCitas";
+import BodyHorarioCitasMedico from '../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyHorarioCitasMedico';
 import SidebarMedico from "../../../Dashboard-Components/SideBar-Section/SidebarMedico";
 
 
-function HistorialCitas() {
+function HorarioCitas() {
     return (
         <div className="dashboard-container">
             <SidebarMedico />
-            <BodyHistorialCitas />
+            <BodyHorarioCitasMedico />
       </div>
     );
   }
   
-  export default HistorialCitas;
+  export default HorarioCitas;

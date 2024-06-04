@@ -19,8 +19,12 @@ import DeshabilitarMedico from "./Pages/Dashboard/DeshabilitarMedico/Deshabilita
 import ReportesCitas from "./Pages/Dashboard/ReportesCitas/ReportesCitas";
 import ServiciosUser from "./Pages/Dashboard user/Servicios/Servicios";
 import PerfilUser from "./Pages/Dashboard user/Perfil/PerfilUser";
-import HistorialCitasUser from "./Pages/Dashboard user/HistorialCitas/HistorialCitas";
+import HistorialCitasUser from "./Pages/Dashboard user/Historial-Citas/HistorialCitas";
 import HistorialMedicoUser from "./Pages/Dashboard user/Historial medico/HistorialMedico";
+import ConsultarPaciente from "./Pages/Dashboard medico/Consulta-Paciente/ConsultaPaciente";
+import HistorialDiagnosticos from "./Pages/Dashboard medico/HistorialDiagnosticos/HistorialDiagnosticos";
+import HorarioCitas from "./Pages/Dashboard medico/HorarioCitas/HorarioCitas";
+import HistorialCitasMedico from "./Pages/Dashboard medico/Historial-Citas/HistorialCitasMedicos";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -78,7 +82,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboardMedico/historialMedico',
-    element: <div><HistorialMedicoMedico/></div>  
+    element: <div><HistorialMedicoMedico /></div>  
   },
   {
     path:'/dashboardUser/historialMedico',
@@ -86,7 +90,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboardMedico/historialCitas',
-    element: <div><HistorialCitas/></div>  
+    element: <div><HistorialCitasMedico/></div>  
   },
   {
     path:'/dashboardAdmin/historialCitas',
@@ -101,8 +105,8 @@ const router = createBrowserRouter([
     element: <div><ConsultarCitas/></div>  
   },    
   {
-    path:'/dashboardMedico/consultaPacienta',
-    element: <div><ConsultarCitas/></div>  
+    path:'/dashboardMedico/consultarPaciente',
+    element: <div><ConsultarPaciente/></div>  
   },
   {
     path:'/dashboardAdmin/agregarMedico',
@@ -123,6 +127,14 @@ const router = createBrowserRouter([
   {
     path:'/dashboardUser/servicios',
     element: <div><ServiciosUser/></div>
+  },
+  {
+    path:'/dashboardMedico/historialDiagnosticos',
+    element: <div><HistorialDiagnosticos/></div>
+  },
+  {
+    path:'/dashboardMedico/horarioCitas',
+    element: <div><HorarioCitas/></div>
   }
 ]);
 
