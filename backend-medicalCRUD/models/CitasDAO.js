@@ -96,6 +96,13 @@ class CitasDAO {
     try {
       const [results, fields] = await instanciaObjetoConexion.query(
         'SELECT m.nombre as "Doctor", es.nombre as "Especialidad",c.fecha_hora as "Hora y fecha",s.nombre as "SEDE", mo.tipo as "Modalidad" FROM cita c INNER JOIN paciente p ON (c.id_paciente=p.id_paciente) INNER JOIN usuarios u ON(u.id_usuario=p.id_usuario) INNER JOIN medico m ON (c.id_medico=m.id_medico)INNER JOIN especialidad es ON(m.especialidad=es.id) INNER JOIN sede s ON (c.id_sede=s.id_sede) INNER JOIN modalidad_consulta mo ON (c.id_modalidad=mo.id_modalidad)WHERE u.id_usuario=?;',
+
+  datesForPatient = async (id_usuario) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        'SELECT m.nombre as "Doctor", es.nombre as "Especialidad",c.fecha_hora as "Hora y fecha",s.nombre as "SEDE", mo.tipo as "Modalidad" FROM cita c INNER JOIN paciente p ON (c.id_paciente=p.id_paciente) INNER JOIN usuarios u ON(u.id_usuario=p.id_usuario) INNER JOIN medico m ON (c.id_medico=m.id_medico)INNER JOIN especialidad es ON(m.especialidad=es.id) INNER JOIN sede s ON (c.id_sede=s.id_sede) INNER JOIN modalidad_consulta mo ON (c.id_modalidad=mo.id_modalidad)WHERE u.id_usuario=? AND c.fecha_hora<NOW();',
+
         [id_usuario]
       );
       return results;
@@ -110,12 +117,51 @@ class CitasDAO {
   datesForMedic = async (user) => {
     let instanciaObjetoConexion = Connection.getInstance();
     const { id_usuario } = user;
+=======
+
+  restDatesForPatient = async (id_usuario) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        'SELECT m.nombre as "Doctor", es.nombre as "Especialidad",c.fecha_hora as "Hora y fecha",s.nombre as "SEDE", mo.tipo as "Modalidad" FROM cita c INNER JOIN paciente p ON (c.id_paciente=p.id_paciente) INNER JOIN usuarios u ON(u.id_usuario=p.id_usuario) INNER JOIN medico m ON (c.id_medico=m.id_medico)INNER JOIN especialidad es ON(m.especialidad=es.id) INNER JOIN sede s ON (c.id_sede=s.id_sede) INNER JOIN modalidad_consulta mo ON (c.id_modalidad=mo.id_modalidad)WHERE u.id_usuario=? AND c.fecha_hora>NOW();',
+        [id_usuario]
+      );
+      console.log(results); // Resultados de la consulta
+      console.log(fields); // Metadatos adicionales de los resultados
+      return results[0];
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      //instanciaObjetoConexion.close();
+    }
+  };
+
+  datesForMedic = async (id_usuario) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+
     try {
       const [results, fields] = await instanciaObjetoConexion.query(
         'SELECT  p.nombres as "NombrePaciente",p.apellidos as "Apellido", es.nombre as "Especialidad",c.fecha_hora as "Hora y fecha",s.nombre as "SEDE", mo.tipo as "Modalidad", c.asistencia FROM cita c INNER JOIN paciente p ON (c.id_paciente=p.id_paciente) INNER JOIN medico m ON (c.id_medico=m.id_medico) INNER JOIN usuarios u ON (m.id_usuario=u.id_usuario)INNER JOIN especialidad es ON(m.especialidad=es.id) INNER JOIN sede s ON (c.id_sede=s.id_sede) INNER JOIN modalidad_consulta mo ON (c.id_modalidad=mo.id_modalidad)WHERE u.id_usuario=?;',
         [id_usuario]
       );
-      return results;
+
+      return results[0];
+      //console.log(results); // Resultados de la consulta
+      //console.log(fields); // Metadatos adicionales de los resultados
+    } catch (error) {
+      console.log(error); // Manejo de errores
+    } finally {
+      //instanciaObjetoConexion.close();
+    }
+  };
+  restDatesForMedic = async (id_usuario) => {
+    let instanciaObjetoConexion = Connection.getInstance();
+    try {
+      const [results, fields] = await instanciaObjetoConexion.query(
+        'SELECT  p.nombres as "NombrePaciente",p.apellidos as "Apellido", es.nombre as "Especialidad",c.fecha_hora as "Hora y fecha",s.nombre as "SEDE", mo.tipo as "Modalidad", c.asistencia FROM cita c INNER JOIN paciente p ON (c.id_paciente=p.id_paciente) INNER JOIN medico m ON (c.id_medico=m.id_medico) INNER JOIN usuarios u ON (m.id_usuario=u.id_usuario)INNER JOIN especialidad es ON(m.especialidad=es.id) INNER JOIN sede s ON (c.id_sede=s.id_sede) INNER JOIN modalidad_consulta mo ON (c.id_modalidad=mo.id_modalidad)WHERE u.id_usuario=? AND c.asistencia=0;',
+        [id_usuario]
+      );
+      return results[0];
       //console.log(results); // Resultados de la consulta
       //console.log(fields); // Metadatos adicionales de los resultados
     } catch (error) {

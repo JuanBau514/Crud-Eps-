@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil del Usuario</title>
+  </head>
+  <body>
+    <h1>Perfil del Usuario</h1>
+    <input type="text" id="userId" placeholder="Ingrese el ID del usuario" />
+    <button onclick="getUserProfile()">Obtener Perfil</button>
+    <div id="profile"></div>
+
+    <script>
+      async function getUserProfile() {
+        const userId = document.getElementById("userId").value;
+        if (!userId) {
+          alert("Por favor ingrese un ID de usuario");
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `http://localhost:3000/perfil?id_usuario=${userId}`
+          );
+          if (!response.ok) {
+            throw new Error("Error al obtener los datos del perfil");
+          }
+          const data = await response.json();
+          document.getElementById("profile").innerHTML = `<pre>${JSON.stringify(
+            data,
+            null,
+            2
+          )}</pre>`;
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById("profile").innerHTML =
+            "Error al obtener los datos del perfil";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -8,7 +8,8 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBBtn
+  MDBBtn,
+  MDBInput
 } from 'mdb-react-ui-kit';
 
 export const GeneralInfoForm = () => {
@@ -30,7 +31,7 @@ export const GeneralInfoForm = () => {
                 <p className="text-muted mb-1">Full Stack Developer</p>
                 <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
                 <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn>Cambiar Imagen</MDBBtn>
+                  <MDBBtn>Actualizar Datos</MDBBtn>
                 </div>
               </MDBCardBody>
             </MDBCard>
@@ -40,10 +41,19 @@ export const GeneralInfoForm = () => {
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Full Name</MDBCardText>
+                    <MDBCardText>First Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBInput className="text-muted"  placeholder="Enter your first name"/>
+                  </MDBCol>
+                </MDBRow>
+                <hr />
+                <MDBRow>
+                  <MDBCol sm="3">
+                    <MDBCardText>Last Name</MDBCardText>
+                  </MDBCol>
+                  <MDBCol sm="9">
+                    <MDBInput className="text-muted"  placeholder="Enter your last name"/>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -61,25 +71,16 @@ export const GeneralInfoForm = () => {
                     <MDBCardText>Phone</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
+                  <MDBInput className="text-muted"  placeholder="Enter your phone number"/>
                   </MDBCol>
                 </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Mobile</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
+                <hr />                
                 <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText>Address</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                  <MDBInput className="text-muted"  placeholder="Enter your Address"/>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>

@@ -1,12 +1,13 @@
-import Sidebar from "../../../Dashboard-Components/SideBar-Section/Sidebar";
 import BodyPerfil from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyPerfil";
+import SidebarMedico from "../../../Dashboard-Components/SideBar-Section/SidebarMedico";
+
 import '../dashboard.css';
 
 
 function Perfil() {
     return (
         <div className="dashboard-container">
-            <Sidebar />
+            <SidebarMedico />
             <BodyPerfil />
       </div>
     );

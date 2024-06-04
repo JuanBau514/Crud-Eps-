@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prueba de Endpoint</title>
+  </head>
+  <body>
+    <h1>Prueba de Endpoint /perfil</h1>
+    <form id="perfilForm">
+      <label for="id_usuario">ID Usuario:</label><br />
+      <input type="text" id="id_usuario" name="id_usuario" /><br /><br />
+      <label for="nombres">Nombres:</label><br />
+      <input type="text" id="nombres" name="nombres" /><br /><br />
+      <label for="apellidos">Apellidos:</label><br />
+      <input type="text" id="apellidos" name="apellidos" /><br /><br />
+      <label for="direccion_re">Dirección:</label><br />
+      <input type="text" id="direccion_re" name="direccion_re" /><br /><br />
+      <button type="button" onclick="submitForm()">Enviar</button>
+    </form>
+
+    <p id="response"></p>
+
+    <script>
+      async function submitForm() {
+        const form = document.getElementById("perfilForm");
+        const formData = new FormData(form);
+        const data = {
+          id_usuario: formData.get("id_usuario"),
+          nombres: formData.get("nombres"),
+          apellidos: formData.get("apellidos"),
+          direccion_re: formData.get("direccion_re"),
+        };
+
+        try {
+          const response = await fetch("http://localhost:3000/perfil", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.text();
+          document.getElementById("response").textContent = result;
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById("response").textContent =
+            "Error: " + error.message;
+        }
+      }
+    </script>
+  </body>
+</html>

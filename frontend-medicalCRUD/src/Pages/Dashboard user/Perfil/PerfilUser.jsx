@@ -1,15 +1,15 @@
-import Sidebar from "../../../Dashboard-Components/SideBar-Section/Sidebar";
+import SidebarUser from '../../../Dashboard-Components/SideBar-Section/SidebarUser';
 import BodyPerfil from "../../../Dashboard-Components/Body-Section/LastComponents-Section/BodyPerfil";
-import '../dashboard.css';
+import '../dashboardU.css';
 
 
-function Perfil() {
+function PerfilUser() {
     return (
         <div className="dashboard-container">
-            <Sidebar />
+            <SidebarUser />
             <BodyPerfil />
       </div>
     );
   }
   
-  export default Perfil;
+  export default PerfilUser;
