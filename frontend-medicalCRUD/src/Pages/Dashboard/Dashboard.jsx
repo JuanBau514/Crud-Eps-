@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './dashboard.css';
+import './dashboardAdmin.css';
 import Sidebar from '../../Dashboard-Components/SideBar-Section/Sidebar';
 import Body from '../../Dashboard-Components/Body-Section/Body';
 import { useNavigate } from 'react-router-dom';
@@ -44,7 +44,7 @@ const Dashboard = React.memo(function Dashboard() {
       }, 3000);
     });
   }, [navigate]);
-  */
+  
 
   if (error) {
     return <div className="error-message">{error} Serás redirigido en 5 segundos</div>;

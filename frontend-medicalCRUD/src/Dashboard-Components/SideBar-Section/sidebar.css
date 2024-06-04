@@ -1,13 +1,13 @@
 :root {
-  --primaryColor: #87cd51;
-  --hoverColor: #bdf094;
-  --paleGreen: #dff8ce;
-  --whiteColor: white;
-  --blackColor: #2e2e2e;
-  --textColor: #7a797c;
-  --greyText: #bfbfbf;
-  --bgColor: #d6ddd5;
-  --inputColor: #f8f6f7;
+  --primaryColor: hsl(94, 55%, 56%);
+  --hoverColor: hsl(93, 75%, 76%);
+  --paleGreen: hsl(96, 75%, 89%);
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(0, 0%, 18%);
+  --textColor: hsl(250, 1%, 48%);
+  --greyText: hsl(0, 0%, 75%);
+  --bgColor: hsl(113, 11%, 85%);
+  --inputColor: hsl(330, 12%, 97%);
   --biggestFontSize: 2.5rem;
   --h1FontSize: 1.5rem;
   --h2FontSize: 1.25rem;
@@ -21,24 +21,20 @@
   background: var(--whiteColor);
   box-shadow: 1px 0 4px var(--greyText);
   width: 16%;
-  height: 100vh;
   gap: 7rem;
   padding-left: 2rem;
   overflow: auto;
 }
-
 .sideBar .logoDiv {
   padding: 1.5rem 1.5rem 0;
   cursor: pointer;
 }
-
 .sideBar .logoDiv img {
   max-width: 20px;
   margin-right: 1rem;
   background: var(--inputColor);
-  padding: .2rem;
+  padding: 0.2rem;
 }
-
 .sideBar .logoDiv h2 {
   font-size: var(--h2FontSize);
   color: var(--primaryColor);
@@ -55,14 +51,13 @@ h3 {
 }
 
 .menuLists .listItem {
-  padding: .2rem 1.5rem;
+  padding: 0.2rem 1.5rem;
   width: 100%;
   position: relative;
 }
-
 .menuLists::before {
   position: absolute;
-  content: '';
+  content: "";
   height: 0%;
   left: 0;
   width: 5px;
@@ -70,25 +65,21 @@ h3 {
   border-bottom-right-radius: 10px;
   background: var(--primaryColor);
 }
-
 .menuLists .menuLink {
   color: var(--blackColor);
   font-weight: 500;
   transition: 0;
 }
-
 .menuLists .menuLink .icon {
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
-
 .menuLists:hover .menuLink {
   color: var(--blackColor);
   transition: 0;
 }
-
 .menuLists:hover::before {
   height: 100%;
-  transform: .3s ease;
+  transform: 0.3s ease;
 }
 
 .sideBarCard {
@@ -97,7 +88,6 @@ h3 {
   text-align: center;
   position: relative;
 }
-
 .sideBarCard .icon {
   position: absolute;
   background: var(--hoverColor);
@@ -109,7 +99,6 @@ h3 {
   transform: translate(50%);
   z-index: 100;
 }
-
 .sideBarCard .cardContent {
   position: relative;
   padding: 1rem;
@@ -119,7 +108,6 @@ h3 {
   left: -22px;
   top: -20px;
 }
-
 .sideBarCard h3 {
   font-size: var(--h3FontSize);
   margin-top: 1rem;
@@ -127,28 +115,24 @@ h3 {
   font-size: 800;
   color: var(--blackColor);
 }
-
 .sideBarCard p {
   font-size: var(--normalFontSize);
   color: var(--textColor);
   padding-bottom: 1rem;
   font-weight: 500;
 }
-
 .sideBarCard .btn {
   position: relative;
   color: var(--textColor);
   z-index: 100;
 }
-
 .sideBarCard .circule1, .sideBarCard .circule2 {
   position: absolute;
   background: var(--paleGreen);
   border-radius: 50%;
-  opacity: .7;
+  opacity: 0.7;
   z-index: 1;
 }
-
 .sideBarCard .circule1 {
   height: 100px;
   width: 100px;
@@ -156,11 +140,10 @@ h3 {
   right: -50px;
   left: -30px;
 }
-
 .sideBarCard .circule2 {
   height: 150px;
   width: 150px;
   bottom: -80px;
   right: -70px;
   z-index: 1;
-}
+}/*# sourceMappingURL=sidebar.css.map */

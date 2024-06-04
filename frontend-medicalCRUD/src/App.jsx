@@ -1,4 +1,5 @@
 import Login from "./Pages/Login/Login";
+import AgendeCita from "./Pages/Dashboard user/AgendarCita/AgendarCita";
 import Register from "./Pages/Register/Register";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import MedicoDashboard from "./Pages/Dashboard medico/MedicoDashboard";
@@ -8,10 +9,22 @@ import MainPage from "./Pages/MainPage/MainPage";
 import RegisterToken from "./Pages/RegisterToken/RegisterToken";
 import PasswordToken from "./Pages/passwordToken/passwordToken";
 import Perfil from "./Pages/Dashboard/Perfil/Perfil";
+import MedicoPerfil from "./Pages/Dashboard medico/Perfil/medicoPerfil";
 import HistorialMedico from "./Pages/Dashboard/Historial medico/HistorialMedico";
+import HistorialMedicoMedico from "./Pages/Dashboard medico/Historial medico/HistorialMedicoMedico";
 import HistorialCitas from "./Pages/Dashboard/Historial-Citas/HistorialCitas";
 import ConsultarCitas from "./Pages/Dashboard/Consultar citas/ConsultarCitas";
-import AgendarCitas from "./Pages/Dashboard/AgendarCita/AgendarCita";
+import AgregarMedico from "./Pages/Dashboard/AgregarMedico/AgregarMedico";
+import DeshabilitarMedico from "./Pages/Dashboard/DeshabilitarMedico/DeshabilitarMedico";
+import ReportesCitas from "./Pages/Dashboard/ReportesCitas/ReportesCitas";
+import ServiciosUser from "./Pages/Dashboard user/Servicios/Servicios";
+import PerfilUser from "./Pages/Dashboard user/Perfil/PerfilUser";
+import HistorialCitasUser from "./Pages/Dashboard user/Historial-Citas/HistorialCitas";
+import HistorialMedicoUser from "./Pages/Dashboard user/Historial medico/HistorialMedico";
+import ConsultarPaciente from "./Pages/Dashboard medico/Consulta-Paciente/ConsultaPaciente";
+import HistorialDiagnosticos from "./Pages/Dashboard medico/HistorialDiagnosticos/HistorialDiagnosticos";
+import HorarioCitas from "./Pages/Dashboard medico/HorarioCitas/HorarioCitas";
+import HistorialCitasMedico from "./Pages/Dashboard medico/Historial-Citas/HistorialCitasMedicos";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -31,7 +44,6 @@ const router = createBrowserRouter([
     path: '/dashboardAdmin',
     element: <div><Dashboard/></div>,
   },
-   
   {
     path: '/dashboardMedico',
     element: <div><MedicoDashboard/></div>,
@@ -40,7 +52,6 @@ const router = createBrowserRouter([
     path: '/dashboardUser',
     element: <div><UserDashboard/></div>,
   },
-  
   {
     path: '/forgot',
     element: <div><Forgot/></div>
@@ -54,26 +65,77 @@ const router = createBrowserRouter([
     element: <div><PasswordToken/></div>
   },
   {
-    path:'/perfil',
+    path:'/dashboardAdmin/perfil',
     element: <div><Perfil/></div>
   },
   {
-    path:'/historialMedico',
+    path:'/dashboardMedico/perfil',
+    element: <div><MedicoPerfil/></div>
+  },
+  {
+    path:'/dashboardUser/perfil',
+    element: <div><PerfilUser/></div>
+  },
+  {
+    path:'/dashboardAdmin/historialMedico',
     element: <div><HistorialMedico/></div>  
   },
   {
-    path:'/historialCitas',
-    element: <div><HistorialCitas/></div>  
-  },  
-  {
-    path:'/consultarCitas',
-    element: <div><ConsultarCitas/></div>  
+    path:'/dashboardMedico/historialMedico',
+    element: <div><HistorialMedicoMedico /></div>  
   },
   {
-    path:'/agendarCitas',
-    element: <div><AgendarCitas/></div>  
+    path:'/dashboardUser/historialMedico',
+    element: <div><HistorialMedicoUser/></div>  
+  },
+  {
+    path:'/dashboardMedico/historialCitas',
+    element: <div><HistorialCitasMedico/></div>  
+  },
+  {
+    path:'/dashboardAdmin/historialCitas',
+    element: <div><HistorialCitas/></div>  
+  },
+  {
+    path:'/dashboardUser/historialCitas',
+    element: <div><HistorialCitasUser/></div>  
+  },
+  {
+    path:'/dashboardAdmin/consultarCitas',
+    element: <div><ConsultarCitas/></div>  
+  },    
+  {
+    path:'/dashboardMedico/consultarPaciente',
+    element: <div><ConsultarPaciente/></div>  
+  },
+  {
+    path:'/dashboardAdmin/agregarMedico',
+    element: <div><AgregarMedico/></div>  
+  },
+  {
+    path:'/dashboardAdmin/deshabilitarMedico',
+    element: <div><DeshabilitarMedico/></div>  
+  },
+  {
+    path:'/dashboardAdmin/reportesCitas',
+    element: <div><ReportesCitas/></div>  
+  },
+  {
+    path:'/dashboardUser/agendarCita',
+    element: <div><AgendeCita/></div>
+  },
+  {
+    path:'/dashboardUser/servicios',
+    element: <div><ServiciosUser/></div>
+  },
+  {
+    path:'/dashboardMedico/historialDiagnosticos',
+    element: <div><HistorialDiagnosticos/></div>
+  },
+  {
+    path:'/dashboardMedico/horarioCitas',
+    element: <div><HorarioCitas/></div>
   }
-  
 ]);
 
 function App() {  

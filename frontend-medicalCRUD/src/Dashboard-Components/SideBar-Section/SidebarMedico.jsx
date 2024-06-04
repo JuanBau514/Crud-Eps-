@@ -12,11 +12,11 @@ import { GiMedicines } from "react-icons/gi";
 import { MdFamilyRestroom } from "react-icons/md";
 import { MdOutlinePermContactCalendar } from "react-icons/md";
 import { MdEmergency } from "react-icons/md";
-import "../../Pages/Dashboard/dashboard.css";
+import "../../Pages/Dashboard/dashboardAdmin.css";
 import "./sidebar.css";
 import { BsQuestionCircle } from "react-icons/bs";
 
-const Sidebar = () => {
+const SidebarMedico = () => {
   return (
     <div className="sideBar grid">
       <div className="logoDiv flex">
@@ -34,33 +34,31 @@ const Sidebar = () => {
             </a>
             </Link>
           </li>
-
           <li className="listItem">
+            <Link to={"/dashboardMedico/consultarPaciente"}>
             <a href="" className="menuLink flex">
-              <MdDeliveryDining className="icon" />
+              < MdEmergency className="icon" />
               <span className="smallText">Consulta de paciente</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
+            <Link to={"/dashboardMedico/historialDiagnosticos"}>
             <a href="" className="menuLink flex">
               <MdOutlineExplore className="icon" />
-              <span className="smallText">Historial de pacientes</span>
+              <span className="smallText">Historial Diagnosticos</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
-            <a href="" className="menuLink flex">
-              <CiCircleCheck className="icon" />
-              <span className="smallText">Generar medicamento</span>
-            </a>
-          </li>
-
-          <li className="listItem">
+            <Link to={"/dashboardMedico/horarioCitas"}>
             <a href="" className="menuLink flex">
               <CiSquareQuestion className="icon" />
-              <span className="smallText">Solicitudes</span>
+              <span className="smallText">Horario de Citas</span>
             </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -69,7 +67,7 @@ const Sidebar = () => {
         <h3 className="divTittle">Configuracion</h3>
         <ul className="menuLists grid">
           <li className="listItem">
-            <Link to={"/perfil"}>
+            <Link to={"/dashboardMedico/perfil"}>
               <a href="" className="menuLink flex">
                 <MdOutlinePermContactCalendar className="icon" />
                 <span className="smallText">Ver perfil</span>
@@ -78,7 +76,7 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
-            <Link to={'/historialCitas'}>
+            <Link to={'/dashboardMedico/historialCitas'}>
             <a href="" className="menuLink flex">
               <MdDeliveryDining className="icon" />
               <span className="smallText">Historial de citas</span>
@@ -87,7 +85,7 @@ const Sidebar = () => {
           </li>         
 
           <li className="listItem">
-            <Link to={'/historialMedico'}>
+            <Link to={'/dashboardMedico/historialMedico'}>
             <a href="" className="menuLink flex">
               <MdFamilyRestroom className="icon" />
               <span className="smallText">Historial Medico</span>
@@ -113,4 +111,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarMedico;

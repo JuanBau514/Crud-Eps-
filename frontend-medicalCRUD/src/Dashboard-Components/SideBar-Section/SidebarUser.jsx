@@ -36,27 +36,20 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
-            <a href="" className="menuLink flex">
+            <a href="/dashboardUser/agendarCita" className="menuLink flex">
               <MdDeliveryDining className="icon" />
               <span className="smallText">Agenda tu cita</span>
             </a>
           </li>
 
           <li className="listItem">
+            <Link to={"/dashboardUser/servicios"}>
             <a href="" className="menuLink flex">
               <MdOutlineExplore className="icon" />
               <span className="smallText">Explorar servicios</span>
             </a>
-          </li>
-
-          <li className="listItem">
-            <a href="" className="menuLink flex">
-              <CiCircleCheck className="icon" />
-              <span className="smallText">Autoriza tu cita</span>
-            </a>
-          </li>
-
-          
+            </Link>
+          </li>                  
         </ul>
       </div>
 
@@ -64,7 +57,7 @@ const Sidebar = () => {
         <h3 className="divTittle">Configuracion</h3>
         <ul className="menuLists grid">
           <li className="listItem">
-            <Link to={"/perfil"}>
+            <Link to={"/dashboardUser/perfil"}>
               <a href="" className="menuLink flex">
                 <MdOutlinePermContactCalendar className="icon" />
                 <span className="smallText">Ver perfil</span>
@@ -73,7 +66,7 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
-            <Link to={'/historialCitas'}>
+            <Link to={'/dashboardUser/historialCitas'}>
             <a href="" className="menuLink flex">
               <MdDeliveryDining className="icon" />
               <span className="smallText">Historial de citas</span>
@@ -82,7 +75,7 @@ const Sidebar = () => {
           </li>         
 
           <li className="listItem">
-            <Link to={'/historialMedico'}>
+            <Link to={'/dashboardUser/historialMedico'}>
             <a href="" className="menuLink flex">
               <MdFamilyRestroom className="icon" />
               <span className="smallText">Historial Medico</span>

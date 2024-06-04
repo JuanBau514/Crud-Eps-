@@ -4,16 +4,14 @@ import { Link } from "react-router-dom";
 
 import { IoMdSpeedometer } from "react-icons/io";
 import { MdDeliveryDining } from "react-icons/md";
-import { MdOutlineExplore } from "react-icons/md";
-import { CiCircleCheck } from "react-icons/ci";
-import { CiSquareQuestion } from "react-icons/ci";
 import { AiOutlinePieChart } from "react-icons/ai";
-import { GiMedicines } from "react-icons/gi";
+import { GiPlagueDoctorProfile  } from "react-icons/gi";
+import { HiOutlineDocumentReport } from "react-icons/hi";
+import { IoPersonAdd } from "react-icons/io5";
 import { MdFamilyRestroom } from "react-icons/md";
 import { MdOutlinePermContactCalendar } from "react-icons/md";
-import { MdEmergency } from "react-icons/md";
 import "../../Pages/Dashboard/dashboard.css";
-import "./sidebar.css";
+import "./sidebarAD.css";
 import { BsQuestionCircle } from "react-icons/bs";
 
 const Sidebar = () => {
@@ -36,33 +34,30 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
-            <Link to={"/agendarCitas"}>
+            <Link to={"/dashboardAdmin/agregarMedico"}>
               <a href="" className="menuLink flex">
-                <MdOutlinePermContactCalendar className="icon" />
-                <span className="smallText">Agendar Citas</span>
+                <IoPersonAdd className="icon" />
+                <span className="smallText">Agregar Medico</span>
               </a>
             </Link>
           </li>
 
           <li className="listItem">
+            <Link to={"/dashboardAdmin/deshabilitarMedico"}>
             <a href="" className="menuLink flex">
-              <MdOutlineExplore className="icon" />
-              <span className="smallText">Explorar servicios</span>
+              <GiPlagueDoctorProfile className="icon" />
+              <span className="smallText">Deshabilitar Medico</span>
             </a>
+            </Link>
           </li>
 
           <li className="listItem">
+            <Link to={"/dashboardAdmin/reportesCitas"}>
             <a href="" className="menuLink flex">
-              <CiCircleCheck className="icon" />
-              <span className="smallText">Autoriza tu cita</span>
+              <HiOutlineDocumentReport className="icon" />
+              <span className="smallText">Reportes de Citas</span>
             </a>
-          </li>
-
-          <li className="listItem">
-            <a href="" className="menuLink flex">
-              <CiSquareQuestion className="icon" />
-              <span className="smallText">Solicitudes</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -71,7 +66,7 @@ const Sidebar = () => {
         <h3 className="divTittle">Configuracion</h3>
         <ul className="menuLists grid">
           <li className="listItem">
-            <Link to={"/perfil"}>
+            <Link to={"/dashboardAdmin/perfil"}>
               <a href="" className="menuLink flex">
                 <MdOutlinePermContactCalendar className="icon" />
                 <span className="smallText">Ver perfil</span>
@@ -80,7 +75,7 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
-            <Link to={'/historialCitas'}>
+            <Link to={'/dashboardAdmin/historialCitas'}>
             <a href="" className="menuLink flex">
               <MdDeliveryDining className="icon" />
               <span className="smallText">Historial de citas</span>
@@ -89,7 +84,7 @@ const Sidebar = () => {
           </li>         
 
           <li className="listItem">
-            <Link to={'/historialMedico'}>
+            <Link to={'/dashboardAdmin/historialMedico'}>
             <a href="" className="menuLink flex">
               <MdFamilyRestroom className="icon" />
               <span className="smallText">Historial Medico</span>
@@ -98,7 +93,7 @@ const Sidebar = () => {
           </li>
 
           <li className="listItem">
-            <Link to={'/consultarCitas'}>
+            <Link to={'/dashboardAdmin/consultarCitas'}>
             <a href="" className="menuLink flex">
               <AiOutlinePieChart className="icon" />
               <span className="smallText">Consultar citas</span>
