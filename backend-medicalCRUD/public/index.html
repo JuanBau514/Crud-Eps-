@@ -79,23 +79,52 @@
         },
         body: JSON.stringify({ email: email, password: password })
     })
-    .then(response => {
+    .then(response => response.json().then(data => {
         if (!response.ok) {
-            throw response;
+            // Directamente manejar el error mostrando el mensaje del servidor
+            loginMessage.textContent = data.message || "Error desconocido"; // Muestra mensaje de error
+            loginMessage.style.color = 'red'; // Rojo = peligro
+            throw new Error(data.message || "Error desconocido"); // Aún lanzamos para evitar ejecuciones adicionales
         }
-        return response.text();
-    })
+        return data;
+    }))
     .then(data => {
-        loginMessage.textContent = data; // Muestra mensaje de éxito
-        loginMessage.style.color = 'green'; // verde = exito
-        //redireccionar
+        // Acciones después de un login exitoso
+        loginMessage.textContent = data.message; // Muestra mensaje de éxito
+        loginMessage.style.color = 'green'; // Verde = éxito
+        switch (data.type) {
+            case "paciente":
+                console.log('Hola amigos de youtube soy paciente');
+                localStorage.setItem("jwtToken", data.token);
+                setTimeout(() => { //el redireccionador
+                    window.location.href = '/dashUser.html';
+                }, 3000); // Redirecciona después de 5 segundos           
+                break;
+
+            case "medico":
+                console.log('Hola amigos de youtube soy medico');
+                localStorage.setItem("jwtToken", data.token);
+                setTimeout(() => { //el redireccionador
+                    window.location.href = '/dashMedic.html';
+                }, 3000); // Redirecciona después de 5 segundos
+                break;
+
+            case "admin":
+                console.log('Hola amigos de youtube soy admin');
+                localStorage.setItem("jwtToken", data.token);
+                //window.location.href = '/dashboardUser';
+                break;
+            
+            default: 
+                throw new Error ('Usuario sin relación');
+        }
+        
+        
     })
     .catch(error => {
-        error.text().then(errorMessage => {
-            console.error('Error:', errorMessage);
-            loginMessage.textContent = errorMessage; // Muestra mensaje de error
-            loginMessage.style.color = 'red'; //SIGNIFICA PELIGRO
-        });
+        console.error('Error:', error.message);
+        loginMessage.textContent = error.message || "Error al procesar la solicitud.";
+        loginMessage.style.color = 'red'; // Rojo = peligro
     });
 });
 

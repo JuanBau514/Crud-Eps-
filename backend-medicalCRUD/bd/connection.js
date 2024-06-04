@@ -49,7 +49,7 @@ export default class Connection {
   async query(sql, values = []) {
     try {
       const [results, fields] = await this.#connection.execute(sql, values);
-      console.log(results, fields);
+      //console.log(results, fields);
       return [results, fields];
     } catch (error) {
       throw new Error(`Error executing query: ${error.message}`);

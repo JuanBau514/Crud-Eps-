@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Médico</title>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+</head>
+<body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("jwtToken");
+
+        if (!token) {
+          alert("No estás iniciado para ver esto flaco");
+          window.location.href = "/index.html"; // Redirigir login
+        }
+
+        const decoded = jwt_decode(token);
+        if (decoded.type !== "medico") {
+          alert("Solo se puede acceder medicos flaco imposible");
+          window.location.href = "/index.html"; // Redirige a la página principal o a otro lugar adecuado
+          return;
+        }
+
+        fetch("http://localhost:3000/datosMedico", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error al cargar datos del médico");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Asignar los datos a los campos del formulario
+            document.getElementById("id_medico").value = data.id_medico;
+            document.getElementById("nombre").value = data.nombre;
+            document.getElementById("direccion").value = data.direccion;
+            document.getElementById("ciudad").value = data.ciudad;
+            document.getElementById("especialidad").value = data.especialidad;
+            document.getElementById("tipo").value = data.tipo_licencia;
+            document.getElementById("licencia_medica").value =
+              data.licencia_medica;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Error al cargar los datos del médico.");
+          });
+
+          const form = document.getElementById("registrationForm");
+          form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          
+          actualizarDatosMedico();
+        });
+
+      });
+    </script>
+
+      <form id="registrationForm">
+        <input type="hidden" id="id_medico" name="id_medico" />
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" />
+        <label for="direccion">Direccion:</label>
+        <input type="text" id="direccion" name="direccion" />
+        <label for="ciudad">Ciudad de Residencia:</label>
+        <select id="ciudad" name="ciudad" required>
+          <option value="1">Bogotá</option>
+          <option value="2">Medellín</option>
+          <option value="3">Cali</option>
+        </select>
+        <label for="especialidad">Especialidad</label>
+        <select id="especialidad" name="especialidad" required>
+          <option value="2001">Pediatría</option>
+          <option value="2002">Cirugía General</option>
+          <option value="2003">Cardiología</option>
+        </select>
+        <label for="tipo">Tipo de licencia</label>
+        <select id="tipo" name="tipo" required>
+          <option value="3001">Tipo A</option>
+          <option value="3002">Tipo B</option>
+          <option value="3003">Tipo C</option>
+        </select>
+        <label for="licencia_medica">Licencia Médica</label>
+        <input type="text" id="licencia_medica" name="licencia_medica" />
+        <!-- Otros campos según sea necesario -->
+        <input type="submit" value="Guardar Cambios" />
+      </form>
+  <script>
+      function actualizarDatosMedico() {
+        const id_medico = document.getElementById("id_medico").value;
+        const nombre = document.getElementById("nombre").value;
+        const direccion = document.getElementById("direccion").value;
+        const ciudad = document.getElementById("ciudad").value;
+        const especialidad = document.getElementById("especialidad").value;
+        const tipo_licencia = document.getElementById("tipo").value;
+        const licencia_medica =
+          document.getElementById("licencia_medica").value;
+
+        const token = localStorage.getItem("jwtToken"); // Asumiendo autenticación con JWT
+
+        fetch("http://localhost:3000/actualizarMedico", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id_medico: id_medico,
+            nombre: nombre,
+            direccion: direccion,
+            ciudad: ciudad,
+            especialidad: especialidad,
+            tipo_licencia: tipo_licencia,
+            licencia_medica: licencia_medica,
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "No se pudo actualizar la información del médico"
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            alert("Información actualizada correctamente");
+            window.location.href = "./dashMedic.html";
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Error al actualizar los datos del médico.");
+          });
+      }
+  </script>
+</body>
+</html>
